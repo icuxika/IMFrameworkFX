@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icuxika.LoginController">
+    <center>
+        <BorderPane fx:id="containerPane" BorderPane.alignment="CENTER">
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="titleLabel" text="Label"/>
+                        <ComboBox fx:id="languageComboBox" prefWidth="150.0"/>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <Button fx:id="loginButton" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER"/>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
