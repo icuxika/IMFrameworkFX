@@ -12,7 +12,7 @@ mainClassName = 'com.icuxika.MainApp'
 
 javafx {
     version = '15'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 repositories {
@@ -26,4 +26,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
