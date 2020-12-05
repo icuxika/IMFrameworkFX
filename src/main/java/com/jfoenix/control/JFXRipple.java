@@ -1,6 +1,6 @@
 package com.jfoenix.control;
 
-import com.jfoenix.converter.RipplerMaskTypeConverter;
+import com.jfoenix.converter.RippleMaskTypeConverter;
 import com.jfoenix.util.JFXNodeUtil;
 import javafx.animation.*;
 import javafx.beans.binding.Bindings;
@@ -28,45 +28,45 @@ import javafx.util.Duration;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class JFXRippler extends StackPane {
+public class JFXRipple extends StackPane {
 
-    public enum RipplerPos {
+    public enum RipplePos {
         FRONT, BACK
     }
 
-    public enum RipplerMask {
+    public enum RippleMask {
         CIRCLE, RECT, FIT
     }
 
-    protected RippleGenerator rippler;
-    protected Pane ripplerPane;
+    protected RippleGenerator rippleGenerator;
+    protected Pane ripplePane;
     protected Node control;
 
     protected static final double RIPPLE_MAX_RADIUS = 300;
 
     protected boolean enabled = true;
     protected boolean forceOverlay = false;
-    private Interpolator rippleInterpolator = Interpolator.SPLINE(
+    private final Interpolator rippleInterpolator = Interpolator.SPLINE(
             0.0825, 0.3025, 0.0875, 0.9975
     );
 
-    public JFXRippler() {
-        this(null, RipplerMask.RECT, RipplerPos.FRONT);
+    public JFXRipple() {
+        this(null, RippleMask.RECT, RipplePos.FRONT);
     }
 
-    public JFXRippler(Node control) {
-        this(control, RipplerMask.RECT, RipplerPos.FRONT);
+    public JFXRipple(Node control) {
+        this(control, RippleMask.RECT, RipplePos.FRONT);
     }
 
-    public JFXRippler(Node control, RipplerPos pos) {
-        this(control, RipplerMask.RECT, pos);
+    public JFXRipple(Node control, RipplePos pos) {
+        this(control, RippleMask.RECT, pos);
     }
 
-    public JFXRippler(Node control, RipplerMask mask) {
-        this(control, mask, RipplerPos.FRONT);
+    public JFXRipple(Node control, RippleMask mask) {
+        this(control, mask, RipplePos.FRONT);
     }
 
-    public JFXRippler(Node control, RipplerMask mask, RipplerPos pos) {
+    public JFXRipple(Node control, RippleMask mask, RipplePos pos) {
         initialize();
 
         setMaskType(mask);
@@ -84,11 +84,11 @@ public class JFXRippler extends StackPane {
     }
 
     protected final void createRippleUI() {
-        rippler = new RippleGenerator();
-        ripplerPane = new StackPane();
-        ripplerPane.setMouseTransparent(true);
-        ripplerPane.getChildren().add(rippler);
-        getChildren().add(ripplerPane);
+        rippleGenerator = new RippleGenerator();
+        ripplePane = new StackPane();
+        ripplePane.setMouseTransparent(true);
+        ripplePane.getChildren().add(rippleGenerator);
+        getChildren().add(ripplePane);
     }
 
     public void setControl(Node control) {
@@ -100,7 +100,7 @@ public class JFXRippler extends StackPane {
     }
 
     protected void positionControl(Node control) {
-        if (this.position.get() == RipplerPos.BACK) {
+        if (this.position.get() == RipplePos.BACK) {
             getChildren().add(control);
         } else {
             getChildren().add(0, control);
@@ -108,10 +108,10 @@ public class JFXRippler extends StackPane {
     }
 
     protected void updateControlPosition() {
-        if (this.position.get() == RipplerPos.BACK) {
-            ripplerPane.toBack();
+        if (this.position.get() == RipplePos.BACK) {
+            ripplePane.toBack();
         } else {
-            ripplerPane.toFront();
+            ripplePane.toFront();
         }
     }
 
@@ -124,7 +124,7 @@ public class JFXRippler extends StackPane {
     }
 
     protected Node getMask() {
-        double borderWidth = ripplerPane.getBorder() != null ? ripplerPane.getBorder().getInsets().getTop() : 0;
+        double borderWidth = ripplePane.getBorder() != null ? ripplePane.getBorder().getInsets().getTop() : 0;
         Bounds bounds = control.getBoundsInParent();
         double width = control.getLayoutBounds().getWidth();
         double height = control.getLayoutBounds().getHeight();
@@ -179,34 +179,32 @@ public class JFXRippler extends StackPane {
     }
 
     protected void initControlListeners() {
-        control.layoutBoundsProperty().addListener(observable -> resetRippler());
+        control.layoutBoundsProperty().addListener(observable -> resetRipple());
         if (getChildren().contains(control)) {
-            control.boundsInParentProperty().addListener(observable -> resetRippler());
+            control.boundsInParentProperty().addListener(observable -> resetRipple());
         }
         control.addEventHandler(MouseEvent.MOUSE_PRESSED, (event) -> createRipple(event.getX(), event.getY()));
         control.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> releaseRipple());
     }
 
     protected void createRipple(double x, double y) {
-        if (!isRipplerDisabled()) {
-            rippler.setGeneratorCenterX(x);
-            rippler.setGeneratorCenterY(y);
-            rippler.createRipple();
+        if (!isRippleDisabled()) {
+            rippleGenerator.setGeneratorCenterX(x);
+            rippleGenerator.setGeneratorCenterY(y);
+            rippleGenerator.createRipple();
         }
     }
 
     protected void releaseRipple() {
-        rippler.releaseRipple();
+        rippleGenerator.releaseRipple();
     }
 
     public Runnable createManualRipple() {
-        if (!isRipplerDisabled()) {
-            rippler.setGeneratorCenterX(control.getLayoutBounds().getWidth() / 2);
-            rippler.setGeneratorCenterY(control.getLayoutBounds().getHeight() / 2);
-            rippler.createRipple();
-            return () -> {
-                releaseRipple();
-            };
+        if (!isRippleDisabled()) {
+            rippleGenerator.setGeneratorCenterX(control.getLayoutBounds().getWidth() / 2);
+            rippleGenerator.setGeneratorCenterY(control.getLayoutBounds().getHeight() / 2);
+            rippleGenerator.createRipple();
+            return this::releaseRipple;
         }
         return () -> {
         };
@@ -221,26 +219,26 @@ public class JFXRippler extends StackPane {
         if (visible) {
             showOverlay();
         } else {
-            forceOverlay = !visible ? false : forceOverlay;
+            forceOverlay = false;
             hideOverlay();
         }
     }
 
     private void showOverlay() {
-        if (rippler.overlayRect != null) {
-            rippler.overlayRect.outAnimation.stop();
+        if (rippleGenerator.overlayRect != null) {
+            rippleGenerator.overlayRect.outAnimation.stop();
         }
-        rippler.createOverlay();
-        rippler.overlayRect.inAnimation.play();
+        rippleGenerator.createOverlay();
+        rippleGenerator.overlayRect.inAnimation.play();
     }
 
     private void hideOverlay() {
         if (!forceOverlay) {
-            if (rippler.overlayRect != null) {
-                rippler.overlayRect.inAnimation.stop();
+            if (rippleGenerator.overlayRect != null) {
+                rippleGenerator.overlayRect.inAnimation.stop();
             }
-            if (rippler.overlayRect != null) {
-                rippler.overlayRect.outAnimation.play();
+            if (rippleGenerator.overlayRect != null) {
+                rippleGenerator.overlayRect.outAnimation.play();
             }
         } else {
             System.err.println("Ripple Overlay is forced!");
@@ -252,10 +250,10 @@ public class JFXRippler extends StackPane {
         private double generatorCenterX = 0;
         private double generatorCenterY = 0;
         private OverLayRipple overlayRect;
-        private AtomicBoolean generating = new AtomicBoolean(false);
-        private boolean cacheRipplerClip = false;
+        private final AtomicBoolean generating = new AtomicBoolean(false);
+        private boolean cacheRippleClip = false;
         private boolean resetClip = false;
-        private Queue<Ripple> rippleQueue = new LinkedList<>();
+        private final Queue<Ripple> rippleQueue = new LinkedList<>();
 
         RippleGenerator() {
             this.setManaged(false);
@@ -267,7 +265,7 @@ public class JFXRippler extends StackPane {
             if (enabled) {
                 if (!generating.getAndSet(true)) {
                     createOverlay();
-                    if (this.getClip() == null || (getChildren().size() == 1 && !cacheRipplerClip) || resetClip) {
+                    if (this.getClip() == null || (getChildren().size() == 1 && !cacheRippleClip) || resetClip) {
                         this.setClip(getMask());
                     }
                     this.resetClip = false;
@@ -304,7 +302,7 @@ public class JFXRippler extends StackPane {
         }
 
         void cacheRippleClip(boolean cached) {
-            cacheRipplerClip = cached;
+            cacheRippleClip = cached;
         }
 
         void createOverlay() {
@@ -313,14 +311,14 @@ public class JFXRippler extends StackPane {
                 overlayRect.setClip(getMask());
                 getChildren().add(0, overlayRect);
                 overlayRect.fillProperty().bind(Bindings.createObjectBinding(() -> {
-                    if (ripplerFill.get() instanceof Color) {
-                        return new Color(((Color) ripplerFill.get()).getRed(),
-                                ((Color) ripplerFill.get()).getGreen(),
-                                ((Color) ripplerFill.get()).getBlue(), 0.2);
+                    if (rippleFill.get() instanceof Color) {
+                        return new Color(((Color) rippleFill.get()).getRed(),
+                                ((Color) rippleFill.get()).getGreen(),
+                                ((Color) rippleFill.get()).getBlue(), 0.2);
                     } else {
                         return Color.TRANSPARENT;
                     }
-                }, ripplerFill));
+                }, rippleFill));
             }
         }
 
@@ -343,7 +341,7 @@ public class JFXRippler extends StackPane {
                 super();
                 setOverLayBounds(this);
                 this.getStyleClass().add("jfx-rippler-overlay");
-                if (JFXRippler.this.getChildrenUnmodifiable().contains(control)) {
+                if (JFXRipple.this.getChildrenUnmodifiable().contains(control)) {
                     double diffMinX = Math.abs(control.getBoundsInLocal().getMinX() - control.getLayoutBounds().getMinX());
                     double diffMinY = Math.abs(control.getBoundsInLocal().getMinY() - control.getLayoutBounds().getMinY());
                     Bounds bounds = control.getBoundsInParent();
@@ -365,15 +363,15 @@ public class JFXRippler extends StackPane {
             Animation inAnimation = null;
 
             private Ripple(double centerX, double centerY) {
-                super(centerX, centerY, ripplerRadius.get().doubleValue() == Region.USE_COMPUTED_SIZE ? computeRippleRadius() : ripplerRadius.get().doubleValue(), null);
+                super(centerX, centerY, rippleRadius.get().doubleValue() == Region.USE_COMPUTED_SIZE ? computeRippleRadius() : rippleRadius.get().doubleValue(), null);
                 setCache(true);
                 setCacheHint(CacheHint.SPEED);
                 setCacheShape(true);
                 setManaged(false);
                 setSmooth(true);
 
-                KeyValue[] inKeyValues = new KeyValue[isRipplerRecenter() ? 4 : 2];
-                outKeyValues = new KeyValue[isRipplerRecenter() ? 5 : 3];
+                KeyValue[] inKeyValues = new KeyValue[isRippleRecenter() ? 4 : 2];
+                outKeyValues = new KeyValue[isRippleRecenter() ? 5 : 3];
 
                 inKeyValues[0] = new KeyValue(scaleXProperty(), 0.9, rippleInterpolator);
                 inKeyValues[1] = new KeyValue(scaleYProperty(), 0.9, rippleInterpolator);
@@ -382,7 +380,7 @@ public class JFXRippler extends StackPane {
                 outKeyValues[1] = new KeyValue(this.scaleYProperty(), 1, rippleInterpolator);
                 outKeyValues[2] = new KeyValue(this.opacityProperty(), 0, rippleInterpolator);
 
-                if (isRipplerRecenter()) {
+                if (isRippleRecenter()) {
                     double dx = (control.getLayoutBounds().getWidth() / 2 - centerX) / 1.55;
                     double dy = (control.getLayoutBounds().getHeight() / 2 - centerY) / 1.55;
                     inKeyValues[2] = outKeyValues[3] = new KeyValue(translateXProperty(),
@@ -403,192 +401,192 @@ public class JFXRippler extends StackPane {
 
                 setScaleX(0);
                 setScaleY(0);
-                if (ripplerFill.get() instanceof Color) {
-                    Color circleColor = new Color(((Color) ripplerFill.get()).getRed(),
-                            ((Color) ripplerFill.get()).getGreen(),
-                            ((Color) ripplerFill.get()).getBlue(), 0.3);
+                if (rippleFill.get() instanceof Color) {
+                    Color circleColor = new Color(((Color) rippleFill.get()).getRed(),
+                            ((Color) rippleFill.get()).getGreen(),
+                            ((Color) rippleFill.get()).getBlue(), 0.3);
                     setStroke(circleColor);
                     setFill(circleColor);
                 } else {
-                    setStroke(ripplerFill.get());
-                    setFill(ripplerFill.get());
+                    setStroke(rippleFill.get());
+                    setFill(rippleFill.get());
                 }
             }
         }
 
         public void clear() {
             getChildren().clear();
-            rippler.overlayRect = null;
+            rippleGenerator.overlayRect = null;
             generating.set(false);
         }
     }
 
     private void resetOverLay() {
-        if (rippler.overlayRect != null) {
-            rippler.overlayRect.inAnimation.stop();
-            final RippleGenerator.OverLayRipple oldOverlay = rippler.overlayRect;
-            rippler.overlayRect.outAnimation.setOnFinished((finish) -> rippler.getChildren().remove(oldOverlay));
-            rippler.overlayRect.outAnimation.play();
-            rippler.overlayRect = null;
+        if (rippleGenerator.overlayRect != null) {
+            rippleGenerator.overlayRect.inAnimation.stop();
+            final RippleGenerator.OverLayRipple oldOverlay = rippleGenerator.overlayRect;
+            rippleGenerator.overlayRect.outAnimation.setOnFinished((finish) -> rippleGenerator.getChildren().remove(oldOverlay));
+            rippleGenerator.overlayRect.outAnimation.play();
+            rippleGenerator.overlayRect = null;
         }
     }
 
     private void resetClip() {
-        this.rippler.resetClip = true;
+        this.rippleGenerator.resetClip = true;
     }
 
-    protected void resetRippler() {
+    protected void resetRipple() {
         resetOverLay();
         resetClip();
     }
 
-    private static final String DEFAULT_STYLE_CLASS = "jfx-rippler";
+    private static final String DEFAULT_STYLE_CLASS = "jfx-ripple";
 
     private void initialize() {
         this.getStyleClass().add(DEFAULT_STYLE_CLASS);
     }
 
-    private StyleableObjectProperty<Boolean> ripplerRecenter = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLER_RECENTER, JFXRippler.this, "ripplerRecenter", false);
+    private final StyleableObjectProperty<Boolean> rippleRecenter = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLE_RECENTER, JFXRipple.this, "rippleRecenter", false);
 
-    public Boolean isRipplerRecenter() {
-        return ripplerRecenter == null ? false : ripplerRecenter.get();
+    public Boolean isRippleRecenter() {
+        return rippleRecenter != null && rippleRecenter.get();
     }
 
-    public StyleableObjectProperty<Boolean> ripplerRecenterProperty() {
-        return this.ripplerRecenter;
+    public StyleableObjectProperty<Boolean> rippleRecenterProperty() {
+        return this.rippleRecenter;
     }
 
-    public void setRipplerRecenter(Boolean radius) {
-        this.ripplerRecenter.set(radius);
+    public void setRippleRecenter(Boolean radius) {
+        this.rippleRecenter.set(radius);
     }
 
-    private StyleableObjectProperty<Number> ripplerRadius = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLER_RADIUS, JFXRippler.this, "ripplerRadius", Region.USE_COMPUTED_SIZE);
+    private final StyleableObjectProperty<Number> rippleRadius = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLE_RADIUS, JFXRipple.this, "rippleRadius", Region.USE_COMPUTED_SIZE);
 
-    public Number getRipplerRadius() {
-        return ripplerRadius == null ? Region.USE_COMPUTED_SIZE : ripplerRadius.get();
+    public Number getRippleRadius() {
+        return rippleRadius == null ? Region.USE_COMPUTED_SIZE : rippleRadius.get();
     }
 
-    public StyleableObjectProperty<Number> ripplerRadiusProperty() {
-        return this.ripplerRadius;
+    public StyleableObjectProperty<Number> rippleRadiusProperty() {
+        return this.rippleRadius;
     }
 
-    public void setRipplerRadius(Number radius) {
-        this.ripplerRadius.set(radius);
+    public void setRippleRadius(Number radius) {
+        this.rippleRadius.set(radius);
     }
 
-    private StyleableObjectProperty<Paint> ripplerFill = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLER_FILL, JFXRippler.this, "ripplerFill", Color.rgb(0, 200, 255));
+    private final StyleableObjectProperty<Paint> rippleFill = new SimpleStyleableObjectProperty<>(StyleableProperties.RIPPLE_FILL, JFXRipple.this, "rippleFill", Color.rgb(0, 200, 255));
 
-    public Paint getRipplerFill() {
-        return this.ripplerFill == null ? Color.rgb(0, 200, 255) : ripplerFill.get();
+    public Paint getRippleFill() {
+        return this.rippleFill == null ? Color.rgb(0, 200, 255) : rippleFill.get();
     }
 
-    public StyleableObjectProperty<Paint> ripplerFillProperty() {
-        return this.ripplerFill;
+    public StyleableObjectProperty<Paint> rippleFillProperty() {
+        return this.rippleFill;
     }
 
-    public void setRipplerFill(Paint color) {
-        this.ripplerFill.set(color);
+    public void setRippleFill(Paint color) {
+        this.rippleFill.set(color);
     }
 
-    private StyleableObjectProperty<RipplerMask> maskType = new SimpleStyleableObjectProperty<>(StyleableProperties.MASK_TYPE, JFXRippler.this, "maskType", RipplerMask.RECT);
+    private final StyleableObjectProperty<RippleMask> maskType = new SimpleStyleableObjectProperty<>(StyleableProperties.MASK_TYPE, JFXRipple.this, "maskType", RippleMask.RECT);
 
-    public RipplerMask getMaskType() {
-        return maskType == null ? RipplerMask.RECT : maskType.get();
+    public RippleMask getMaskType() {
+        return maskType == null ? RippleMask.RECT : maskType.get();
     }
 
-    public StyleableObjectProperty<RipplerMask> maskTypeProperty() {
+    public StyleableObjectProperty<RippleMask> maskTypeProperty() {
         return this.maskType;
     }
 
-    public void setMaskType(RipplerMask type) {
+    public void setMaskType(RippleMask type) {
         this.maskType.set(type);
     }
 
-    private StyleableBooleanProperty ripplerDisabled = new SimpleStyleableBooleanProperty(StyleableProperties.RIPPLER_DISABLED, JFXRippler.this, "ripplerDisabled", false);
+    private final StyleableBooleanProperty rippleDisabled = new SimpleStyleableBooleanProperty(StyleableProperties.RIPPLE_DISABLED, JFXRipple.this, "rippleDisabled", false);
 
-    public Boolean isRipplerDisabled() {
-        return this.ripplerDisabled.get();
+    public Boolean isRippleDisabled() {
+        return this.rippleDisabled.get();
     }
 
-    public StyleableBooleanProperty ripplerDisabledProperty() {
-        return this.ripplerDisabled;
+    public StyleableBooleanProperty rippleDisabledProperty() {
+        return this.rippleDisabled;
     }
 
-    public void setRipplerDisabled(Boolean disabled) {
-        this.ripplerDisabled.set(disabled);
+    public void setRippleDisabled(Boolean disabled) {
+        this.rippleDisabled.set(disabled);
     }
 
-    protected ObjectProperty<RipplerPos> position = new SimpleObjectProperty<>();
+    protected ObjectProperty<RipplePos> position = new SimpleObjectProperty<>();
 
-    public void setPosition(RipplerPos pos) {
+    public void setPosition(RipplePos pos) {
         this.position.set(pos);
     }
 
-    public RipplerPos getPosition() {
-        return position == null ? RipplerPos.FRONT : position.get();
+    public RipplePos getPosition() {
+        return position == null ? RipplePos.FRONT : position.get();
     }
 
-    public ObjectProperty<RipplerPos> positionProperty() {
+    public ObjectProperty<RipplePos> positionProperty() {
         return this.position;
     }
 
     private static final class StyleableProperties {
-        private static final CssMetaData<JFXRippler, Boolean> RIPPLER_RECENTER = new CssMetaData<JFXRippler, Boolean>("-jfx-rippler-recenter", BooleanConverter.getInstance(), false) {
+        private static final CssMetaData<JFXRipple, Boolean> RIPPLE_RECENTER = new CssMetaData<JFXRipple, Boolean>("-jfx-ripple-recenter", BooleanConverter.getInstance(), false) {
             @Override
-            public boolean isSettable(JFXRippler styleable) {
-                return styleable.ripplerRecenter == null || !styleable.ripplerRecenter.isBound();
+            public boolean isSettable(JFXRipple styleable) {
+                return styleable.rippleRecenter == null || !styleable.rippleRecenter.isBound();
             }
 
             @Override
-            public StyleableProperty<Boolean> getStyleableProperty(JFXRippler styleable) {
-                return styleable.ripplerRecenterProperty();
-            }
-        };
-
-        private static final CssMetaData<JFXRippler, Boolean> RIPPLER_DISABLED = new CssMetaData<JFXRippler, Boolean>("-jfx-rippler-disabled", BooleanConverter.getInstance(), false) {
-            @Override
-            public boolean isSettable(JFXRippler styleable) {
-                return styleable.ripplerDisabled == null || !styleable.ripplerDisabled.isBound();
-            }
-
-            @Override
-            public StyleableProperty<Boolean> getStyleableProperty(JFXRippler styleable) {
-                return styleable.ripplerDisabledProperty();
+            public StyleableProperty<Boolean> getStyleableProperty(JFXRipple styleable) {
+                return styleable.rippleRecenterProperty();
             }
         };
 
-        private static final CssMetaData<JFXRippler, Paint> RIPPLER_FILL = new CssMetaData<JFXRippler, Paint>("-jfx-rippler-fill", PaintConverter.getInstance(), Color.rgb(0, 200, 250)) {
+        private static final CssMetaData<JFXRipple, Boolean> RIPPLE_DISABLED = new CssMetaData<JFXRipple, Boolean>("-jfx-ripple-disabled", BooleanConverter.getInstance(), false) {
             @Override
-            public boolean isSettable(JFXRippler styleable) {
-                return styleable.ripplerFill == null || !styleable.ripplerFill.isBound();
+            public boolean isSettable(JFXRipple styleable) {
+                return styleable.rippleDisabled == null || !styleable.rippleDisabled.isBound();
             }
 
             @Override
-            public StyleableProperty<Paint> getStyleableProperty(JFXRippler styleable) {
-                return styleable.ripplerFillProperty();
-            }
-        };
-
-        private static CssMetaData<JFXRippler, Number> RIPPLER_RADIUS = new CssMetaData<JFXRippler, Number>("-jfx-rippler-radius", SizeConverter.getInstance(), Region.USE_COMPUTED_SIZE) {
-            @Override
-            public boolean isSettable(JFXRippler styleable) {
-                return styleable.ripplerRadius == null || !styleable.ripplerRadius.isBound();
-            }
-
-            @Override
-            public StyleableProperty<Number> getStyleableProperty(JFXRippler styleable) {
-                return styleable.ripplerRadiusProperty();
+            public StyleableProperty<Boolean> getStyleableProperty(JFXRipple styleable) {
+                return styleable.rippleDisabledProperty();
             }
         };
 
-        private static final CssMetaData<JFXRippler, RipplerMask> MASK_TYPE = new CssMetaData<JFXRippler, RipplerMask>("-jfx-mask-type", RipplerMaskTypeConverter.getInstance(), RipplerMask.RECT) {
+        private static final CssMetaData<JFXRipple, Paint> RIPPLE_FILL = new CssMetaData<JFXRipple, Paint>("-jfx-ripple-fill", PaintConverter.getInstance(), Color.rgb(0, 200, 250)) {
             @Override
-            public boolean isSettable(JFXRippler styleable) {
+            public boolean isSettable(JFXRipple styleable) {
+                return styleable.rippleFill == null || !styleable.rippleFill.isBound();
+            }
+
+            @Override
+            public StyleableProperty<Paint> getStyleableProperty(JFXRipple styleable) {
+                return styleable.rippleFillProperty();
+            }
+        };
+
+        private static final CssMetaData<JFXRipple, Number> RIPPLE_RADIUS = new CssMetaData<JFXRipple, Number>("-jfx-ripple-radius", SizeConverter.getInstance(), Region.USE_COMPUTED_SIZE) {
+            @Override
+            public boolean isSettable(JFXRipple styleable) {
+                return styleable.rippleRadius == null || !styleable.rippleRadius.isBound();
+            }
+
+            @Override
+            public StyleableProperty<Number> getStyleableProperty(JFXRipple styleable) {
+                return styleable.rippleRadiusProperty();
+            }
+        };
+
+        private static final CssMetaData<JFXRipple, RippleMask> MASK_TYPE = new CssMetaData<JFXRipple, RippleMask>("-jfx-mask-type", RippleMaskTypeConverter.getInstance(), RippleMask.RECT) {
+            @Override
+            public boolean isSettable(JFXRipple styleable) {
                 return styleable.maskType == null || !styleable.maskType.isBound();
             }
 
             @Override
-            public StyleableProperty<RipplerMask> getStyleableProperty(JFXRippler styleable) {
+            public StyleableProperty<RippleMask> getStyleableProperty(JFXRipple styleable) {
                 return styleable.maskTypeProperty();
             }
         };
@@ -598,11 +596,11 @@ public class JFXRippler extends StackPane {
         static {
             final List<CssMetaData<? extends Styleable, ?>> styleables = new ArrayList<>(StackPane.getClassCssMetaData());
             Collections.addAll(styleables,
-                    RIPPLER_RECENTER,
-                    RIPPLER_RADIUS,
-                    RIPPLER_FILL,
+                    RIPPLE_RECENTER,
+                    RIPPLE_RADIUS,
+                    RIPPLE_FILL,
                     MASK_TYPE,
-                    RIPPLER_DISABLED
+                    RIPPLE_DISABLED
             );
             STYLEABLES = Collections.unmodifiableList(styleables);
         }

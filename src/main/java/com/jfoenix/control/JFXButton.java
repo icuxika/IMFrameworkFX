@@ -58,18 +58,18 @@ public class JFXButton extends Button {
         return DEFAULT_STYLESHEET;
     }
 
-    private ObjectProperty<Paint> ripplerFill = new SimpleObjectProperty<>(null);
+    private final ObjectProperty<Paint> rippleFill = new SimpleObjectProperty<>(null);
 
-    public final ObjectProperty<Paint> ripplerFillProperty() {
-        return this.ripplerFill;
+    public final ObjectProperty<Paint> rippleFillProperty() {
+        return this.rippleFill;
     }
 
-    public final Paint getRipplerFill() {
-        return this.ripplerFillProperty().get();
+    public final Paint getRippleFill() {
+        return this.rippleFillProperty().get();
     }
 
-    public final void setRipplerFill(final Paint ripplerFill) {
-        this.ripplerFillProperty().set(ripplerFill);
+    public final void setRippleFill(final Paint rippleFill) {
+        this.rippleFillProperty().set(rippleFill);
     }
 
     private static final String DEFAULT_STYLE_CLASS = "jfx-button";
@@ -77,7 +77,7 @@ public class JFXButton extends Button {
 
     public enum ButtonType {FLAT, RAISED}
 
-    private StyleableObjectProperty<ButtonType> buttonType = new SimpleStyleableObjectProperty<>(StyleableProperties.BUTTON_TYPE, JFXButton.this, "buttonType", ButtonType.FLAT);
+    private final StyleableObjectProperty<ButtonType> buttonType = new SimpleStyleableObjectProperty<>(StyleableProperties.BUTTON_TYPE, JFXButton.this, "buttonType", ButtonType.FLAT);
 
     public ButtonType getButtonType() {
         return buttonType == null ? ButtonType.FLAT : buttonType.get();
@@ -91,7 +91,7 @@ public class JFXButton extends Button {
         this.buttonType.set(type);
     }
 
-    private StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS, JFXButton.this, "disableVisualFocus", false);
+    private final StyleableBooleanProperty disableVisualFocus = new SimpleStyleableBooleanProperty(StyleableProperties.DISABLE_VISUAL_FOCUS, JFXButton.this, "disableVisualFocus", false);
 
     public final StyleableBooleanProperty disableVisualFocusProperty() {
         return this.disableVisualFocus;
