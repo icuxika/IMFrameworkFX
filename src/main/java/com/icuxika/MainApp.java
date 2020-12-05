@@ -1,8 +1,8 @@
 package com.icuxika;
 
+import com.icuxika.controller.LoginController;
 import com.icuxika.i18n.LanguageResource;
 import com.icuxika.i18n.ObservableResourceBundleFactory;
-import com.jfoenix.control.JFXButton;
 import javafx.application.Application;
 import javafx.beans.binding.StringBinding;
 import javafx.event.ActionEvent;
@@ -10,13 +10,18 @@ import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainApp extends Application {
+
+    private static final Logger logger = LogManager.getLogger(MainApp.class.getName());
 
     /**
      * 默认语言文件 Base Name
@@ -52,6 +57,16 @@ public class MainApp extends Application {
         return LANGUAGE_RESOURCE_FACTORY.getStringBinding(key);
     }
 
+    /**
+     * 有此类所在路径决定相对路径基于/com/icuxika
+     *
+     * @param path 资源文件相对路径
+     * @return 资源文件路径
+     */
+    public static URL load(String path) {
+        return MainApp.class.getResource(path);
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -68,32 +83,18 @@ public class MainApp extends Application {
         AppView<LoginController> appView = new AppView<>(LoginController.class);
         Parent root = appView.getRootNode();
 
-        appView.getController().loginButton.setOnAction(new EventHandler<ActionEvent>() {
+        appView.getController().getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println(123);
             }
         });
 
+        primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        JFXButton jfxButton = new JFXButton(MainApp.getLanguageBinding("title"));
-        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-//        jfxButton.setBackground(new Background(new BackgroundFill(Paint.valueOf("#5264AE"), null, null)));
-        jfxButton.setPrefSize(100, 40);
-        jfxButton.setStyle("""
-                    -fx-background-color: #5264AE;
-                    -fx-text-fill: WHITE;
-                """);
-//        appView.getController().containerPane.setBottom(new JFXButton("Heelo"));
-        appView.getController().containerPane.setRight(jfxButton);
-
-        JFXButton jfxButton1 = new JFXButton("啦啦啦啦啦啦");
-        jfxButton1.setButtonType(JFXButton.ButtonType.RAISED);
-        jfxButton1.setStyle("""
-                            -fx-background-color: WHITE;
-                """);
-        appView.getController().containerPane.setBottom(jfxButton1);
+        logger.info("Set Language: zh_CN");
+        logger.error("Set Language: zh_CN");
     }
 }

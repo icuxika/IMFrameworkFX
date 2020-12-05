@@ -10,7 +10,9 @@ import java.lang.annotation.Annotation;
 import java.net.URL;
 
 /**
- * 通过 @AppFXML 注解或是根据类名加载FXML文件，并可以返回根结点及控制器
+ * 通过 {@link AppFXML} 注解或是根据类名加载FXML文件，并可以返回根结点及控制器
+ * <p>
+ * 本类使用泛型的目的，使{@link AppView#getController()}可以直接返回对应Controller
  *
  * @param <T> Controller 类
  */
@@ -43,8 +45,8 @@ public class AppView<T> {
             // 注解不为空
             String fxml = appFXML.fxml();
             if (isFXMLValid(fxml)) {
-                if (controllerClass.getResource(fxml) != null) {
-                    fxmlUrl = controllerClass.getResource(fxml);
+                if (MainApp.load(fxml) != null) {
+                    fxmlUrl = MainApp.load(fxml);
                 } else {
                     // 此处抛出异常的原因，在注解值有效的情况下，以注解值为唯一依据进行判断
                     throw new FXMLNotFoundException("注解加载FXML文件失败");
@@ -52,8 +54,8 @@ public class AppView<T> {
             } else {
                 String defaultFXML = getDefaultFXML(controllerClass);
                 if (isFXMLValid(defaultFXML)) {
-                    if (controllerClass.getResource(defaultFXML) != null) {
-                        fxmlUrl = controllerClass.getResource(defaultFXML);
+                    if (MainApp.load(defaultFXML) != null) {
+                        fxmlUrl = MainApp.load(defaultFXML);
                     } else {
                         throw new FXMLNotFoundException("在有注解值无效的条件下，根据类名加载FXML文件失败");
                     }
@@ -62,8 +64,8 @@ public class AppView<T> {
         } else {
             String defaultFXML = getDefaultFXML(controllerClass);
             if (isFXMLValid(defaultFXML)) {
-                if (controllerClass.getResource(defaultFXML) != null) {
-                    fxmlUrl = controllerClass.getResource(defaultFXML);
+                if (MainApp.load(defaultFXML) != null) {
+                    fxmlUrl = MainApp.load(defaultFXML);
                 } else {
                     throw new FXMLNotFoundException("在无注解的条件下，根据类名加载FXML文件失败，资源加载失败");
                 }
@@ -96,6 +98,7 @@ public class AppView<T> {
 
     /**
      * 根据类名获取FXML文件路径
+     * 此方式只有fxml所在路径与MainApp所在包路径一致才可以
      *
      * @param controllerClass Controller类class文件
      * @return FXML文件路径
@@ -125,5 +128,23 @@ public class AppView<T> {
      */
     public T getController() {
         return fxmlLoader.getController();
+    }
+
+    /**
+     * 获取类的基本相对路径
+     *
+     * @param clazz 类
+     * @return 相对路径 如 com.icuxika.MainApp 将返回 /com/icuxika/
+     */
+    private String getClassRelativePath(Class<?> clazz) {
+        String classTypeName = clazz.getTypeName();
+        System.out.println(classTypeName);
+        String[] strings = classTypeName.split("\\.");
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < strings.length - 1; i++) {
+            stringBuilder.append(strings[i]);
+            stringBuilder.append("/");
+        }
+        return stringBuilder.toString();
     }
 }
