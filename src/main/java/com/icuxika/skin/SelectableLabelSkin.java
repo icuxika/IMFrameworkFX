@@ -3,10 +3,6 @@ package com.icuxika.skin;
 import com.icuxika.control.SelectableLabel;
 import com.sun.javafx.scene.control.LabeledText;
 import com.sun.javafx.util.Utils;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -16,8 +12,6 @@ import javafx.scene.control.skin.LabeledSkinBase;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Path;
 import javafx.scene.text.HitInfo;
 import javafx.scene.text.Text;
@@ -44,11 +38,11 @@ public class SelectableLabelSkin extends LabeledSkinBase<SelectableLabel> {
                     break;
                 }
             }
-            text.setSelectionFill(Color.WHITE);
+            text.selectionFillProperty().bind(labeled.selectedTextFillProperty());
             // 选择文本背景
             selectedBackground = new Path();
             selectedBackground.setStroke(null);
-            selectedBackground.fillProperty().bind(labeled.getSelectedTextFillProperty());
+            selectedBackground.fillProperty().bind(labeled.selectedBackgroundFillProperty());
             children.add(0, selectedBackground);
 
             text.setOnMousePressed(event -> {
@@ -105,6 +99,7 @@ public class SelectableLabelSkin extends LabeledSkinBase<SelectableLabel> {
 
     /**
      * 选中一个单词块
+     *
      * @param index 鼠标点击到的文字索引
      */
     private void previousWord(int index) {
@@ -128,8 +123,9 @@ public class SelectableLabelSkin extends LabeledSkinBase<SelectableLabel> {
 
     /**
      * 选中文本
+     *
      * @param begin 索引开始位置
-     * @param end 索引结束位置
+     * @param end   索引结束位置
      */
     private void selectText(int begin, int end) {
         text.setSelectionStart(begin);
@@ -155,6 +151,7 @@ public class SelectableLabelSkin extends LabeledSkinBase<SelectableLabel> {
 
     /**
      * 获取Text在字符处的信息
+     *
      * @param x x
      * @param y y
      * @return 字符信息
@@ -166,6 +163,7 @@ public class SelectableLabelSkin extends LabeledSkinBase<SelectableLabel> {
 
     /**
      * 文本是否应该被忽略
+     *
      * @return true false
      */
     boolean isIgnoreText() {
