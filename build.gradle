@@ -10,6 +10,13 @@ version '1.0.0'
 
 mainClassName = 'com.icuxika.MainApp'
 
+application {
+    applicationDefaultJvmArgs = [
+            '--add-exports=javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED',
+            '--add-exports=javafx.graphics/com.sun.javafx.util=ALL-UNNAMED'
+    ]
+}
+
 javafx {
     version = '15'
     modules = ['javafx.controls', 'javafx.fxml']

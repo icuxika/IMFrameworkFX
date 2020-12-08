@@ -3,6 +3,7 @@ package com.icuxika.controller;
 import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
+import com.icuxika.control.SelectableLabel;
 import com.jfoenix.control.JFXButton;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -69,6 +70,11 @@ public class LoginController {
         buttonBox.getChildren().addAll(raisedButton1, raisedButton2, flatButton);
 
         containerPane.setBottom(buttonBox);
+
+        SelectableLabel label = new SelectableLabel("你好你是谁你是谁似 懂非懂 舒服收到了 饭 睡觉 啊了你好你是谁你是谁似懂非懂舒服收到了饭睡觉啊了你好你是谁你是谁似懂非懂舒服收到了饭睡觉啊了");
+        label.setWrapText(true);
+        label.setMaxWidth(200);
+        containerPane.setLeft(label);
     }
 
     public Button getLoginButton() {
