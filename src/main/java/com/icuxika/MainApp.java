@@ -101,8 +101,6 @@ public class MainApp extends Application {
                     AppView<LoginController> appView = new AppView<>(LoginController.class);
                     Parent root = appView.getRootNode();
 
-                    appView.getController().getLoginButton().setOnAction(event -> System.out.println(123));
-
                     primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
                     primaryStage.setScene(new Scene(root));
                     primaryStage.show();

@@ -4,13 +4,14 @@ import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
+import com.icuxika.control.message.left.TextMessageNode;
 import com.jfoenix.control.JFXButton;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -30,7 +31,7 @@ public class LoginController {
     private BorderPane containerPane;
 
     @FXML
-    private Button loginButton;
+    private ListView<AnchorPane> messageListView;
 
     public void initialize() {
         titleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
@@ -75,9 +76,22 @@ public class LoginController {
         label.setWrapText(true);
         label.setMaxWidth(200);
         containerPane.setLeft(label);
-    }
 
-    public Button getLoginButton() {
-        return loginButton;
+        TextMessageNode reduceTextMessageNode = TextMessageNode.left(false);
+        reduceTextMessageNode.setMessageText("你是世界的风景脸上的肌肤 收到了咖啡就困了撒减肥了失联飞机拉萨到家 是老骥伏枥撒减肥是连接方式了解卡");
+        reduceTextMessageNode.setAvatarImageView(MainApp.load("img/logo.png").toExternalForm());
+        messageListView.getItems().add(reduceTextMessageNode);
+
+        TextMessageNode complexTextMessageNode = TextMessageNode.left(true);
+        complexTextMessageNode.setNameText("李三1231321");
+        complexTextMessageNode.setNameText(MainApp.getLanguageBinding("title"));
+        complexTextMessageNode.setMessageText("就放开了撒娇加夫里什大家里电视机放了假的撒了将脸上的肌肤来说打卡了可节省空间方式打开了几分可乐洒进来了大家福师大");
+        complexTextMessageNode.setAvatarImageView(MainApp.load("img/logo.png").toExternalForm());
+        messageListView.getItems().add(complexTextMessageNode);
+
+        TextMessageNode rightTextMessageNode = TextMessageNode.right();
+        rightTextMessageNode.setMessageText("收到就放开了看撒开几分当时就解放了撒娇  使肌肤来说就啊法拉利经典刷卡即可但是看了索朗多吉咖啡连锁店健康啊 是否短发 第三方");
+        rightTextMessageNode.setAvatarImageView(MainApp.load("img/logo.png").toExternalForm());
+        messageListView.getItems().add(rightTextMessageNode);
     }
 }
