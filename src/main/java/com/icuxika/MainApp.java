@@ -4,9 +4,12 @@ import com.icuxika.controller.LoginController;
 import com.icuxika.i18n.LanguageResource;
 import com.icuxika.i18n.ObservableResourceBundleFactory;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.application.Preloader;
 import javafx.beans.binding.StringBinding;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -67,7 +70,18 @@ public class MainApp extends Application {
         return MainApp.class.getResource(path);
     }
 
+    /**
+     * 设置此属性，启用JavaFX预加载类
+     */
+    private static final String PRELOADER_PROPERTY_NAME = "javafx.preloader";
+
+    /**
+     * 预加载任务完成加载
+     */
+    BooleanProperty ready = new SimpleBooleanProperty(false);
+
     public static void main(String[] args) {
+        System.setProperty(PRELOADER_PROPERTY_NAME, AppPreloader.class.getTypeName());
         launch(args);
     }
 
@@ -79,22 +93,49 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        AppView<LoginController> appView = new AppView<>(LoginController.class);
-        Parent root = appView.getRootNode();
+    public void start(Stage primaryStage) {
+        preloadTask();
+        ready.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                Platform.runLater(() -> {
+                    AppView<LoginController> appView = new AppView<>(LoginController.class);
+                    Parent root = appView.getRootNode();
 
-        appView.getController().getLoginButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println(123);
+                    appView.getController().getLoginButton().setOnAction(event -> System.out.println(123));
+
+                    primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
+                    primaryStage.setScene(new Scene(root));
+                    primaryStage.show();
+
+                    logger.info("Set Language: zh_CN");
+                    logger.error("Set Language: zh_CN");
+                });
             }
         });
+    }
 
-        primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
 
-        logger.info("Set Language: zh_CN");
-        logger.error("Set Language: zh_CN");
+    /**
+     * 预加载任务
+     */
+    private void preloadTask() {
+        new Thread(new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                int max = 10;
+                for (int i = 0; i < max; i++) {
+                    Thread.sleep(200);
+                    notifyPreloader(new Preloader.ProgressNotification(((double) i) / max));
+                }
+//                notifyPreloader(new Preloader.ErrorNotification("null" , "出现了一些错误", new RuntimeException("运行时错误")));
+                ready.setValue(Boolean.TRUE);
+                notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
+                return null;
+            }
+        }).start();
     }
 }
