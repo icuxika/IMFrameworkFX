@@ -4,7 +4,7 @@ import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
-import com.icuxika.control.message.left.TextMessageNode;
+import com.icuxika.control.message.TextMessageNode;
 import com.jfoenix.control.JFXButton;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -92,6 +92,7 @@ public class LoginController {
         TextMessageNode rightTextMessageNode = TextMessageNode.right();
         rightTextMessageNode.setMessageText("收到就放开了看撒开几分当时就解放了撒娇  使肌肤来说就啊法拉利经典刷卡即可但是看了索朗多吉咖啡连锁店健康啊 是否短发 第三方");
         rightTextMessageNode.setAvatarImageView(MainApp.load("img/logo.png").toExternalForm());
+        rightTextMessageNode.putMenuItem("测试", () -> System.out.println("123"));
         messageListView.getItems().add(rightTextMessageNode);
     }
 }

@@ -2,7 +2,10 @@ package com.icuxika.control;
 
 import com.icuxika.converter.SelectedBackgroundFillConverter;
 import com.icuxika.skin.SelectableLabelSkin;
+import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.css.*;
@@ -24,10 +27,10 @@ public class SelectableLabel extends Labeled {
         initialize();
     }
 
-    public SelectableLabel(String text) {
-        super(text);
-        initialize();
-    }
+    /**
+     * 是否选中全文
+     */
+    public final BooleanProperty selectedFullText = new SimpleBooleanProperty(false);
 
     public SelectableLabel(String text, Node graphic) {
         super(text, graphic);
@@ -45,18 +48,52 @@ public class SelectableLabel extends Labeled {
         initialize();
     }
 
+    /**
+     * 鼠标释放时点是否位于文本选择区
+     */
+    private final BooleanProperty mouseReleasedPointSelected = new SimpleBooleanProperty();
+    /**
+     * 是否再次选中
+     */
+    public BooleanProperty selectedLastText = new SimpleBooleanProperty(false);
+
+    @Override
+    protected Skin<?> createDefaultSkin() {
+        return new SelectableLabelSkin(this);
+    }
+
+    public SelectableLabel(String text) {
+        this(text, null);
+    }
+
+    public SelectableLabel(StringBinding text, ObjectBinding<Node> graphics) {
+        textProperty().bind(text);
+        graphicProperty().bind(graphics);
+        initialize();
+    }
+
     public void initialize() {
 //        setSelectedTextFill(Paint.valueOf("#FFFFFF"));
 //        setSelectedBackgroundFill(Paint.valueOf("#308DFC"));
         setStyle("""
                             -ifx-selected-text-fill: #FFFFFF;
-                            -ifx-selected-background-fill: #333333;
+                            -ifx-selected-background-fill: #308DFC;
                 """);
     }
 
-    @Override
-    protected Skin<?> createDefaultSkin() {
-        return new SelectableLabelSkin(this);
+    /**
+     * 点是否位于文本选择区 ${@link SelectableLabel#getMouseReleasedPointSelected()} 方法不用传参，也可获取结果
+     *
+     * @param x x
+     * @param y y
+     * @return 是 否
+     */
+    public boolean pointSelected(Double x, Double y) {
+        return ((SelectableLabelSkin) getSkin()).pointSelected(x, y);
+    }
+
+    public BooleanProperty mouseReleasedPointSelectedProperty() {
+        return mouseReleasedPointSelected;
     }
 
     /**
@@ -74,6 +111,38 @@ public class SelectableLabel extends Labeled {
 
     public void setSelectedText(String text) {
         selectedTextProperty().set(text);
+    }
+
+    public boolean getMouseReleasedPointSelected() {
+        return mouseReleasedPointSelectedProperty().get();
+    }
+
+    public void setMouseReleasedPointSelected(boolean value) {
+        mouseReleasedPointSelectedProperty().set(value);
+    }
+
+    public BooleanProperty selectedLastTextProperty() {
+        return selectedLastText;
+    }
+
+    public boolean getSelectedLastText() {
+        return selectedLastTextProperty().get();
+    }
+
+    public void setSelectedLastText(boolean value) {
+        selectedLastTextProperty().set(value);
+    }
+
+    public BooleanProperty selectedFullTextProperty() {
+        return selectedFullText;
+    }
+
+    public boolean getSelectedFullText() {
+        return selectedFullTextProperty().get();
+    }
+
+    public void setSelectedFullText(boolean value) {
+        selectedFullTextProperty().set(value);
     }
 
     /**
