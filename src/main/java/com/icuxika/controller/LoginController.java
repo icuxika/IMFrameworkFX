@@ -6,6 +6,7 @@ import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
 import com.icuxika.control.message.TextMessageNode;
 import com.jfoenix.control.JFXButton;
+import com.jfoenix.control.JFXTooltip;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -94,5 +95,8 @@ public class LoginController {
         rightTextMessageNode.setAvatarImageView(MainApp.load("img/logo.png").toExternalForm());
         rightTextMessageNode.putMenuItem("测试", () -> System.out.println("123"));
         messageListView.getItems().add(rightTextMessageNode);
+
+        JFXTooltip jfxTooltip = new JFXTooltip(MainApp.getLanguageBinding("title"));
+        JFXTooltip.install(flatButton, jfxTooltip);
     }
 }
