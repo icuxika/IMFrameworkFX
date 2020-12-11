@@ -387,37 +387,6 @@ public class JFXTooltip extends Tooltip {
          * the current showing tooltip
          */
         private JFXTooltip currentTooltip;
-        private WeakEventHandler<MouseEvent> weakMoveHandler = new WeakEventHandler<>(moveHandler);
-        private EventHandler<MouseEvent> exitHandler = (MouseEvent event) -> {
-            // stop running hover timer as the mouse exited the node
-            if (hoverTimer.getStatus() == Timeline.Status.RUNNING) {
-                hoverTimer.stop();
-            } else if (visibleTimer.getStatus() == Timeline.Status.RUNNING) {
-                // if tool tip was already showing, stop the visible timer
-                // and start the left timer to hide the current tooltip
-                visibleTimer.stop();
-                leftTimer.playFromStart();
-            }
-            hoveredNode = null;
-            nextTooltip = null;
-        };
-        private WeakEventHandler<MouseEvent> weakExitHandler = new WeakEventHandler<>(exitHandler);
-        // if mouse is pressed then stop all timers / clear all fields
-        private EventHandler<MouseEvent> pressedHandler = (MouseEvent event) -> {
-            // stop timers
-            hoverTimer.stop();
-            visibleTimer.stop();
-            leftTimer.stop();
-            // hide current tooltip
-            if (currentTooltip != null) {
-                currentTooltip.hide();
-            }
-            // clear fields
-            hoveredNode = null;
-            currentTooltip = null;
-            nextTooltip = null;
-        };
-        private WeakEventHandler<MouseEvent> weakPressedHandler = new WeakEventHandler<>(pressedHandler);
         private EventHandler<MouseEvent> moveHandler = (MouseEvent event) -> {
             // if tool tip is already showing, do nothing
             if (visibleTimer.getStatus() == Timeline.Status.RUNNING) {
@@ -453,6 +422,37 @@ public class JFXTooltip extends Tooltip {
                 uninstall(hoveredNode);
             }
         };
+        private WeakEventHandler<MouseEvent> weakMoveHandler = new WeakEventHandler<>(moveHandler);
+        private EventHandler<MouseEvent> exitHandler = (MouseEvent event) -> {
+            // stop running hover timer as the mouse exited the node
+            if (hoverTimer.getStatus() == Timeline.Status.RUNNING) {
+                hoverTimer.stop();
+            } else if (visibleTimer.getStatus() == Timeline.Status.RUNNING) {
+                // if tool tip was already showing, stop the visible timer
+                // and start the left timer to hide the current tooltip
+                visibleTimer.stop();
+                leftTimer.playFromStart();
+            }
+            hoveredNode = null;
+            nextTooltip = null;
+        };
+        private WeakEventHandler<MouseEvent> weakExitHandler = new WeakEventHandler<>(exitHandler);
+        // if mouse is pressed then stop all timers / clear all fields
+        private EventHandler<MouseEvent> pressedHandler = (MouseEvent event) -> {
+            // stop timers
+            hoverTimer.stop();
+            visibleTimer.stop();
+            leftTimer.stop();
+            // hide current tooltip
+            if (currentTooltip != null) {
+                currentTooltip.hide();
+            }
+            // clear fields
+            hoveredNode = null;
+            currentTooltip = null;
+            nextTooltip = null;
+        };
+        private WeakEventHandler<MouseEvent> weakPressedHandler = new WeakEventHandler<>(pressedHandler);
 
         private TooltipBehavior(Duration hoverDelay, Duration visibleDuration, Duration leftDelay) {
             setHoverDelay(hoverDelay);
