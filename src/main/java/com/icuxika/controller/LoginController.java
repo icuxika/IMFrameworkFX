@@ -6,7 +6,10 @@ import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
 import com.icuxika.control.message.TextMessageNode;
 import com.jfoenix.control.JFXButton;
+import com.jfoenix.control.JFXPasswordField;
+import com.jfoenix.control.JFXTextField;
 import com.jfoenix.control.JFXTooltip;
+import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +19,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Locale;
 
@@ -98,5 +103,50 @@ public class LoginController {
 
         JFXTooltip jfxTooltip = new JFXTooltip(MainApp.getLanguageBinding("title"));
         JFXTooltip.install(flatButton, jfxTooltip);
+
+        JFXTextField jfxTextField = new JFXTextField();
+        jfxTextField.setPromptText("请输入用户名");
+        jfxTextField.setLabelFloat(true);
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage("需要输入用户名");
+        FontIcon warnIcon1 = new FontIcon(FontAwesomeSolid.EXCLAMATION_CIRCLE);
+        warnIcon1.getStyleClass().add("error");
+        validator.setIcon(warnIcon1);
+        jfxTextField.getValidators().add(validator);
+        jfxTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                jfxTextField.validate();
+            }
+        });
+
+        JFXPasswordField jfxPasswordField = new JFXPasswordField();
+        jfxPasswordField.setPromptText("请输入密码");
+        jfxPasswordField.setLabelFloat(true);
+        validator = new RequiredFieldValidator();
+        validator.setMessage("需要输入密码");
+        FontIcon warnIcon2 = new FontIcon(FontAwesomeSolid.EXCLAMATION_TRIANGLE);
+        warnIcon2.getStyleClass().add("error");
+        validator.setIcon(warnIcon2);
+        jfxPasswordField.getValidators().add(validator);
+        jfxPasswordField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                jfxPasswordField.validate();
+            }
+        });
+
+        VBox fieldBox = new VBox();
+        fieldBox.setSpacing(40);
+        fieldBox.setPrefHeight(200);
+        fieldBox.setAlignment(Pos.CENTER);
+
+        fieldBox.getChildren().addAll(jfxTextField, jfxPasswordField);
+
+        VBox bottomBox = new VBox();
+        bottomBox.setPrefHeight(300);
+        bottomBox.setAlignment(Pos.CENTER);
+        bottomBox.setSpacing(40);
+        bottomBox.getChildren().addAll(buttonBox, fieldBox);
+
+        containerPane.setBottom(bottomBox);
     }
 }
