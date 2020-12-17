@@ -44,6 +44,8 @@ dependencies {
     compile group: 'org.kordamp.ikonli', name: 'ikonli-javafx', version: '12.0.0'
     compile group: 'org.kordamp.ikonli', name: 'ikonli-fontawesome5-pack', version: '12.0.0'
 
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.0'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
 }
 
 test {
