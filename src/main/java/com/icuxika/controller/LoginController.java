@@ -1,24 +1,27 @@
 package com.icuxika.controller;
 
+import com.icuxika.AppView;
 import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
 import com.icuxika.control.message.TextMessageNode;
-import com.jfoenix.control.JFXButton;
-import com.jfoenix.control.JFXPasswordField;
-import com.jfoenix.control.JFXTextField;
-import com.jfoenix.control.JFXTooltip;
+import com.jfoenix.control.*;
+import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -148,5 +151,23 @@ public class LoginController {
         bottomBox.getChildren().addAll(buttonBox, fieldBox);
 
         containerPane.setBottom(bottomBox);
+
+        flatButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                AppView<HomeController> appView = new AppView<>(HomeController.class);
+                Stage stage = new Stage();
+                JFXDecorator decorator = new JFXDecorator(stage, appView.getRootNode());
+                decorator.setCustomMaximize(true);
+                decorator.setGraphic(new SVGGlyph(""));
+                decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
+                Scene scene = new Scene(decorator, 800, 600);
+                scene.getStylesheets().addAll(
+                        MainApp.load("css/home.css").toExternalForm()
+                );
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
     }
 }
