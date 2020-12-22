@@ -1,7 +1,11 @@
 package com.icuxika.control.message;
 
+import com.icuxika.MainApp;
 import com.icuxika.control.SelectableLabel;
+import com.icuxika.util.ClipboardUtil;
 import javafx.beans.binding.StringBinding;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -19,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -60,10 +64,11 @@ public class TextMessageNode extends AnchorPane {
     /**
      * 菜单项-任务
      */
-    private final Map<MenuItem, Runnable> actionMenItemMap = new HashMap<>();
+    private final Map<MenuItem, Runnable> actionMenItemMap = new LinkedHashMap<>();
 
     public TextMessageNode() {
         // 执行 initialize() 需要先确定左右，因此此方式构建需要手动调用show方法
+        show(false, false);
     }
 
     public TextMessageNode(boolean showLeft, boolean showName) {
@@ -103,8 +108,10 @@ public class TextMessageNode extends AnchorPane {
         avatarImageView.setFitHeight(36);
 
         Rectangle avatarImageClip = new Rectangle(0, 0, avatarImageView.getFitWidth(), avatarImageView.getFitHeight());
+        avatarImageClip.setArcWidth(8);
+        avatarImageClip.setArcHeight(8);
         avatarImageView.setClip(avatarImageClip);
-        avatarImageView.setEffect(new DropShadow(20, Color.BLACK));
+        avatarImageView.setEffect(new DropShadow(2, Color.BLACK));
 
         AnchorPane.setTopAnchor(avatarImageView, 12.0);
         if (showLeft) {
@@ -158,6 +165,7 @@ public class TextMessageNode extends AnchorPane {
         getChildren().addAll(avatarImageView, textFlow);
 
         // 为TextFlow绑定右键菜单
+        buildContextMenu();
         textFlow.setOnContextMenuRequested(event -> {
             if (messageText.getMouseReleasedPointSelected()) {
                 messageText.setSelectedLastText(true);
@@ -186,6 +194,15 @@ public class TextMessageNode extends AnchorPane {
     }
 
     /**
+     * 设置头像绑定
+     *
+     * @param avatar 头像
+     */
+    public void setAvatar(ObjectProperty<Image> avatar) {
+        avatarImageView.imageProperty().bind(avatar);
+    }
+
+    /**
      * 设置昵称
      *
      * @param text 昵称
@@ -206,6 +223,16 @@ public class TextMessageNode extends AnchorPane {
     }
 
     /**
+     * 设置昵称绑定
+     *
+     * @param name 名称
+     */
+    public void setName(StringProperty name) {
+        if (!showLeft) return;
+        nameText.textProperty().bind(name);
+    }
+
+    /**
      * 设置文本消息
      *
      * @param text 文本消息
@@ -223,5 +250,20 @@ public class TextMessageNode extends AnchorPane {
     public void putMenuItem(String menuItemName, Runnable action) {
         MenuItem menuItem = new MenuItem(menuItemName);
         actionMenItemMap.put(menuItem, action);
+    }
+
+    public void putMenuItem(StringBinding menuItemName, Runnable action) {
+        MenuItem menuItem = new MenuItem();
+        menuItem.textProperty().bind(menuItemName);
+        actionMenItemMap.put(menuItem, action);
+    }
+
+    private void buildContextMenu() {
+        MenuItem copyMenuItem = new MenuItem();
+        copyMenuItem.textProperty().bind(MainApp.getLanguageBinding("chat-msg-context-menu-copy"));
+        actionMenItemMap.put(copyMenuItem, () -> {
+            String content = messageText.getSelectedText();
+            ClipboardUtil.putString(content);
+        });
     }
 }

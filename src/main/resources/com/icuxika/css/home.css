@@ -22,3 +22,317 @@
     -jfx-size: 15;
     -fx-background-color: WHITE;
 }
+
+/* conversation > conversationPane */
+.conversationPane {
+    -fx-background-insets: 0;
+}
+
+.conversationPane *.split-pane-divider, .conversationPane *.vertical-grabber, .conversationPane *.horizontal-grabber {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.conversationPane *.split-pane-divider, .vertical-grabber {
+    -fx-pref-width: 2;
+}
+
+/* conversation > conversationListView */
+.conversationListView {
+    -fx-focus-traversable: false;
+    -fx-border-color: white;
+}
+
+.conversationListView:focused {
+    -fx-background-color: white;
+}
+
+.conversationListView .list-cell {
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+.conversationListView .list-cell:hover {
+    -fx-background-color: #ebebeb;
+}
+
+.conversationListView .list-cell:selected {
+    -fx-background-color: #ebebeb;
+}
+
+.conversationListView .list-cell:empty {
+    -fx-background-color: white;
+}
+
+.conversationListView .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.conversationListView .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-pref-width: 0;
+}
+
+/* conversation > conversationContainer */
+.conversationContainer {
+    /*-fx-border-color: green;*/
+}
+
+/* singleChatPane > nameLink */
+.singleChatPane .nameLink {
+    -fx-border-color: transparent;
+    -fx-padding: 4 0 4 0;
+    -fx-text-fill: black;
+}
+
+/* singleChatPane > chatSplitPane */
+.singleChatPane .chatSplitPane {
+    -fx-background-insets: 0;
+}
+
+.singleChatPane .chatSplitPane *.split-pane-divider, .singleChatPane .chatSplitPane *.vertical-grabber, .singleChatPane .chatSplitPane *.horizontal-grabber {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* singleChatPane > messageListView */
+.singleChatPane .messageListView {
+    -fx-focus-traversable: false;
+    -fx-border-color: white;
+}
+
+.singleChatPane .messageListView:focused {
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageListView .list-cell {
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageListView .list-cell:hover {
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageListView .list-cell:selected {
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageListView .list-cell:empty {
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageListView .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.singleChatPane .messageListView .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-pref-width: 0;
+}
+
+/* singleChatPane > messageInputTextArea */
+.singleChatPane .messageInputTextArea {
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+.singleChatPane .messageInputTextArea .content {
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageInputTextArea:focused .content {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageInputTextArea .scroll-pane > .scroll-bar {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+}
+
+.singleChatPane .messageInputTextArea .scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #eaeaea;
+    -fx-scale-x: 0.5;
+}
+
+.singleChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #eaeaea;
+}
+
+.singleChatPane .messageInputTextArea .scroll-pane > .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.singleChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.singleChatPane .messageInputTextArea .scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.singleChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.singleChatPane .messageSendBox {
+    -fx-background-color: white;
+}
+
+/* groupChatPane > nameLink */
+.groupChatPane .nameLink {
+    -fx-border-color: transparent;
+    -fx-padding: 4 0 4 0;
+    -fx-text-fill: black;
+}
+
+/* groupChatPane > chatSplitPane */
+.groupChatPane .chatSplitPane {
+    -fx-background-insets: 0;
+}
+
+.groupChatPane .chatSplitPane *.split-pane-divider, .groupChatPane .chatSplitPane *.vertical-grabber, .groupChatPane .chatSplitPane *.horizontal-grabber {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* groupChatPane > messageListView */
+.groupChatPane .messageListView {
+    -fx-focus-traversable: false;
+    -fx-border-color: white;
+}
+
+.groupChatPane .messageListView:focused {
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageListView .list-cell {
+    -fx-padding: 0px;
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageListView .list-cell:hover {
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageListView .list-cell:selected {
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageListView .list-cell:empty {
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageListView .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.groupChatPane .messageListView .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-pref-width: 0;
+}
+
+/* groupChatPane > messageInputTextArea */
+.groupChatPane .messageInputTextArea {
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-border-color: white;
+}
+
+.groupChatPane .messageInputTextArea .content {
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageInputTextArea:focused .content {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageInputTextArea .scroll-pane > .scroll-bar {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: white;
+}
+
+.groupChatPane .messageInputTextArea .scroll-pane > .scroll-bar:vertical > .thumb {
+    -fx-background-color: #eaeaea;
+    -fx-scale-x: 0.5;
+}
+
+.groupChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #eaeaea;
+}
+
+.groupChatPane .messageInputTextArea .scroll-pane > .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.groupChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.groupChatPane .messageInputTextArea .scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.groupChatPane .messageInputTextArea:hover .scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.groupChatPane .messageSendBox {
+    -fx-background-color: white;
+}
+
+.groupChatPane .flexTextFlow {
+    -fx-background-color: #eaeaea;
+    -fx-text-fill: black;
+    -fx-shape: "M356.874,173.287C356.874,173.287 372.071,160.074 371.815,149.617C371.558,139.16 372.418,220.125 372.418,220.125C372.418,220.125 372.95,212.839 358.152,203.868L356.874,173.287Z";
+}
+
+/* messageToolbox > icon */
+.messageToolbox > .ikonli-font-icon {
+    -fx-icon-color: #747272;
+    -fx-icon-size: 20;
+}
+
+.messageToolbox > .ikonli-font-icon:hover {
+    -fx-icon-color: black;
+}
+
+/* context-menu */
+.context-menu {
+    -fx-background-insets: 4;
+    -fx-border-radius: 4;
+    -fx-border-color: #ebebeb;
+}
+
+.context-menu > * > .menu-item {
+    -fx-padding: 4 8 4 16;
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0 4 0 4;
+}
+
+.context-menu > * > .menu-item:hover {
+    -fx-background-color: #ebebeb;
+}
+
+.context-menu .label {
+    -fx-text-fill: black;
+}
+
+.check-menu-item:focused {
+    -fx-focused-mark-color: black;
+}
+
+.jfx-tooltip {
+    -fx-font-size: 12;
+}

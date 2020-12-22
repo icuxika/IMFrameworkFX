@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane minWidth="360.0" prefHeight="400.0" prefWidth="600.0" styleClass="singleChatPane"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icuxika.controller.home.conversation.SingleChatController">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <Hyperlink fx:id="nameLink" styleClass="nameLink" text="Hyperlink">
+               <HBox.margin>
+                  <Insets left="8.0"/>
+               </HBox.margin>
+               <font>
+                  <Font size="14.0"/>
+               </font>
+            </Hyperlink>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
+                       styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
+               <items>
+                  <ListView fx:id="messageListView" minHeight="100.0" styleClass="messageListView"/>
+                  <VBox minHeight="120.0">
+                     <children>
+                        <HBox fx:id="messageToolbox" alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0"
+                              spacing="10.0" styleClass="messageToolbox"/>
+                        <TextArea fx:id="messageInputTextArea" styleClass="messageInputTextArea" wrapText="true"
+                                  VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="14.0"/>
+                           </font>
+                        </TextArea>
+                        <HBox fx:id="messageSendBox" alignment="CENTER_RIGHT" minHeight="32.0"
+                              styleClass="messageSendBox"/>
+                     </children>
+                  </VBox>
+               </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

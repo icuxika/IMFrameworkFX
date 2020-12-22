@@ -1,9 +1,6 @@
 package com.icuxika.util;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -156,5 +153,65 @@ public class DateUtil {
      */
     public static int getDayOfMonth(long timeMillis) {
         return getDateTime(timeMillis).getDayOfMonth();
+    }
+
+    private static String single2Double(int value) {
+        if (value < 10) return 0 + String.valueOf(value);
+        else return String.valueOf(value);
+    }
+
+    public static String millis2ComplexMessageTime(long timeMillis) {
+        LocalDateTime localDateTime = getDateTime(timeMillis);
+        return localDateTime.getYear() +
+                "年" +
+                single2Double(localDateTime.getMonth().getValue()) +
+                "月" +
+                single2Double(localDateTime.getDayOfMonth()) +
+                "日" +
+                " " +
+                single2Double(localDateTime.getHour()) +
+                ":" +
+                single2Double(localDateTime.getMinute()) +
+                ":" +
+                single2Double(localDateTime.getSecond());
+    }
+
+    private static String dayOfWeek2CN(DayOfWeek dayOfWeek) {
+        String value;
+        switch (dayOfWeek) {
+            case MONDAY -> value = "一";
+            case TUESDAY -> value = "二";
+            case WEDNESDAY -> value = "三";
+            case THURSDAY -> value = "四";
+            case FRIDAY -> value = "五";
+            case SATURDAY -> value = "六";
+            case SUNDAY -> value = "七";
+            default -> throw new IllegalStateException("Unexpected value: " + dayOfWeek);
+        }
+        return value;
+    }
+
+    public static String mills2ReduceMessageTime(long timeMillis) {
+        LocalDate localDate = LocalDate.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
+        LocalTime localTime = LocalTime.ofInstant(Instant.ofEpochMilli(timeMillis), ZoneId.systemDefault());
+
+        LocalDate today = LocalDate.now();
+        LocalDate yesterday = LocalDate.now().minus(1, ChronoUnit.DAYS);
+        LocalDate lastWeek = LocalDate.now().minus(1, ChronoUnit.WEEKS);
+
+        if (localDate.isEqual(today)) {
+            int minute = localTime.getMinute();
+            String minuteString = String.valueOf(minute);
+            if (minute < 10) {
+                minuteString = 0 + minuteString;
+            }
+            return localTime.getHour() + ":" + minuteString;
+        } else if (localDate.isEqual(yesterday)) {
+            return "昨天";
+        } else if (localDate.isBefore(yesterday) && localDate.isAfter(lastWeek)) {
+            return "星期" + dayOfWeek2CN(localDate.getDayOfWeek());
+        } else {
+            return String.valueOf(localDate.getYear()).substring(2, 4) + "/" + localDate.getMonth().getValue() + "/" + localDate.getDayOfMonth();
+        }
     }
 }

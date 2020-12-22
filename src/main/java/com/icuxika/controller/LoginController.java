@@ -9,8 +9,6 @@ import com.icuxika.control.message.TextMessageNode;
 import com.jfoenix.control.*;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -152,22 +150,22 @@ public class LoginController {
 
         containerPane.setBottom(bottomBox);
 
-        flatButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                AppView<HomeController> appView = new AppView<>(HomeController.class);
-                Stage stage = new Stage();
-                JFXDecorator decorator = new JFXDecorator(stage, appView.getRootNode());
-                decorator.setCustomMaximize(true);
-                decorator.setGraphic(new SVGGlyph(""));
-                decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
-                Scene scene = new Scene(decorator, 800, 600);
-                scene.getStylesheets().addAll(
-                        MainApp.load("css/home.css").toExternalForm()
-                );
-                stage.setScene(scene);
-                stage.show();
-            }
+        flatButton.setOnAction(event -> {
+            AppView<HomeController> homeView = new AppView<>(HomeController.class);
+            Stage stage = new Stage();
+            JFXDecorator decorator = new JFXDecorator(stage, homeView.getRootNode());
+            decorator.setCustomMaximize(true);
+            decorator.setGraphic(new SVGGlyph(""));
+            decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
+            Scene scene = new Scene(decorator, 800, 600);
+            scene.getStylesheets().addAll(
+                    MainApp.load("css/home.css").toExternalForm()
+            );
+            stage.setScene(scene);
+            stage.show();
+
+            Stage currentStage = (Stage) flatButton.getScene().getWindow();
+            currentStage.close();
         });
     }
 }

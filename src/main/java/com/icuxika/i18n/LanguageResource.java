@@ -13,7 +13,15 @@ public class LanguageResource extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
-                {"title", "标题"}
+                {"title", "标题"},
+                {"chat-send-msg-btn-text", "发送"},
+                {"chat-msg-context-menu-copy", "复制"},
+                {"chat-msg-context-menu-delete", "删除"},
+                {"chat-msg-context-menu-revoke", "撤回"},
+                {"chat-msg-tool-icon-emoji", "选择表情"},
+                {"chat-msg-tool-icon-file", "发送文件"},
+                {"chat-msg-tool-icon-image", "发送图片"},
+                {"chat-msg-tool-icon-screen-shot", "屏幕截图"}
         };
     }
 }
