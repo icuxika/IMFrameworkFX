@@ -6,6 +6,7 @@ import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.control.SelectableLabel;
 import com.icuxika.control.message.TextMessageNode;
+import com.icuxika.util.SystemUtil;
 import com.jfoenix.control.*;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -153,11 +154,16 @@ public class LoginController {
         flatButton.setOnAction(event -> {
             AppView<HomeController> homeView = new AppView<>(HomeController.class);
             Stage stage = new Stage();
-            JFXDecorator decorator = new JFXDecorator(stage, homeView.getRootNode());
-            decorator.setCustomMaximize(true);
-            decorator.setGraphic(new SVGGlyph(""));
-            decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
-            Scene scene = new Scene(decorator, 800, 600);
+            Scene scene;
+            if (SystemUtil.platformIsWindows()) {
+                JFXDecorator decorator = new JFXDecorator(stage, homeView.getRootNode());
+                decorator.setCustomMaximize(true);
+                decorator.setGraphic(new SVGGlyph(""));
+                decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
+                scene = new Scene(decorator, 800, 600);
+            } else {
+                scene = new Scene(homeView.getRootNode(), 800, 600);
+            }
             scene.getStylesheets().addAll(
                     MainApp.load("css/home.css").toExternalForm()
             );
