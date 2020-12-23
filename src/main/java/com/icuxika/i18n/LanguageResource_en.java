@@ -6,7 +6,15 @@ public class LanguageResource_en extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
-                {"title", "title"},
+                {"title", "Instant messaging"},
+                {"login", "Sign In"},
+                {"login-username", "Please enter your username"},
+                {"login-username-need", "Username can't be empty!"},
+                {"login-password", "Please enter your password"},
+                {"login-password-need", "Password can't be empty"},
+                {"register", "Sign up"},
+                {"register-link", "Sign Up"},
+                {"forgot-password-link", "Forgot Password?"},
                 {"chat-send-msg-btn-text", "Send"},
                 {"chat-msg-context-menu-copy", "Copy"},
                 {"chat-msg-context-menu-delete", "Delete"},

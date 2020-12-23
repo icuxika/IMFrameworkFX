@@ -11,7 +11,15 @@ public class LanguageResource_zh_CN extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
-                {"title", "标题覆盖测试"},
+                {"title", "即时通讯"},
+                {"login", "登录"},
+                {"login-username", "请输入用户名"},
+                {"login-username-need", "用户名不能为空！"},
+                {"login-password", "请输入密码"},
+                {"login-password-need", "密码不能为空！"},
+                {"register", "注册"},
+                {"register-link", "注册账号"},
+                {"forgot-password-link", "忘记密码"},
                 {"chat-send-msg-btn-text", "发送"},
                 {"chat-msg-context-menu-copy", "复制"},
                 {"chat-msg-context-menu-delete", "删除"},

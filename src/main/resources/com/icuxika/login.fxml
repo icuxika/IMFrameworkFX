@@ -1,25 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="360.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.icuxika.controller.LoginController">
-    <center>
-        <BorderPane fx:id="containerPane" BorderPane.alignment="CENTER">
-            <top>
-                <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="titleLabel" text="Label"/>
-                        <ComboBox fx:id="languageComboBox" prefWidth="150.0"/>
-                    </children>
-                </HBox>
-            </top>
-            <center>
-                <ListView fx:id="messageListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
-            </center>
-        </BorderPane>
-    </center>
+<?import javafx.scene.text.Font?>
+<BorderPane prefHeight="440.0" prefWidth="643.0" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.LoginController">
+   <left>
+      <BorderPane prefHeight="350.0" prefWidth="230.0" styleClass="flyleaf" BorderPane.alignment="CENTER">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="230.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="flyleafTitleLabel" text="即时通讯" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="8.0"/>
+                     </HBox.margin>
+                     <font>
+                        <Font size="18.0"/>
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
+   </left>
+   <right>
+      <BorderPane prefHeight="350.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+         <top>
+            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="homeButton" mnemonicParsing="false" text="主页面"/>
+                  <ComboBox fx:id="languageComboBox" prefHeight="27.0" prefWidth="108.0">
+                     <HBox.margin>
+                        <Insets right="8.0"/>
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets/>
+               </BorderPane.margin>
+               <children>
+                  <VBox alignment="CENTER" maxWidth="240.0">
+                     <children>
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="39.0" prefWidth="252.0">
+                           <children>
+                              <Label fx:id="loginTitleLabel" text="登录">
+                                 <font>
+                                    <Font size="24.0"/>
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="usernameContainer" alignment="BOTTOM_CENTER" prefHeight="80.0"/>
+                        <HBox fx:id="passwordContainer" alignment="BOTTOM_CENTER" prefHeight="80.0"/>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="48.0">
+                           <children>
+                              <Hyperlink fx:id="registerLink" text="注册账号"/>
+                              <HBox HBox.hgrow="ALWAYS"/>
+                              <Hyperlink fx:id="forgotPasswordLink" text="忘记密码"/>
+                           </children>
+                        </HBox>
+                        <HBox fx:id="loginButtonContainer" alignment="CENTER" prefHeight="48.0"/>
+                     </children>
+                  </VBox>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </right>
 </BorderPane>
