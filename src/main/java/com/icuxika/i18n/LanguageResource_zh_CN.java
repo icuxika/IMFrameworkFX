@@ -19,7 +19,9 @@ public class LanguageResource_zh_CN extends ListResourceBundle {
                 {"chat-msg-tool-icon-emoji", "选择表情"},
                 {"chat-msg-tool-icon-file", "发送文件"},
                 {"chat-msg-tool-icon-image", "发送图片"},
-                {"chat-msg-tool-icon-screen-shot", "屏幕截图"}
+                {"chat-msg-tool-icon-screen-shot", "屏幕截图"},
+                {"conversation-context-menu-top", "置顶"},
+                {"conversation-context-menu-cancel-top", "取消置顶"}
         };
     }
 }

@@ -48,6 +48,10 @@ public class ConversationModel {
      */
     private final IntegerProperty unreadCount = new SimpleIntegerProperty();
 
+    /**
+     * 会话置顶
+     */
+    private final BooleanProperty top = new SimpleBooleanProperty();
 
     public ConversationModel() {
     }
@@ -58,7 +62,7 @@ public class ConversationModel {
         this.conversationProperty = conversationProperty;
     }
 
-    public ConversationModel(Long id, Long targetId, ConversationProperty conversationProperty, Image avatar, String name, long time, String message, int unreadCount) {
+    public ConversationModel(Long id, Long targetId, ConversationProperty conversationProperty, Image avatar, String name, long time, String message, int unreadCount, boolean top) {
         this.id = id;
         this.targetId = targetId;
         this.conversationProperty = conversationProperty;
@@ -67,6 +71,7 @@ public class ConversationModel {
         setTime(time);
         setMessage(message);
         setUnreadCount(unreadCount);
+        setTop(top);
     }
 
     public Long getId() {
@@ -151,5 +156,17 @@ public class ConversationModel {
 
     public Integer getUnreadCount() {
         return getUnreadCountProperty().get();
+    }
+
+    public BooleanProperty getTopProperty() {
+        return this.top;
+    }
+
+    public void setTop(boolean top) {
+        getTopProperty().set(top);
+    }
+
+    public boolean getTop() {
+        return getTopProperty().get();
     }
 }

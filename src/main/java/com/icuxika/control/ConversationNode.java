@@ -1,16 +1,16 @@
 package com.icuxika.control;
 
+import com.icuxika.MainApp;
 import com.icuxika.util.DateUtil;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.binding.When;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +23,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * 会话组件
@@ -53,6 +56,21 @@ public class ConversationNode extends AnchorPane {
      * 消息未读数
      */
     private Label unreadCountLabel;
+
+    /**
+     * 会话置顶或取消会话置顶菜单
+     */
+    private final MenuItem topMenuItem = new MenuItem();
+
+    /**
+     * 右键菜单
+     */
+    private final ContextMenu contextMenu = new ContextMenu();
+
+    /**
+     * 菜单项-行为
+     */
+    private final Map<MenuItem, Runnable> actionMenuItemMap = new LinkedHashMap<>();
 
     public ConversationNode() {
         initialize();
@@ -132,6 +150,19 @@ public class ConversationNode extends AnchorPane {
                 rightShadeBox.setBackground(new Background(fills));
             }
         });
+
+        // 构建右键菜单
+        buildContextMenu();
+        setOnContextMenuRequested(event -> {
+            contextMenu.getItems().clear();
+            actionMenuItemMap.forEach((menuItem, runnable) -> {
+                contextMenu.getItems().add(menuItem);
+                menuItem.setOnAction(event1 -> runnable.run());
+            });
+            if (!contextMenu.getItems().isEmpty()) {
+                contextMenu.show(this, event.getScreenX(), event.getScreenY());
+            }
+        });
     }
 
     public void setAvatar(ObjectProperty<Image> avatar) {
@@ -180,5 +211,31 @@ public class ConversationNode extends AnchorPane {
                 return "";
             }
         });
+    }
+
+    /**
+     * 会话置顶属性
+     */
+    private BooleanProperty top;
+
+    public void setTop(BooleanProperty top) {
+        this.top = top;
+
+        if (top.get()) {
+            topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-cancel-top"));
+        } else {
+            topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-top"));
+        }
+        top.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-cancel-top"));
+            } else {
+                topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-top"));
+            }
+        });
+    }
+
+    public void buildContextMenu() {
+        actionMenuItemMap.put(topMenuItem, () -> top.set(!top.get()));
     }
 }

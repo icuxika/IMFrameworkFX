@@ -64,7 +64,7 @@ public class TextMessageNode extends AnchorPane {
     /**
      * 菜单项-任务
      */
-    private final Map<MenuItem, Runnable> actionMenItemMap = new LinkedHashMap<>();
+    private final Map<MenuItem, Runnable> actionMenuItemMap = new LinkedHashMap<>();
 
     public TextMessageNode() {
         // 执行 initialize() 需要先确定左右，因此此方式构建需要手动调用show方法
@@ -173,7 +173,7 @@ public class TextMessageNode extends AnchorPane {
                 messageText.setSelectedFullText(true);
             }
             contextMenu.getItems().clear();
-            actionMenItemMap.forEach((menuItem, runnable) -> {
+            actionMenuItemMap.forEach((menuItem, runnable) -> {
                 contextMenu.getItems().add(menuItem);
                 menuItem.setOnAction(event1 -> runnable.run());
             });
@@ -249,19 +249,19 @@ public class TextMessageNode extends AnchorPane {
      */
     public void putMenuItem(String menuItemName, Runnable action) {
         MenuItem menuItem = new MenuItem(menuItemName);
-        actionMenItemMap.put(menuItem, action);
+        actionMenuItemMap.put(menuItem, action);
     }
 
     public void putMenuItem(StringBinding menuItemName, Runnable action) {
         MenuItem menuItem = new MenuItem();
         menuItem.textProperty().bind(menuItemName);
-        actionMenItemMap.put(menuItem, action);
+        actionMenuItemMap.put(menuItem, action);
     }
 
     private void buildContextMenu() {
         MenuItem copyMenuItem = new MenuItem();
         copyMenuItem.textProperty().bind(MainApp.getLanguageBinding("chat-msg-context-menu-copy"));
-        actionMenItemMap.put(copyMenuItem, () -> {
+        actionMenuItemMap.put(copyMenuItem, () -> {
             String content = messageText.getSelectedText();
             ClipboardUtil.putString(content);
         });
