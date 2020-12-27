@@ -5,12 +5,12 @@ import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.util.SystemUtil;
-import com.jfoenix.control.JFXButton;
-import com.jfoenix.control.JFXDecorator;
-import com.jfoenix.control.JFXPasswordField;
-import com.jfoenix.control.JFXTextField;
+import com.jfoenix.control.*;
 import com.jfoenix.svg.SVGGlyph;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -53,6 +53,8 @@ public class LoginController {
     private Hyperlink forgotPasswordLink;
     @FXML
     private HBox loginButtonContainer;
+    @FXML
+    private HBox progressContainer;
 
     public void initialize() {
         flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
@@ -134,5 +136,29 @@ public class LoginController {
         loginButton.setTextFill(Color.WHITE);
         loginButton.setBackground(new Background(new BackgroundFill(Paint.valueOf("#8d7ac7"), new CornerRadii(4), Insets.EMPTY)));
         loginButtonContainer.getChildren().add(loginButton);
+
+        JFXProgressBar jfxProgressBar = new JFXProgressBar();
+        jfxProgressBar.getStyleClass().add("login-progress-bar");
+        progressContainer.getChildren().add(jfxProgressBar);
+
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        for (int i = 0; i < 10; i++) {
+                            Thread.sleep(1000);
+                            updateProgress(i + 1, 10);
+                        }
+                        return null;
+                    }
+                };
+                jfxProgressBar.progressProperty().bind(task.progressProperty());
+                Thread thread = new Thread(task);
+                thread.setDaemon(true);
+                thread.start();
+            }
+        });
     }
 }

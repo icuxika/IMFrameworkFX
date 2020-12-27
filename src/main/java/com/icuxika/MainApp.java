@@ -100,9 +100,11 @@ public class MainApp extends Application {
                 Platform.runLater(() -> {
                     AppView<LoginController> appView = new AppView<>(LoginController.class);
                     Parent root = appView.getRootNode();
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().addAll(MainApp.load("css/login.css").toExternalForm());
 
                     primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
-                    primaryStage.setScene(new Scene(root));
+                    primaryStage.setScene(scene);
                     primaryStage.show();
 
                     logger.info("Set Language: zh_CN");

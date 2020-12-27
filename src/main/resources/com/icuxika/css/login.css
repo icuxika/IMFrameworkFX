@@ -1,3 +1,12 @@
 .flyleaf {
     -fx-background-color: #8d7ac7;
 }
+
+.login-progress-bar > .bar {
+    -fx-background-color: #ff8000;
+    -fx-padding: 6;
+}
+
+.login-progress-bar > .secondary-bar {
+    -fx-background-color: rgba(255, 135, 21, 0.18);
+}
