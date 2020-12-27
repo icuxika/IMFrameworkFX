@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<SplitPane dividerPositions="0.29797979797979796" xmlns="http://javafx.com/javafx/11.0.1"
+<?import javafx.scene.layout.*?>
+<SplitPane dividerPositions="0.5" prefHeight="388.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.home.AddressBookController">
-    <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-            <children>
-                <Label fx:id="addressBookLabel" layoutX="57.0" layoutY="150.0" text="通讯录子页面"/>
-            </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
-    </items>
+   <items>
+      <VBox prefHeight="386.0" prefWidth="164.0">
+         <children>
+            <HBox prefHeight="45.0" prefWidth="266.0"/>
+            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <fx:include fx:id="friendGroup" source="addressBook/friendGroup.fxml"/>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+      <StackPane prefHeight="386.0" prefWidth="382.0"/>
+   </items>
 </SplitPane>
