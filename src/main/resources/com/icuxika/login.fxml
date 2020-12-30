@@ -27,7 +27,8 @@
    <right>
       <BorderPane prefHeight="350.0" prefWidth="412.0" BorderPane.alignment="CENTER">
          <top>
-            <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="header" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="412.0"
+                  BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="homeButton" mnemonicParsing="false" text="主页面"/>
                   <ComboBox fx:id="languageComboBox" prefHeight="27.0" prefWidth="108.0">

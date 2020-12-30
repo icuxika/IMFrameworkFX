@@ -10,3 +10,35 @@
 .login-progress-bar > .secondary-bar {
     -fx-background-color: rgba(255, 135, 21, 0.18);
 }
+
+.combo-box .combo-box-selected-value-container {
+    /*-fx-border-color:BLACK;*/
+    /*-fx-background-color: red;*/
+}
+
+.jfx-list-cell {
+    -fx-background-insets: 0.0;
+    -fx-text-fill: BLACK;
+}
+
+.jfx-list-cell:hover {
+    -fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
+}
+
+.jfx-list-cell:hover .label {
+    -fx-text-fill: black;
+}
+
+.jfx-list-cell:selected {
+    -fx-background-color: rgba(0.0, 0.0, 255.0, 0.2);
+}
+
+.jfx-list-cell:filled:hover,
+.jfx-list-cell:selected .label {
+    -fx-text-fill: black;
+}
+
+.jfx-list-cell .jfx-ripple {
+    -jfx-ripple-fill: #5264AE;
+}
+

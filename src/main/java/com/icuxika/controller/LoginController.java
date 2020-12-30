@@ -37,6 +37,8 @@ public class LoginController {
     private Label flyleafTitleLabel;
 
     @FXML
+    private HBox header;
+    @FXML
     private ComboBox<Locale> languageComboBox;
     @FXML
     private Button homeButton;
@@ -58,6 +60,19 @@ public class LoginController {
 
     public void initialize() {
         flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
+
+        JFXComboBox<Label> jfxComboBox = new JFXComboBox<>();
+        jfxComboBox.getItems().addAll(new Label("第一"), new Label("第二"));
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.messageProperty().bind(MainApp.getLanguageBinding("login-username-need"));
+        FontIcon warnIcon = new FontIcon(FontAwesomeSolid.EXCLAMATION_TRIANGLE);
+        warnIcon.getStyleClass().add("error-icon");
+        validator.setIcon(warnIcon);
+        jfxComboBox.getValidators().add(validator);
+        jfxComboBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) jfxComboBox.validate();
+        });
+        header.getChildren().add(jfxComboBox);
 
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
         languageComboBox.setValue(Locale.SIMPLIFIED_CHINESE);
@@ -98,7 +113,7 @@ public class LoginController {
         usernameField.setPrefWidth(240);
         usernameField.promptTextProperty().bind(MainApp.getLanguageBinding("login-username"));
         usernameField.setLabelFloat(true);
-        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator = new RequiredFieldValidator();
         validator.messageProperty().bind(MainApp.getLanguageBinding("login-username-need"));
         FontIcon warnIcon1 = new FontIcon(FontAwesomeSolid.EXCLAMATION_CIRCLE);
         warnIcon1.getStyleClass().add("error");
