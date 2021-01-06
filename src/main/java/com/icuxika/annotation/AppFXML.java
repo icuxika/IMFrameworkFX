@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface AppFXML {
 
     String fxml() default "";
+
+    String[] stylesheets() default {};
 }

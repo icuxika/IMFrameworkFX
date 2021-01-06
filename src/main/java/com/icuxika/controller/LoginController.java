@@ -30,7 +30,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.Locale;
 
-@AppFXML(fxml = "login.fxml")
+@AppFXML(fxml = "login.fxml", stylesheets = "css/login.css")
 public class LoginController {
 
     @FXML
@@ -97,11 +97,7 @@ public class LoginController {
             } else {
                 scene = new Scene(homeView.getRootNode(), 800, 600);
             }
-            scene.getStylesheets().addAll(
-                    MainApp.load("css/home.css").toExternalForm()
-            );
-            stage.setScene(scene);
-            stage.show();
+            homeView.setScene(scene).setStage(stage).show();
 
             Stage currentStage = (Stage) homeButton.getScene().getWindow();
             currentStage.close();

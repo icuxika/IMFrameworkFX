@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.Locale;
 
-@AppFXML(fxml = "home.fxml")
+@AppFXML(fxml = "home.fxml", stylesheets = "css/home.css")
 public class HomeController {
 
     @FXML

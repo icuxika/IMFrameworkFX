@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane prefHeight="266.0" prefWidth="444.0" styleClass="containerPane" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icuxika.controller.home.conversation.function.EmojiController">
+    <center>
+        <BorderPane styleClass="contentPane">
+            <center>
+                <TabPane fx:id="emojiTabPane" prefHeight="200.0" prefWidth="200.0" side="BOTTOM"
+                         tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER"/>
+            </center>
+            <padding>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+            </padding>
+        </BorderPane>
+    </center>
+</BorderPane>

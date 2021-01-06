@@ -1,8 +1,10 @@
 package com.icuxika.controller.home.conversation;
 
+import com.icuxika.AppView;
 import com.icuxika.MainApp;
 import com.icuxika.callback.MessageListViewCallback;
 import com.icuxika.controller.home.ConversationController;
+import com.icuxika.controller.home.conversation.function.EmojiController;
 import com.icuxika.mock.ReceivedMessageModel;
 import com.icuxika.model.home.MessageModel;
 import com.icuxika.model.home.MessageStatus;
@@ -87,6 +89,8 @@ public class ChatController {
         }
     });
 
+    private static AppView<EmojiController> emojiView = new AppView<>(EmojiController.class);
+
     /**
      * 初始化
      */
@@ -133,6 +137,10 @@ public class ChatController {
         HBox.setMargin(sendMsgButton, new Insets(0, 8, 0, 0));
         messageSendBox.getChildren().add(sendMsgButton);
 
+        // Emoji 面板
+        emojiIcon.setOnMouseReleased(event -> {
+            emojiView.repeatShow(emojiIcon.getScene().getWindow(), event.getScreenX() - 222, event.getSceneY() - 266);
+        });
     }
 
     /**

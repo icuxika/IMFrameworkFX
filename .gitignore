@@ -6,3 +6,6 @@ out/
 
 # Project exclude paths
 /.gradle/
+
+# emoji
+/emojipedia/

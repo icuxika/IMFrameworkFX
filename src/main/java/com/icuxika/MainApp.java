@@ -1,6 +1,7 @@
 package com.icuxika;
 
 import com.icuxika.controller.LoginController;
+import com.icuxika.framework.StartupLocation;
 import com.icuxika.i18n.LanguageResource;
 import com.icuxika.i18n.ObservableResourceBundleFactory;
 import javafx.application.Application;
@@ -10,8 +11,6 @@ import javafx.beans.binding.StringBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -71,6 +70,23 @@ public class MainApp extends Application {
     }
 
     /**
+     * 多个屏幕时，使窗口显示在鼠标所在的屏幕中央，根据StartupLocation的实现逻辑，此操作存在延迟
+     *
+     * @param stage stage
+     */
+    public static void showStageWithPointer(Stage stage, double width, double height) {
+        StartupLocation startupLocation = new StartupLocation(width, height);
+        double xPos = startupLocation.getXPos();
+        double yPos = startupLocation.getYPos();
+        if (xPos != 0 && yPos != 0) {
+            stage.setX(xPos);
+            stage.setY(yPos);
+        } else {
+            stage.centerOnScreen();
+        }
+    }
+
+    /**
      * 设置此属性，启用JavaFX预加载类
      */
     private static final String PRELOADER_PROPERTY_NAME = "javafx.preloader";
@@ -90,6 +106,7 @@ public class MainApp extends Application {
         super.init();
         // 初始化设置界面语言
         setLanguage(Locale.SIMPLIFIED_CHINESE);
+        logger.info("Set Language: SIMPLIFIED_CHINESE");
     }
 
     @Override
@@ -98,17 +115,9 @@ public class MainApp extends Application {
         ready.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 Platform.runLater(() -> {
-                    AppView<LoginController> appView = new AppView<>(LoginController.class);
-                    Parent root = appView.getRootNode();
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().addAll(MainApp.load("css/login.css").toExternalForm());
-
                     primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-
-                    logger.info("Set Language: zh_CN");
-                    logger.error("Set Language: zh_CN");
+                    AppView<LoginController> loginView = new AppView<>(LoginController.class);
+                    loginView.setStage(primaryStage).show();
                 });
             }
         });

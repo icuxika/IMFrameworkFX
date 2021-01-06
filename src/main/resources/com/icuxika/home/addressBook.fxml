@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.*?>
 <SplitPane dividerPositions="0.5" prefHeight="388.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/11.0.1"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.home.AddressBookController">
-   <items>
-      <VBox prefHeight="386.0" prefWidth="164.0">
-         <children>
-            <HBox prefHeight="45.0" prefWidth="266.0"/>
-            <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <fx:include fx:id="friendGroup" source="addressBook/friendGroup.fxml"/>
-               </children>
-            </StackPane>
-         </children>
-      </VBox>
-      <StackPane prefHeight="386.0" prefWidth="382.0"/>
-   </items>
+    <items>
+        <VBox prefHeight="386.0" prefWidth="164.0">
+            <children>
+                <HBox prefHeight="45.0" prefWidth="266.0"/>
+                <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <fx:include fx:id="friendGroup" source="addressBook/friendGroup.fxml"/>
+                    </children>
+                </StackPane>
+            </children>
+        </VBox>
+        <StackPane prefHeight="386.0" prefWidth="382.0"/>
+    </items>
 </SplitPane>

@@ -9,73 +9,74 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="groupChatPane" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icuxika.controller.home.conversation.GroupChatController">
-   <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
-         <children>
-            <Hyperlink fx:id="nameLink" styleClass="nameLink" text="Hyperlink">
-               <HBox.margin>
-                  <Insets left="8.0"/>
-               </HBox.margin>
-               <font>
-                  <Font size="14.0"/>
-               </font>
-            </Hyperlink>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                       styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
-               <items>
-                  <StackPane>
-                     <children>
-                        <ListView fx:id="messageListView" minHeight="100.0" styleClass="messageListView"/>
-                        <HBox fx:id="flexBox" alignment="CENTER_RIGHT" pickOnBounds="false" prefHeight="100.0"
-                              prefWidth="200.0">
-                           <children>
-                              <TextFlow fx:id="flexTextFlow" maxHeight="84.0" maxWidth="10.0" minHeight="84.0"
-                                        minWidth="10.0" styleClass="flexTextFlow" textAlignment="CENTER">
-                                 <children>
-                                    <Text fx:id="flexText" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;"
-                                          translateY="40.0"/>
-                                 </children>
-                              </TextFlow>
-                           </children>
-                        </HBox>
-                     </children>
-                  </StackPane>
-                  <VBox minHeight="120.0">
-                     <children>
-                        <HBox fx:id="messageToolbox" alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0"
-                              spacing="10.0" styleClass="messageToolbox"/>
-                        <TextArea fx:id="messageInputTextArea" styleClass="messageInputTextArea" wrapText="true"
-                                  VBox.vgrow="ALWAYS">
-                           <font>
-                              <Font size="14.0"/>
-                           </font>
-                        </TextArea>
-                        <HBox fx:id="messageSendBox" alignment="CENTER_RIGHT" minHeight="32.0"
-                              styleClass="messageSendBox"/>
-                     </children>
-                  </VBox>
-               </items>
-            </SplitPane>
-         </children>
-      </VBox>
-   </center>
-   <right>
-      <VBox fx:id="sideBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                       VBox.vgrow="ALWAYS">
-               <items>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
-               </items>
-            </SplitPane>
-         </children>
-      </VBox>
-   </right>
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
+            <children>
+                <Hyperlink fx:id="nameLink" styleClass="nameLink" text="Hyperlink">
+                    <HBox.margin>
+                        <Insets left="8.0"/>
+                    </HBox.margin>
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Hyperlink>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
+                           styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
+                    <items>
+                        <StackPane>
+                            <children>
+                                <ListView fx:id="messageListView" minHeight="100.0" styleClass="messageListView"/>
+                                <HBox fx:id="flexBox" alignment="CENTER_RIGHT" pickOnBounds="false" prefHeight="100.0"
+                                      prefWidth="200.0">
+                                    <children>
+                                        <TextFlow fx:id="flexTextFlow" maxHeight="84.0" maxWidth="10.0" minHeight="84.0"
+                                                  minWidth="10.0" styleClass="flexTextFlow" textAlignment="CENTER">
+                                            <children>
+                                                <Text fx:id="flexText" strokeType="OUTSIDE" strokeWidth="0.0"
+                                                      text="&gt;"
+                                                      translateY="40.0"/>
+                                            </children>
+                                        </TextFlow>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </StackPane>
+                        <VBox minHeight="120.0">
+                            <children>
+                                <HBox fx:id="messageToolbox" alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0"
+                                      spacing="10.0" styleClass="messageToolbox"/>
+                                <TextArea fx:id="messageInputTextArea" styleClass="messageInputTextArea" wrapText="true"
+                                          VBox.vgrow="ALWAYS">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </TextArea>
+                                <HBox fx:id="messageSendBox" alignment="CENTER_RIGHT" minHeight="32.0"
+                                      styleClass="messageSendBox"/>
+                            </children>
+                        </VBox>
+                    </items>
+                </SplitPane>
+            </children>
+        </VBox>
+    </center>
+    <right>
+        <VBox fx:id="sideBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
+                           VBox.vgrow="ALWAYS">
+                    <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+                    </items>
+                </SplitPane>
+            </children>
+        </VBox>
+    </right>
 </BorderPane>

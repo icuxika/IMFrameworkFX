@@ -4,6 +4,13 @@ import com.icuxika.annotation.AppFXML;
 import com.icuxika.exception.FXMLNotFoundException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -18,6 +25,8 @@ import java.net.URL;
  */
 public class AppView<T> {
 
+    private static final Logger logger = LogManager.getLogger(AppView.class.getName());
+
     /**
      * 当前页面的根结点
      */
@@ -27,6 +36,11 @@ public class AppView<T> {
      * 当前页面的 FXMLLoader
      */
     private final FXMLLoader fxmlLoader;
+
+    /**
+     * 注解中指定的样式表
+     */
+    private String[] stylesheets;
 
     public AppView(Class<T> controllerClass) {
 
@@ -84,6 +98,11 @@ public class AppView<T> {
         } else {
             throw new FXMLNotFoundException("FXML文件加载失败，异常未知");
         }
+
+        // 样式表
+        if (appFXML != null) {
+            stylesheets = appFXML.stylesheets();
+        }
     }
 
     /**
@@ -128,6 +147,126 @@ public class AppView<T> {
      */
     public T getController() {
         return fxmlLoader.getController();
+    }
+
+    /**
+     * 为场景设置样式表
+     *
+     * @param scene 场景
+     */
+    public void assembleStylesheets(Scene scene) {
+        if (stylesheets != null && stylesheets.length > 0) {
+            for (String stylesheet : stylesheets) {
+                if (MainApp.load(stylesheet) != null) {
+                    scene.getStylesheets().add(MainApp.load(stylesheet).toExternalForm());
+                } else {
+                    logger.warn("样式表 [" + stylesheet + "] 加载失败，请检查路径是否正确");
+                }
+            }
+        }
+    }
+
+    private Stage stage;
+    private Scene scene;
+
+    /**
+     * 设置Stage
+     *
+     * @param stage stage
+     * @return this
+     */
+    public AppView<T> setStage(Stage stage) {
+        this.stage = stage;
+        return this;
+    }
+
+    /**
+     * 设置Scene
+     *
+     * @param scene scene
+     * @return this
+     */
+    public AppView<T> setScene(Scene scene) {
+        this.scene = scene;
+        return this;
+    }
+
+    /**
+     * 窗口展示
+     */
+    public void show() {
+        if (stage == null) {
+            stage = new Stage();
+        }
+        if (scene == null) {
+            scene = new Scene(getRootNode());
+            scene.setFill(null);
+        }
+        // 为场景设置样式表
+        assembleStylesheets(scene);
+        stage.setScene(scene);
+        MainApp.showStageWithPointer(stage, getRootNode().prefWidth(-1), getRootNode().prefHeight(-1));
+        stage.show();
+    }
+
+    /**
+     * 显示一个模态框
+     *
+     * @param owner 父窗口
+     */
+    public void modalShow(Window owner) {
+        this.show(owner, false, false, false, 0.0, 0.0);
+    }
+
+    /**
+     * 重复展示单个窗口
+     *
+     * @param owner 父窗口
+     * @param x     event -> screenX
+     * @param y     event -> screenY
+     */
+    public void repeatShow(Window owner, Double x, Double y) {
+        this.show(owner, true, true, true, x, y);
+    }
+
+    /**
+     * 展示窗口
+     *
+     * @param owner       父窗口
+     * @param isSingleton 是否是单例
+     * @param autoHide    当前仅决定是否设置模态框模式，是否随着鼠标焦点变化自动隐藏，此部分逻辑在个子窗口Controller中实现，如果需要子窗口中再开启子窗口的话，在此处监听焦点变化就会比较麻烦
+     * @param relocate    是否更新坐标
+     * @param x           event -> screenX
+     * @param y           event -> screenY
+     */
+    public void show(Window owner, boolean isSingleton, boolean autoHide, boolean relocate, Double x, Double y) {
+        if (isSingleton) {
+            if (stage == null) {
+                assembleStage(owner, autoHide);
+            }
+        } else {
+            assembleStage(owner, autoHide);
+            MainApp.showStageWithPointer(stage, getRootNode().prefWidth(-1), getRootNode().prefHeight(-1));
+        }
+        if (relocate) {
+            stage.setX(x);
+            stage.setY(y);
+        }
+        stage.show();
+    }
+
+    private void assembleStage(Window owner, boolean autoHide) {
+        stage = new Stage();
+        // 此处设置父窗口，可使当前窗口不会出现在任务栏
+        stage.initOwner(owner);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        Scene scene = new Scene(getRootNode());
+        scene.setFill(null);
+        // 对场景设置样式表
+        assembleStylesheets(scene);
+        stage.setScene(scene);
+        // 如果不设置成自动隐藏，则设置模态框模式
+        if (!autoHide) stage.initModality(Modality.APPLICATION_MODAL);
     }
 
     /**

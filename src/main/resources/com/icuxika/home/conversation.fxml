@@ -7,12 +7,12 @@
 <SplitPane dividerPositions="0.5" prefHeight="325.0" prefWidth="381.0" styleClass="conversationPane"
            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.icuxika.controller.home.ConversationController">
-   <items>
-      <VBox maxWidth="280.0" minWidth="80.0">
-         <children>
-            <ListView fx:id="conversationListView" styleClass="conversationListView" VBox.vgrow="ALWAYS"/>
-         </children>
-      </VBox>
-      <StackPane fx:id="conversationContainer" styleClass="conversationContainer"/>
-   </items>
+    <items>
+        <VBox maxWidth="280.0" minWidth="80.0">
+            <children>
+                <ListView fx:id="conversationListView" styleClass="conversationListView" VBox.vgrow="ALWAYS"/>
+            </children>
+        </VBox>
+        <StackPane fx:id="conversationContainer" styleClass="conversationContainer"/>
+    </items>
 </SplitPane>

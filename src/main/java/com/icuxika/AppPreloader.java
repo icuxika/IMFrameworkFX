@@ -25,13 +25,12 @@ public class AppPreloader extends Preloader {
     @Override
     public void init() throws Exception {
         super.init();
-        System.out.println("init");
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("start");
         this.stage = primaryStage;
+        MainApp.showStageWithPointer(stage, 300, 150);
         primaryStage.setScene(createPreloaderScene());
         primaryStage.show();
     }

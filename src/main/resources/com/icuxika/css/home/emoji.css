@@ -1,0 +1,40 @@
+.containerPane {
+    -fx-background-color: transparent;
+}
+
+.contentPane {
+    -fx-background-color: #dad9e5;
+    -fx-background-radius: 4;
+    -fx-border-color: #dad9e5;
+    -fx-border-radius: 4;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #eaeaea;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-border-color: #eaeaea;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: #eaeaea;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: white;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: white;
+}
+
+.scroll-pane .scroll-bar:horizontal > .thumb {
+    -fx-background-color: #eaeaea;
+    -fx-scale-y: 0.5;
+}
+
+.scroll-pane .scroll-bar:vertical > .thumb {
+    -fx-background-color: #eaeaea;
+    -fx-scale-x: 0.5;
+}
