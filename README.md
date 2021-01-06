@@ -5,7 +5,7 @@
 
 > JDK版本为15，如果需要在命令行执行```gradlew.bat run```，请设置环境变量`JAVA_HOME`指向jdk15根目录，也可以设置临时环境变量```set JAVA_HOME=C:\CommandLineTools\Java\jdk-15```，注意有些版本需要添加引号。
 
-> 配置Emoji资源，[提取码：bt4o](https://pan.baidu.com/s/1YodN2PB6M--v0-BnCrrzhw) ，解压后将文件夹 `/emojipedia/` 放到项目根目录下，注意不要保留压缩包名称所对应的文件夹。
+> 配置Emoji资源，[提取码：1sau](https://pan.baidu.com/s/1NgBu9n-cA6D8zfXtN8Cg-Q) ，解压后将文件夹 `/emojipedia/` 放到项目根目录下，注意不要保留压缩包名称所对应的文件夹。
 
 ### TODO
 

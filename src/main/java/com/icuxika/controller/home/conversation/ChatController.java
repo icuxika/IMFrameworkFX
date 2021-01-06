@@ -139,7 +139,7 @@ public class ChatController {
 
         // Emoji 面板
         emojiIcon.setOnMouseReleased(event -> {
-            emojiView.repeatShow(emojiIcon.getScene().getWindow(), event.getScreenX() - 222, event.getSceneY() - 266);
+            emojiView.repeatShow(emojiIcon.getScene().getWindow(), event.getScreenX() - 222, event.getScreenY() - 266);
         });
     }
 
