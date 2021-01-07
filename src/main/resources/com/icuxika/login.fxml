@@ -25,18 +25,23 @@
                             </children>
                         </HBox>
                     </top>
+                    <center>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0"
+                              BorderPane.alignment="CENTER">
+                            <children>
+                                <Button fx:id="alertTestButton" mnemonicParsing="false" text="Alert测试"/>
+                                <Button fx:id="dialogTestButton" mnemonicParsing="false" text="Dialog测试"/>
+                                <Button fx:id="snackbarTestButton" mnemonicParsing="false" text="Snackbar测试"/>
+                            </children>
+                        </VBox>
+                    </center>
                 </BorderPane>
             </left>
             <right>
                 <BorderPane prefHeight="480.0" prefWidth="280.0" BorderPane.alignment="CENTER">
                     <top>
                         <HBox fx:id="header" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="412.0"
-                              BorderPane.alignment="CENTER">
-                            <children>
-                                <Button fx:id="alertTestButton" mnemonicParsing="false" text="Alert测试"/>
-                                <Button fx:id="dialogTestButton" mnemonicParsing="false" text="Dialog测试"/>
-                            </children>
-                        </HBox>
+                              BorderPane.alignment="CENTER"/>
                     </top>
                     <bottom>
                         <VBox fx:id="loginProgressContainer" alignment="BOTTOM_CENTER" prefHeight="36.0"

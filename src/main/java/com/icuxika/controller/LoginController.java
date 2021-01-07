@@ -57,6 +57,9 @@ public class LoginController {
     private Button dialogTestButton;
 
     @FXML
+    private Button snackbarTestButton;
+
+    @FXML
     private VBox generalLoginBox;
     @FXML
     private HBox generaLoginTypeChooseContainer;
@@ -164,6 +167,14 @@ public class LoginController {
             dialog.setContent(layout);
             dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
             dialog.show(containerPane);
+        });
+
+        JFXSnackbar snackbar = new JFXSnackbar(containerPane);
+        snackbar.setPrefWidth(200);
+        snackbarTestButton.setOnAction(event -> {
+//            snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Toast Message")));
+//            snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Toast Message", "关闭", action -> snackbar.close()), Duration.INDEFINITE, null));
+            snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Toast Message Toast Message Toast Message", "关闭", action -> snackbar.close()), Duration.millis(3000), null));
         });
 
         // 语言切换 JFXComboBox
