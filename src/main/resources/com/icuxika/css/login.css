@@ -2,6 +2,51 @@
     -fx-background-color: #8d7ac7;
 }
 
+.jfx-tooltip {
+    -fx-font-size: 12;
+}
+
+.generalLoginBox,
+.passwordContainer,
+.verificationCodeContainer,
+.qrLoginBox {
+    -fx-background-color: white;
+}
+
+.generaLoginTypeChooseContainer .ikonli-font-icon {
+    -fx-icon-color: #747272;
+    -fx-icon-size: 48;
+}
+
+.qrCodeIconContainer .ikonli-font-icon:hover {
+    -fx-icon-color: black;
+}
+
+.qrCodeIconContainer .ikonli-font-icon {
+    -fx-icon-color: #747272;
+    -fx-icon-size: 24;
+}
+
+.generaLoginTypeChooseContainer .ikonli-font-icon:hover {
+    -fx-icon-color: black;
+}
+
+.qrLoginPromptLabel .hyperlink {
+    -fx-border-color: transparent;
+    -fx-text-fill: dodgerblue;
+}
+
+.qrLoginPromptLabel .hyperlink:hover {
+    -fx-underline: false;
+}
+
+.qrLoginPromptLabel .hyperlink:visited {
+    -fx-underline: false;
+}
+
+
+/* ------------------ */
+
 .login-progress-bar > .bar {
     -fx-background-color: #ff8000;
     -fx-padding: 6;

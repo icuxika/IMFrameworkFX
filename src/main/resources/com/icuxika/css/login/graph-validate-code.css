@@ -1,0 +1,27 @@
+.containerPane {
+    -fx-background-color: transparent;
+}
+
+.containerPane {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-border-color: dodgerblue;
+    -fx-border-radius: 4;
+}
+
+.header {
+    -fx-background-color: dodgerblue;
+}
+
+.jfx-tooltip {
+    -fx-font-size: 12;
+}
+
+.refreshButtonContainer .ikonli-font-icon {
+    -fx-icon-color: #747272;
+    -fx-icon-size: 24;
+}
+
+.refreshButtonContainer .ikonli-font-icon:hover {
+    -fx-icon-color: black;
+}

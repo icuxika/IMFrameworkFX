@@ -5,11 +5,12 @@ import com.icuxika.framework.StartupLocation;
 import com.icuxika.i18n.LanguageResource;
 import com.icuxika.i18n.ObservableResourceBundleFactory;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.application.Preloader;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
@@ -41,11 +42,34 @@ public class MainApp extends Application {
     public static final List<Locale> SUPPORT_LANGUAGE_LIST = Arrays.asList(Locale.SIMPLIFIED_CHINESE, Locale.ENGLISH);
 
     /**
+     * 记录当前所选时区
+     */
+    private static final ObjectProperty<Locale> currentLocale = new SimpleObjectProperty<>();
+
+    public static ObjectProperty<Locale> currentLocaleProperty() {
+        return currentLocale;
+    }
+
+    public static void setCurrentLocale(Locale locale) {
+        currentLocaleProperty().set(locale);
+    }
+
+    /**
+     * 更换语言的组件使用此方法初始化自己的值，调用 {@link MainApp#setLanguage(Locale)} 来更新界面语言
+     *
+     * @return 当前界面语言
+     */
+    public static Locale getCurrentLocale() {
+        return currentLocaleProperty().get();
+    }
+
+    /**
      * 更新界面语言
      *
      * @param locale 区域
      */
     public static void setLanguage(Locale locale) {
+        setCurrentLocale(locale);
         LANGUAGE_RESOURCE_FACTORY.setResourceBundle(ResourceBundle.getBundle(LANGUAGE_RESOURCE_NAME, locale));
     }
 
@@ -114,11 +138,10 @@ public class MainApp extends Application {
         preloadTask();
         ready.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                Platform.runLater(() -> {
-                    primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
-                    AppView<LoginController> loginView = new AppView<>(LoginController.class);
-                    loginView.setStage(primaryStage).show();
-                });
+                primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
+                primaryStage.setResizable(false);
+                AppView<LoginController> loginView = new AppView<>(LoginController.class);
+                loginView.setStage(primaryStage).show();
             }
         });
     }
@@ -132,7 +155,7 @@ public class MainApp extends Application {
      * 预加载任务
      */
     private void preloadTask() {
-        new Thread(new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
             protected Void call() throws Exception {
                 int max = 10;
@@ -140,11 +163,22 @@ public class MainApp extends Application {
                     Thread.sleep(200);
                     notifyPreloader(new Preloader.ProgressNotification(((double) i) / max));
                 }
-//                notifyPreloader(new Preloader.ErrorNotification("null" , "出现了一些错误", new RuntimeException("运行时错误")));
-                ready.setValue(Boolean.TRUE);
-                notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
                 return null;
             }
-        }).start();
+
+            @Override
+            protected void failed() {
+                notifyPreloader(new Preloader.ErrorNotification("null", "出现了一些错误", new RuntimeException("运行时错误")));
+            }
+
+            @Override
+            protected void succeeded() {
+                ready.setValue(Boolean.TRUE);
+                notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
 }

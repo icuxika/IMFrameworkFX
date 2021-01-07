@@ -11,12 +11,23 @@ public class LanguageResource_zh_CN extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
+                {"confirm", "确认"},
+                {"cancel", "取消"},
                 {"title", "即时通讯"},
                 {"login", "登录"},
+                {"qr-login", "二维码登录"},
                 {"login-username", "请输入用户名"},
                 {"login-username-need", "用户名不能为空！"},
                 {"login-password", "请输入密码"},
                 {"login-password-need", "密码不能为空！"},
+                {"verification-code", "请输入验证码"},
+                {"verification-code-need", "验证码不能为空！"},
+                {"obtain-verification-code", "获取验证码"},
+                {"re-obtain-verification-code", "重新获取"},
+                {"remember-password", "记住密码"},
+                {"auto-login", "自动登录"},
+                {"remember-password", "记住密码"},
+                {"auto-login", "自动登录"},
                 {"register", "注册"},
                 {"register-link", "注册账号"},
                 {"forgot-password-link", "忘记密码"},

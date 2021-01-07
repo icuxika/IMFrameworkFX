@@ -6,12 +6,21 @@ public class LanguageResource_en extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
         return new Object[][]{
+                {"confirm", "Confirm"},
+                {"cancel", "Cancel"},
                 {"title", "Instant messaging"},
                 {"login", "Sign In"},
+                {"qr-login", "QR Login"},
                 {"login-username", "Please enter your username"},
                 {"login-username-need", "Username can't be empty!"},
                 {"login-password", "Please enter your password"},
                 {"login-password-need", "Password can't be empty"},
+                {"verification-code", "Please enter your verification code"},
+                {"verification-code-need", "Verification code can't be empty"},
+                {"obtain-verification-code", "Get Code"},
+                {"re-obtain-verification-code", "Refresh "},
+                {"remember-password", "Remember me"},
+                {"auto-login", "Auto login"},
                 {"register", "Sign up"},
                 {"register-link", "Sign Up"},
                 {"forgot-password-link", "Forgot Password?"},

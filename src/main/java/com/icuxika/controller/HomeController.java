@@ -57,7 +57,7 @@ public class HomeController {
         addressBookButton.setOnAction(event -> switchPage(HomePageType.ADDRESS_BOOK));
 
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
-        languageComboBox.setValue(Locale.SIMPLIFIED_CHINESE);
+        languageComboBox.setValue(MainApp.getCurrentLocale());
         languageComboBox.setCellFactory(param -> new LanguageListCell());
         languageComboBox.setButtonCell(new LanguageListCell());
         languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {

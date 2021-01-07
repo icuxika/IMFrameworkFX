@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0"
+            prefWidth="360.0" styleClass="containerPane" stylesheets="@../css/login/graph-validate-code.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icuxika.controller.login.GraphValidateCodeController">
+    <center>
+        <BorderPane styleClass="contentPane" BorderPane.alignment="CENTER">
+            <top>
+                <HBox alignment="CENTER" prefHeight="37.0" prefWidth="320.0" styleClass="header"
+                      BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="titleLabel" text="图形验证码" textFill="WHITE">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                            <font>
+                                <Font name="Microsoft YaHei" size="14.0"/>
+                            </font>
+                        </Label>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+            </top>
+            <bottom>
+                <HBox fx:id="operateBox" alignment="CENTER" prefHeight="48.0" BorderPane.alignment="CENTER"/>
+            </bottom>
+            <center>
+                <VBox prefHeight="123.0" prefWidth="320.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="96.0" prefWidth="320.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <ImageView fx:id="verificationCodeImageView" fitHeight="67.0"
+                                                           fitWidth="185.0" pickOnBounds="true" preserveRatio="true"/>
+                                            </children>
+                                        </HBox>
+                                        <VBox fx:id="refreshButtonContainer" alignment="CENTER" prefHeight="36.0"
+                                              styleClass="refreshButtonContainer"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox fx:id="verificationCodeFieldContainer" alignment="CENTER" prefHeight="80.0"
+                              prefWidth="318.0" spacing="10.0"/>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

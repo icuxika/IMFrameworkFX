@@ -2,12 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane prefHeight="440.0" prefWidth="643.0" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.LoginController">
+<BorderPane stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.icuxika.controller.LoginController">
    <left>
-      <BorderPane prefHeight="350.0" prefWidth="230.0" styleClass="flyleaf" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="480.0" prefWidth="360.0" styleClass="flyleaf" BorderPane.alignment="CENTER">
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="230.0" BorderPane.alignment="CENTER">
                <children>
@@ -25,59 +26,98 @@
       </BorderPane>
    </left>
    <right>
-      <BorderPane prefHeight="350.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="480.0" prefWidth="280.0" BorderPane.alignment="CENTER">
          <top>
             <HBox fx:id="header" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="412.0"
-                  BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="homeButton" mnemonicParsing="false" text="主页面"/>
-                  <ComboBox fx:id="languageComboBox" prefHeight="27.0" prefWidth="108.0">
-                     <HBox.margin>
-                        <Insets right="8.0"/>
-                     </HBox.margin>
-                  </ComboBox>
-               </children>
-            </HBox>
+                  BorderPane.alignment="CENTER"/>
          </top>
+         <bottom>
+            <VBox fx:id="loginProgressContainer" alignment="BOTTOM_CENTER" prefHeight="36.0" prefWidth="280.0"
+                  BorderPane.alignment="CENTER"/>
+         </bottom>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets/>
-               </BorderPane.margin>
+            <StackPane>
                <children>
-                  <VBox alignment="CENTER" maxWidth="240.0">
+                  <VBox fx:id="qrLoginBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                        styleClass="qrLoginBox">
                      <children>
-                        <HBox alignment="BOTTOM_LEFT" prefHeight="39.0" prefWidth="252.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS"/>
+                        <StackPane>
                            <children>
-                              <Label fx:id="loginTitleLabel" text="登录">
-                                 <font>
-                                    <Font size="24.0"/>
-                                 </font>
-                              </Label>
+                              <ImageView fx:id="qrCodeImageView" fitHeight="140.0" fitWidth="140.0" pickOnBounds="true"
+                                         preserveRatio="true"/>
+                              <HBox fx:id="qrCodeShadeBox" maxHeight="140.0" maxWidth="140.0" minHeight="140.0"
+                                    minWidth="140.0"/>
                            </children>
-                        </HBox>
-                        <HBox fx:id="usernameContainer" alignment="BOTTOM_CENTER" prefHeight="80.0"/>
-                        <HBox fx:id="passwordContainer" alignment="BOTTOM_CENTER" prefHeight="80.0"/>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="48.0">
+                        </StackPane>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Hyperlink fx:id="registerLink" text="注册账号"/>
-                              <HBox HBox.hgrow="ALWAYS"/>
-                              <Hyperlink fx:id="forgotPasswordLink" text="忘记密码"/>
+                              <HBox alignment="CENTER" prefHeight="60.0" prefWidth="278.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label fx:id="qrLoginPromptLabel" contentDisplay="RIGHT" graphicTextGap="0.0"
+                                           styleClass="qrLoginPromptLabel" text="二维码失效，请点击">
+                                       <graphic>
+                                          <Hyperlink fx:id="qrLoginPromptLink" text="刷新"/>
+                                       </graphic>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="qrLoginReturnContainer" alignment="CENTER" prefHeight="60.0"
+                                    prefWidth="278.0" VBox.vgrow="ALWAYS"/>
                            </children>
-                        </HBox>
-                        <HBox fx:id="loginButtonContainer" alignment="CENTER" prefHeight="48.0"/>
+                        </VBox>
                      </children>
+                  </VBox>
+                  <VBox fx:id="generalLoginBox" prefHeight="200.0" prefWidth="100.0" styleClass="generalLoginBox">
+                     <children>
+                        <HBox fx:id="generaLoginTypeChooseContainer" alignment="CENTER" prefHeight="100.0"
+                              prefWidth="200.0" spacing="24.0" styleClass="generaLoginTypeChooseContainer"/>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox fx:id="usernameContainer" alignment="CENTER" prefHeight="84.0"/>
+                              <StackPane prefHeight="84.0">
+                                 <children>
+                                    <HBox fx:id="passwordContainer" alignment="CENTER" styleClass="passwordContainer"/>
+                                    <HBox fx:id="verificationCodeContainer" alignment="CENTER"
+                                          styleClass="verificationCodeContainer"/>
+                                 </children>
+                              </StackPane>
+                              <HBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox minWidth="32.0"/>
+                                    <HBox fx:id="loginButtonContainer" alignment="CENTER" HBox.hgrow="ALWAYS"/>
+                                    <HBox fx:id="qrCodeIconContainer" alignment="CENTER" minWidth="32.0"
+                                          styleClass="qrCodeIconContainer"/>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="64.0" prefWidth="240.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false" text="记住密码"/>
+                                    <HBox HBox.hgrow="ALWAYS"/>
+                                    <Hyperlink fx:id="forgotPasswordLink" text="忘记密码"/>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <CheckBox fx:id="autoLoginCheckBox" mnemonicParsing="false" text="自动登录"/>
+                                    <HBox HBox.hgrow="ALWAYS"/>
+                                    <Hyperlink fx:id="registerLink" text="注册账号"/>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0"/>
+                     </padding>
                   </VBox>
                </children>
             </StackPane>
          </center>
-         <bottom>
-            <VBox prefHeight="34.0" prefWidth="412.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox fx:id="progressContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"/>
-               </children>
-            </VBox>
-         </bottom>
       </BorderPane>
    </right>
 </BorderPane>
