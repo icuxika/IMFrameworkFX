@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
@@ -111,8 +110,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
                                                       VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false"
-                                                                  text="记住密码"/>
+                                                        <HBox fx:id="rememberContainer" alignment="CENTER"/>
                                                         <HBox HBox.hgrow="ALWAYS"/>
                                                         <Hyperlink fx:id="forgotPasswordLink" text="忘记密码"/>
                                                     </children>
@@ -120,8 +118,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
                                                       VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <CheckBox fx:id="autoLoginCheckBox" mnemonicParsing="false"
-                                                                  text="自动登录"/>
+                                                        <HBox fx:id="autoLoginContainer" alignment="CENTER"/>
                                                         <HBox HBox.hgrow="ALWAYS"/>
                                                         <Hyperlink fx:id="registerLink" text="注册账号"/>
                                                     </children>

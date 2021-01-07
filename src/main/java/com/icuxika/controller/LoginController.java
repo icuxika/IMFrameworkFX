@@ -21,7 +21,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -72,9 +71,11 @@ public class LoginController {
     @FXML
     private HBox qrCodeIconContainer;
     @FXML
-    private CheckBox rememberCheckBox;
+    private HBox rememberContainer;
+    private JFXCheckBox rememberCheckBox;
     @FXML
-    private CheckBox autoLoginCheckBox;
+    private HBox autoLoginContainer;
+    private JFXCheckBox autoLoginCheckBox;
     @FXML
     private Hyperlink forgotPasswordLink;
     @FXML
@@ -259,8 +260,12 @@ public class LoginController {
         JFXTooltip.install(qrCodeIcon, new JFXTooltip(MainApp.getLanguageBinding("qr-login"), Pos.CENTER_RIGHT));
         qrCodeIconContainer.getChildren().add(qrCodeIcon);
 
+        rememberCheckBox = new JFXCheckBox();
         rememberCheckBox.textProperty().bind(MainApp.getLanguageBinding("remember-password"));
+        rememberContainer.getChildren().add(rememberCheckBox);
+        autoLoginCheckBox = new JFXCheckBox();
         autoLoginCheckBox.textProperty().bind(MainApp.getLanguageBinding("auto-login"));
+        autoLoginContainer.getChildren().add(autoLoginCheckBox);
         forgotPasswordLink.textProperty().bind(MainApp.getLanguageBinding("forgot-password-link"));
         registerLink.textProperty().bind(MainApp.getLanguageBinding("register-link"));
 
