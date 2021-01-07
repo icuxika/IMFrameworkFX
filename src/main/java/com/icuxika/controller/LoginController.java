@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -184,8 +185,18 @@ public class LoginController {
         textArea.setLabelFloat(true);
         textArea.setPromptText("提示文字");
         textArea.setMaxWidth(300);
-        textArea.setMaxHeight(200);
+        textArea.setMaxHeight(100);
         testContainer.getChildren().add(textArea);
+
+        JFXTabPane tabPane = new JFXTabPane();
+        tabPane.setPrefHeight(100);
+        for (int i = 0; i < 2; i++) {
+            Tab tab = new Tab();
+            tab.setText("text" + i);
+            tab.setContent(new Label(String.valueOf(i)));
+            tabPane.getTabs().add(tab);
+        }
+        testContainer.getChildren().add(tabPane);
 
         // 语言切换 JFXComboBox
         languageComboBox = new JFXComboBox<>();
