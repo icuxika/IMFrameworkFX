@@ -198,6 +198,12 @@ public class LoginController {
         }
         testContainer.getChildren().add(tabPane);
 
+        JFXChipView<String> chipView = new JFXChipView<>();
+        chipView.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        chipView.getChips().addAll("123", "1231");
+        chipView.getSuggestions().addAll("avc", "adfa");
+        testContainer.getChildren().add(chipView);
+
         // 语言切换 JFXComboBox
         languageComboBox = new JFXComboBox<>();
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
