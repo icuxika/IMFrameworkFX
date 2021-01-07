@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -29,6 +30,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
@@ -41,10 +43,19 @@ import java.util.function.Consumer;
 public class LoginController {
 
     @FXML
+    private StackPane containerPane;
+
+    @FXML
     private Label flyleafTitleLabel;
 
     @FXML
     private HBox header;
+
+    @FXML
+    private Button alertTestButton;
+
+    @FXML
+    private Button dialogTestButton;
 
     @FXML
     private VBox generalLoginBox;
@@ -122,6 +133,37 @@ public class LoginController {
 
     public void initialize() {
         flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
+
+        alertTestButton.setOnAction(event -> {
+            JFXAlert<Stage> alert = new JFXAlert<>(alertTestButton.getScene().getWindow());
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setOverlayClose(false);
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setHeading(new Label("对话框标题"));
+            layout.setBody(new Label("内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"));
+            JFXButton closeButton = new JFXButton("确认");
+            closeButton.setButtonType(JFXButton.ButtonType.FLAT);
+            closeButton.setTextFill(Paint.valueOf("#03A9F4"));
+            closeButton.setOnAction(e -> alert.hideWithAnimation());
+            layout.setActions(closeButton);
+            alert.setContent(layout);
+            alert.show();
+        });
+
+        dialogTestButton.setOnAction(event -> {
+            JFXDialog dialog = new JFXDialog();
+            JFXDialogLayout layout = new JFXDialogLayout();
+            layout.setHeading(new Label("对话框标题"));
+            layout.setBody(new Label("内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"));
+            JFXButton closeButton = new JFXButton("确认");
+            closeButton.setButtonType(JFXButton.ButtonType.FLAT);
+            closeButton.setTextFill(Paint.valueOf("#03A9F4"));
+            closeButton.setOnAction(e -> dialog.close());
+            layout.setActions(closeButton);
+            dialog.setContent(layout);
+            dialog.setTransitionType(JFXDialog.DialogTransition.BOTTOM);
+            dialog.show(containerPane);
+        });
 
         // 语言切换 JFXComboBox
         languageComboBox = new JFXComboBox<>();

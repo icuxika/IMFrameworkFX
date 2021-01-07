@@ -1,0 +1,9 @@
+.jfx-alert-overlay {
+    -fx-background-color: #00000011;
+    -fx-padding: 0;
+}
+
+.jfx-alert-overlay > .depth-container > .jfx-alert-content-container,
+.jfx-alert-overlay > .jfx-alert-content-container {
+    -fx-background-color: WHITE;
+}
