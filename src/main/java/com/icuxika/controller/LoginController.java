@@ -51,6 +51,9 @@ public class LoginController {
     private HBox header;
 
     @FXML
+    private VBox testContainer;
+
+    @FXML
     private Button alertTestButton;
 
     @FXML
@@ -176,6 +179,13 @@ public class LoginController {
 //            snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Toast Message", "关闭", action -> snackbar.close()), Duration.INDEFINITE, null));
             snackbar.fireEvent(new JFXSnackbar.SnackbarEvent(new JFXSnackbarLayout("Toast Message Toast Message Toast Message", "关闭", action -> snackbar.close()), Duration.millis(3000), null));
         });
+
+        JFXTextArea textArea = new JFXTextArea();
+        textArea.setLabelFloat(true);
+        textArea.setPromptText("提示文字");
+        textArea.setMaxWidth(300);
+        textArea.setMaxHeight(200);
+        testContainer.getChildren().add(textArea);
 
         // 语言切换 JFXComboBox
         languageComboBox = new JFXComboBox<>();

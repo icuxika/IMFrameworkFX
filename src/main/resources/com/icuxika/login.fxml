@@ -26,8 +26,8 @@
                         </HBox>
                     </top>
                     <center>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="8.0"
-                              BorderPane.alignment="CENTER">
+                        <VBox fx:id="testContainer" alignment="CENTER" prefHeight="200.0" prefWidth="100.0"
+                              spacing="8.0" BorderPane.alignment="CENTER">
                             <children>
                                 <Button fx:id="alertTestButton" mnemonicParsing="false" text="Alert测试"/>
                                 <Button fx:id="dialogTestButton" mnemonicParsing="false" text="Dialog测试"/>
