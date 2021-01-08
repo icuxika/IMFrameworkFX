@@ -6,6 +6,9 @@ import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.login.GraphValidateCodeController;
 import com.icuxika.converter.LocaleStringConverter;
 import com.icuxika.framework.QRCodeGenerator;
+import com.icuxika.framework.systemTray.SystemTrayManager;
+import com.icuxika.framework.systemTray.SystemTrayTaskManager;
+import com.icuxika.model.SystemTrayMessageModel;
 import com.icuxika.util.SystemUtil;
 import com.jfoenix.control.*;
 import com.jfoenix.svg.SVGGlyph;
@@ -139,8 +142,31 @@ public class LoginController {
 
     private final SMSResendCountDownService smsResendCountDownService = new SMSResendCountDownService(60);
 
+    private SystemTrayTaskManager systemTrayTaskManager = new SystemTrayTaskManager();
+
     public void initialize() {
+        flyleafTitleLabel.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // 设置托盘图标
+                        SystemTrayManager.initSystemTray((Stage) newWindow);
+                        SystemTrayManager.showNotLogged();
+                        SystemTrayManager.setOnExitAction(() -> {
+                            // 从托盘图标执行退出逻辑
+                            // 关闭
+                        });
+                        systemTrayTaskManager.initListeners();
+
+                        newWindow.setOnCloseRequest(event -> SystemTrayManager.exit());
+                    }
+                });
+            }
+        });
+
         flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
+        // 测试一下托盘图标任务窗口的高度变化
+        flyleafTitleLabel.setOnMouseReleased(event -> systemTrayTaskManager.pushMessage(new SystemTrayMessageModel()));
 
         alertTestButton.setOnAction(event -> {
             JFXAlert<Stage> alert = new JFXAlert<>(alertTestButton.getScene().getWindow());

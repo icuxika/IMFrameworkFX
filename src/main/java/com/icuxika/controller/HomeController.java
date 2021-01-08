@@ -5,11 +5,13 @@ import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.home.AddressBookController;
 import com.icuxika.controller.home.ConversationController;
+import com.icuxika.framework.systemTray.SystemTrayManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.util.Locale;
 
@@ -51,6 +53,22 @@ public class HomeController {
      * 【一些说明】使子页面自适应父容器宽高 需要设置子页面的 Min、Max尺寸为 USE_COMPUTED_SIZE，而将子页面组件绑定到父容器上面的方式，会使得父容器所在的Stage、Scene等尺寸无法变更，便外表却可以缩小，诡异
      */
     public void initialize() {
+        conversationButton.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // 设置托盘图标
+                        SystemTrayManager.initSystemTray((Stage) newWindow);
+                        SystemTrayManager.showLoggedIn();
+                        SystemTrayManager.setOnExitAction(() -> {
+                            // 从托盘图标执行退出逻辑
+                            // 关闭
+                        });
+                    }
+                });
+            }
+        });
+
         conversation.toFront();
 
         conversationButton.setOnAction(event -> switchPage(HomePageType.CONVERSATION));
