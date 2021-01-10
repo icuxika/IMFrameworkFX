@@ -5,6 +5,7 @@ import com.icuxika.MainApp;
 import com.icuxika.callback.MessageListViewCallback;
 import com.icuxika.controller.home.ConversationController;
 import com.icuxika.controller.home.conversation.function.EmojiController;
+import com.icuxika.framework.UserData;
 import com.icuxika.mock.ReceivedMessageModel;
 import com.icuxika.model.home.MessageModel;
 import com.icuxika.model.home.MessageStatus;
@@ -35,6 +36,8 @@ import javafx.scene.text.Font;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.Comparator;
 
 public class ChatController {
 
@@ -77,19 +80,12 @@ public class ChatController {
      * 排序过的消息集合
      * 目前暂时以消息时间为排序条件
      */
-    protected final SortedList<MessageModel> messageModelSortedList = new SortedList<>(messageModelObservableList, (o1, o2) -> {
-        if (o1.getTime() < o2.getTime()) {
-            return -1;
-        } else {
-            if (o1.getTime().equals(o2.getTime())) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-    });
+    protected final SortedList<MessageModel> messageModelSortedList = new SortedList<>(messageModelObservableList, Comparator.comparing(MessageModel::getTime));
 
-    private static AppView<EmojiController> emojiView = new AppView<>(EmojiController.class);
+    /**
+     * Emoji表情管理面板
+     */
+    private static final AppView<EmojiController> emojiView = new AppView<>(EmojiController.class);
 
     /**
      * 初始化
@@ -111,7 +107,7 @@ public class ChatController {
         messageToolbox.getChildren().addAll(emojiIcon, fileIcon, imageIcon, screenShotIcon);
 
         // 消息输入框回车发送消息
-        messageInputTextArea.setOnKeyPressed(new MessageSendKeyEventHandler(() -> sendTextMessage(0L, messageInputTextArea.getText())));
+        messageInputTextArea.setOnKeyPressed(new MessageSendKeyEventHandler(() -> sendTextMessage(UserData.userId, messageInputTextArea.getText())));
 
         // 发送消息按钮
         sendMsgButton = new JFXButton(MainApp.getLanguageBinding("chat-send-msg-btn-text"));

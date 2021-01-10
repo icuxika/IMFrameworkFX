@@ -7,6 +7,7 @@ import com.icuxika.control.ConversationNode;
 import com.icuxika.controller.home.conversation.ChatController;
 import com.icuxika.controller.home.conversation.GroupChatController;
 import com.icuxika.controller.home.conversation.SingleChatController;
+import com.icuxika.framework.UserData;
 import com.icuxika.mock.ReceivedMessageModel;
 import com.icuxika.model.home.ConversationModel;
 import com.icuxika.model.home.ConversationProperty;
@@ -64,9 +65,10 @@ public class ConversationController {
     });
 
     /**
-     * 排序过的会话集合，目前以最近会话时间为排序条件
+     * 排序过的会话集合，目前以最近会话时间为排序条件，这里使用Comparator的静态方法来简写，也可以实现Comparator接口
+     * {@link ConversationController.ConversationComparator}
      */
-    private final SortedList<ConversationModel> conversationModelSortedList = new SortedList<>(conversationModelObservableList, new ConversationComparator());
+    private final SortedList<ConversationModel> conversationModelSortedList = new SortedList<>(conversationModelObservableList, Comparator.comparing(ConversationModel::getTop).reversed().thenComparing(ConversationModel::getTime, Comparator.reverseOrder()));
 
     /**
      * 已经加载的会话组件 KEY 为会话id
@@ -83,7 +85,7 @@ public class ConversationController {
         conversationListView.setCellFactory(new ConversationListViewCallback());
         conversationListView.getSelectionModel().selectedItemProperty().addListener(new ConversationListViewSelectedListener());
 
-        conversationContainer.setBackground(new Background(new BackgroundImage(new Image(MainApp.load("img/logo.png").toExternalForm()), BackgroundRepeat.SPACE, BackgroundRepeat.SPACE, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+        conversationContainer.setBackground(new Background(new BackgroundImage(new Image(MainApp.load("img/logo.png").toExternalForm()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
         conversationModelObservableList.add(new ConversationModel(1L, 1L, ConversationProperty.SINGLE, new Image("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3397537705,1180362904&fm=26&gp=0.jpg", true), "一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟", 1608695815000L, "消息一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟一号抵达嘀嘀嘀嘀嘀嘀提嘟嘟嘟", 0, true));
         conversationModelObservableList.add(new ConversationModel(2L, 2L, ConversationProperty.SINGLE, new Image("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1587601794,489963968&fm=11&gp=0.jpg", true), "二号", 1608609415000L, "消息", 99, true));
@@ -265,10 +267,17 @@ public class ConversationController {
 
         ConversationModel conversationModel = getConversationData(receivedMessageModel.getConversationId());
         if (conversationModel != null) {
-            messageModel.setName(conversationModel.getNameProperty());
-            messageModel.setAvatarImageProperty(conversationModel.getAvatarProperty());
+            if (receivedMessageModel.getSenderId().equals(UserData.userId)) {
+                // 登录用户所发出的消息
+                messageModel.setName(UserData.nameProperty());
+                messageModel.setAvatarImageProperty(UserData.avatarProperty());
+            } else {
+                // 如果是单聊，则直接以会话的数据来设置名称和头像
+                // 如果是群聊，则需要根据用户id再进行查询
+                messageModel.setName(conversationModel.getNameProperty());
+                messageModel.setAvatarImageProperty(conversationModel.getAvatarProperty());
+            }
             messageModel.setConversationProperty(conversationModel.getConversationProperty());
-
             // 通过更新会话时间来触发会话更新
             conversationModel.setTime(messageModel.getTime());
         }

@@ -23,6 +23,20 @@
     -fx-background-color: WHITE;
 }
 
+.sideBox {
+    -fx-background-color: dodgerblue;
+}
+
+/* homePageIconContainer */
+.homePageIconContainer > .ikonli-font-icon {
+    -fx-icon-color: #FFFFFF;
+    -fx-icon-size: 24;
+}
+
+.homePageIconContainer > .ikonli-font-icon:hover {
+    -fx-icon-color: #EAEAEA;
+}
+
 /* conversation > conversationPane */
 .conversationPane {
     -fx-background-insets: 0;
@@ -327,6 +341,10 @@
 
 .context-menu .label {
     -fx-text-fill: black;
+}
+
+.context-menu .jfx-svg-glyph {
+    -jfx-size: 12;
 }
 
 .check-menu-item:focused {
