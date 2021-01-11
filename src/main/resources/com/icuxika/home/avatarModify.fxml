@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.icuxika.controller.home.AvatarModifyController">
+   <children>
+      <BorderPane>
+         <center>
+            <HBox fx:id="mainImageContainer" alignment="CENTER" BorderPane.alignment="CENTER"/>
+         </center>
+         <top>
+            <HBox fx:id="header" alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER"/>
+         </top>
+         <bottom>
+            <HBox fx:id="footer" alignment="CENTER_RIGHT" prefHeight="40.0" BorderPane.alignment="CENTER"/>
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>

@@ -1,9 +1,11 @@
 package com.icuxika.controller;
 
+import com.icuxika.AppView;
 import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.home.AddressBookController;
+import com.icuxika.controller.home.AvatarModifyController;
 import com.icuxika.controller.home.ConversationController;
 import com.icuxika.framework.UserData;
 import com.icuxika.framework.UserStatus;
@@ -106,6 +108,15 @@ public class HomeController {
         avatarImageView.setClip(avatarImageClip);
         avatarImageView.setEffect(new DropShadow(2, Color.BLACK));
         UserData.setAvatar(new Image(MainApp.load("img/avatar.jpg").toExternalForm(), true));
+
+        // 修改头像
+        avatarImageView.setOnMouseClicked(event -> {
+            AppView<AvatarModifyController> avatarModifyView = new AppView<>(AvatarModifyController.class);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.initOwner(avatarImageView.getScene().getWindow());
+            avatarModifyView.setStage(stage).show();
+        });
 
         // 绑定用户在线状态图标
         userStatusTextFlow.shapeProperty().bind(UserData.userStatusIconShapeProperty());
