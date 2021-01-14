@@ -124,13 +124,14 @@ public class JFXButtonSkin extends ButtonSkin {
 
     public void updateButtonType(JFXButton.ButtonType type) {
         switch (type) {
-            case RAISED -> {
+            case RAISED: {
                 JFXDepthManager.setDepth(getSkinnable(), 2);
                 clickedAnimation = new ButtonClickTransition(getSkinnable(), (DropShadow) getSkinnable().getEffect());
                 getSkinnable().setPickOnBounds(false);
+                break;
             }
 
-            default -> {
+            default: {
                 getSkinnable().setEffect(null);
                 getSkinnable().setPickOnBounds(true);
             }

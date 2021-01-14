@@ -179,14 +179,36 @@ public class DateUtil {
     private static String dayOfWeek2CN(DayOfWeek dayOfWeek) {
         String value;
         switch (dayOfWeek) {
-            case MONDAY -> value = "一";
-            case TUESDAY -> value = "二";
-            case WEDNESDAY -> value = "三";
-            case THURSDAY -> value = "四";
-            case FRIDAY -> value = "五";
-            case SATURDAY -> value = "六";
-            case SUNDAY -> value = "七";
-            default -> throw new IllegalStateException("Unexpected value: " + dayOfWeek);
+            case MONDAY: {
+                value = "一";
+                break;
+            }
+            case TUESDAY: {
+                value = "二";
+                break;
+            }
+            case WEDNESDAY: {
+                value = "三";
+                break;
+            }
+            case THURSDAY: {
+                value = "四";
+                break;
+            }
+            case FRIDAY: {
+                value = "五";
+                break;
+            }
+            case SATURDAY: {
+                value = "六";
+                break;
+            }
+            case SUNDAY: {
+                value = "七";
+                break;
+            }
+            default:
+                throw new IllegalStateException("Unexpected value: " + dayOfWeek);
         }
         return value;
     }

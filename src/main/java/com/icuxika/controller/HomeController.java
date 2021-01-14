@@ -125,25 +125,30 @@ public class HomeController {
         UserData.userStatusProperty().addListener((observable, oldValue, newValue) -> {
             SVGPath userStatusIcon = new SVGPath();
             switch (newValue) {
-                case ONLINE -> {
+                case ONLINE: {
                     userStatusIcon.setContent("M511.999488 61.745273c-248.678712 0-450.273176 201.585181-450.273176 450.254727s201.594464 450.254727 450.273176 450.254727c248.678712 0 450.273176-201.585181 450.273176-450.254727S760.6782 61.745273 511.999488 61.745273zM480.664569 672.184259l-64.396228 64.370053-64.431021-64.370053L223.009047 543.351032l64.397251-64.393589L416.244804 607.744621l320.325361-320.298933 64.419765 64.393589L480.664569 672.184259z");
                     userStatusTextFlow.setBackground(new Background(new BackgroundFill(Paint.valueOf("#73d74d"), null, null)));
+                    break;
                 }
-                case OFFLINE -> {
+                case OFFLINE: {
                     userStatusIcon.setContent("M511.999488 61.745273c-248.678712 0-450.273176 201.585181-450.273176 450.254727s201.594464 450.254727 450.273176 450.254727c248.678712 0 450.273176-201.585181 450.273176-450.254727S760.6782 61.745273 511.999488 61.745273zM705.974102 640.246873l-65.770584 65.73105L512.022002 577.75561 383.770898 705.978946l-65.746024-65.73105 128.20403-128.246873L318.024874 383.776663l65.746024-65.75561 128.22859 128.223337 128.20403-128.223337 65.770584 65.75561L577.745512 512 705.974102 640.246873z");
                     userStatusTextFlow.setBackground(new Background(new BackgroundFill(Paint.valueOf("#b4b8ba"), null, null)));
+                    break;
                 }
-                case HIDE -> {
+                case HIDE: {
                     userStatusIcon.setContent("M511.999488 61.745273c-248.678712 0-450.273176 201.585181-450.273176 450.254727s201.594464 450.254727 450.273176 450.254727 450.273176-201.585181 450.273176-450.254727S760.6782 61.745273 511.999488 61.745273zM266.371377 306.294988l491.256222 0 0 33.772174L266.371377 340.067162 266.371377 306.294988zM757.627599 717.706035 266.371377 717.706035l0-33.773198 491.256222 0L757.627599 717.706035zM140.487278 528.886599l0-33.771151 743.024421 0 0 33.771151L140.487278 528.886599z");
                     userStatusTextFlow.setBackground(new Background(new BackgroundFill(Paint.valueOf("#e8c35e"), null, null)));
+                    break;
                 }
-                case BUSY -> {
+                case BUSY: {
                     userStatusIcon.setContent("M511.999488 61.745273c-248.678712 0-450.273176 201.585181-450.273176 450.254727s201.594464 450.254727 450.273176 450.254727c248.678712 0 450.273176-201.585181 450.273176-450.254727S760.6782 61.745273 511.999488 61.745273zM739.818272 558.50415l-181.308634-0.033769-93.020298 0.024559-181.325008-0.017396-0.00921-92.983741 181.342405 0 92.986528 0.008186 181.360825 0.017396L739.818272 558.50415z");
                     userStatusTextFlow.setBackground(new Background(new BackgroundFill(Paint.valueOf("#ed695e"), null, null)));
+                    break;
                 }
-                case LEAVE -> {
+                case LEAVE: {
                     userStatusIcon.setContent("M511.999488 61.745273c-248.681782 0-450.273176 201.543226-450.273176 450.214818 0 248.711502 201.591394 450.294636 450.273176 450.294636s450.273176-201.583135 450.273176-450.294636C962.272664 263.288498 760.68127 61.745273 511.999488 61.745273zM511.999488 877.79308c-202.051901 0-365.867422-163.810856-365.867422-365.832989 0-202.023156 163.814498-365.8115 365.867422-365.8115 202.049854 0 365.867422 163.789367 365.867422 365.8115C877.865887 713.982224 714.049343 877.79308 511.999488 877.79308zM547.17708 476.78394 547.17708 171.950234 476.821896 171.950234 476.821896 547.176151 521.393824 547.176151 547.17708 547.176151 830.976076 547.176151 830.976076 476.78394Z");
                     userStatusTextFlow.setBackground(new Background(new BackgroundFill(Paint.valueOf("#b4b8ba"), null, null)));
+                    break;
                 }
             }
             UserData.setUserStatusIconShape(userStatusIcon);
@@ -215,11 +220,13 @@ public class HomeController {
      */
     public void switchPage(HomePageType pageType) {
         switch (pageType) {
-            case CONVERSATION -> {
+            case CONVERSATION: {
                 conversation.toFront();
+                break;
             }
-            case ADDRESS_BOOK -> {
+            case ADDRESS_BOOK: {
                 addressBook.toFront();
+                break;
             }
         }
     }

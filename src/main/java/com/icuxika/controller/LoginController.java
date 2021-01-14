@@ -377,15 +377,20 @@ public class LoginController {
 
         loginTypeProperty().addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
-                case PASSWORD -> {
+                case PASSWORD: {
                     generalLoginBox.toFront();
                     passwordContainer.toFront();
+                    break;
                 }
-                case SMS -> {
+                case SMS: {
                     generalLoginBox.toFront();
                     verificationCodeContainer.toFront();
+                    break;
                 }
-                case QR -> qrLoginBox.toFront();
+                case QR: {
+                    qrLoginBox.toFront();
+                    break;
+                }
             }
         });
         passwordIcon.setOnMouseReleased(event -> setLoginType(LoginType.PASSWORD));

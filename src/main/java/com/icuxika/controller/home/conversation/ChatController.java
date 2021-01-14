@@ -42,6 +42,20 @@ import java.util.Comparator;
 public class ChatController {
 
     /**
+     * Emoji表情管理面板
+     */
+    private static final AppView<EmojiController> emojiView = new AppView<>(EmojiController.class);
+    /**
+     * 通过操作此集合来更新消息列表
+     */
+    protected final ObservableList<MessageModel> messageModelObservableList = FXCollections.observableArrayList();
+    /**
+     * 排序过的消息集合
+     * 目前暂时以消息时间为排序条件
+     */
+    protected final SortedList<MessageModel> messageModelSortedList = new SortedList<>(messageModelObservableList, Comparator.comparing(MessageModel::getTime));
+    private final ObjectProperty<MessageSendType> messageSendTypeProperty = new SimpleObjectProperty<>(MessageSendType.ENTER);
+    /**
      * 相同组件
      */
     @FXML
@@ -54,38 +68,24 @@ public class ChatController {
     protected TextArea messageInputTextArea;
     @FXML
     protected HBox messageSendBox;
-
     protected JFXButton sendMsgButton;
     protected JFXButton msgSendTypeButton;
-    private final ObjectProperty<MessageSendType> messageSendTypeProperty = new SimpleObjectProperty<>(MessageSendType.ENTER);
+    /**
+     * 存储此id以获取必要的会话数据
+     */
+    private Long conversationId;
 
     private ObjectProperty<MessageSendType> getMessageSendTypeProperty() {
         return this.messageSendTypeProperty;
-    }
-
-    public void setMessageSendType(MessageSendType messageSendType) {
-        getMessageSendTypeProperty().set(messageSendType);
     }
 
     public MessageSendType getMessageSendType() {
         return getMessageSendTypeProperty().get();
     }
 
-    /**
-     * 通过操作此集合来更新消息列表
-     */
-    protected final ObservableList<MessageModel> messageModelObservableList = FXCollections.observableArrayList();
-
-    /**
-     * 排序过的消息集合
-     * 目前暂时以消息时间为排序条件
-     */
-    protected final SortedList<MessageModel> messageModelSortedList = new SortedList<>(messageModelObservableList, Comparator.comparing(MessageModel::getTime));
-
-    /**
-     * Emoji表情管理面板
-     */
-    private static final AppView<EmojiController> emojiView = new AppView<>(EmojiController.class);
+    public void setMessageSendType(MessageSendType messageSendType) {
+        getMessageSendTypeProperty().set(messageSendType);
+    }
 
     /**
      * 初始化
@@ -161,7 +161,7 @@ public class ChatController {
     public void receiveMessage(MessageModel messageModel) {
         MessageType messageType = messageModel.getType();
         switch (messageType) {
-            case REVOKE -> {
+            case REVOKE: {
                 MessageModel revokedMessage = messageModelObservableList.stream().filter(model -> model.getId().equals(messageModel.getOperatedId())).findFirst().orElse(null);
 
                 MessageModel promptMessage = new MessageModel();
@@ -174,8 +174,9 @@ public class ChatController {
                 messageModelObservableList.add(promptMessage);
 
                 messageModelObservableList.remove(revokedMessage);
+                break;
             }
-            case DELETE -> {
+            case DELETE: {
                 MessageModel revokedMessage = messageModelObservableList.stream().filter(model -> model.getId().equals(messageModel.getOperatedId())).findFirst().orElse(null);
 
                 MessageModel promptMessage = new MessageModel();
@@ -188,15 +189,12 @@ public class ChatController {
                 messageModelObservableList.add(promptMessage);
 
                 messageModelObservableList.remove(revokedMessage);
+                break;
             }
-            default -> messageModelObservableList.add(messageModel);
+            default:
+                messageModelObservableList.add(messageModel);
         }
     }
-
-    /**
-     * 存储此id以获取必要的会话数据
-     */
-    private Long conversationId;
 
     public Long getConversationId() {
         return conversationId;
@@ -232,49 +230,6 @@ public class ChatController {
 
         ConversationController.receivedMessageModelObservableList.add(receivedMessageModel);
         // 对方收到此消息
-    }
-
-    /**
-     * 消息输入框按键事件监听
-     */
-    protected class MessageSendKeyEventHandler implements EventHandler<KeyEvent> {
-
-        private final Runnable callback;
-
-        public MessageSendKeyEventHandler(Runnable callback) {
-            this.callback = callback;
-        }
-
-        private final KeyCombination ENTER = new KeyCodeCombination(KeyCode.ENTER);
-        private final KeyCombination CTRL_ENTER = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.CONTROL_DOWN);
-        private final KeyCombination SHIFT_ENTER = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.SHIFT_DOWN);
-
-        @Override
-        public void handle(KeyEvent event) {
-            MessageSendType messageSendType = getMessageSendType();
-            if (ENTER.match(event)) {
-                if (messageSendType == MessageSendType.ENTER) {
-                    // 直接发送
-                    callback.run();
-                }
-                if (messageSendType == MessageSendType.CTRL_ENTER) {
-                    messageInputTextArea.deleteText(messageInputTextArea.getSelection());
-                    messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "");
-                }
-            } else if (CTRL_ENTER.match(event)) {
-                if (messageSendType == MessageSendType.ENTER) {
-                    messageInputTextArea.deleteText(messageInputTextArea.getSelection());
-                    messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "\n");
-                }
-                if (messageSendType == MessageSendType.CTRL_ENTER) {
-                    // 直接发送
-                    callback.run();
-                }
-            } else if (SHIFT_ENTER.match(event)) {
-                messageInputTextArea.deleteText(messageInputTextArea.getSelection());
-                messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "\n");
-            }
-        }
     }
 
     /**
@@ -314,6 +269,48 @@ public class ChatController {
          * 按Ctrl+Enter键发送消息
          */
         CTRL_ENTER
+    }
+
+    /**
+     * 消息输入框按键事件监听
+     */
+    protected class MessageSendKeyEventHandler implements EventHandler<KeyEvent> {
+
+        private final Runnable callback;
+        private final KeyCombination ENTER = new KeyCodeCombination(KeyCode.ENTER);
+        private final KeyCombination CTRL_ENTER = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.CONTROL_DOWN);
+        private final KeyCombination SHIFT_ENTER = new KeyCodeCombination(KeyCode.ENTER, KeyCombination.SHIFT_DOWN);
+
+        public MessageSendKeyEventHandler(Runnable callback) {
+            this.callback = callback;
+        }
+
+        @Override
+        public void handle(KeyEvent event) {
+            MessageSendType messageSendType = getMessageSendType();
+            if (ENTER.match(event)) {
+                if (messageSendType == MessageSendType.ENTER) {
+                    // 直接发送
+                    callback.run();
+                }
+                if (messageSendType == MessageSendType.CTRL_ENTER) {
+                    messageInputTextArea.deleteText(messageInputTextArea.getSelection());
+                    messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "");
+                }
+            } else if (CTRL_ENTER.match(event)) {
+                if (messageSendType == MessageSendType.ENTER) {
+                    messageInputTextArea.deleteText(messageInputTextArea.getSelection());
+                    messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "\n");
+                }
+                if (messageSendType == MessageSendType.CTRL_ENTER) {
+                    // 直接发送
+                    callback.run();
+                }
+            } else if (SHIFT_ENTER.match(event)) {
+                messageInputTextArea.deleteText(messageInputTextArea.getSelection());
+                messageInputTextArea.insertText(messageInputTextArea.getCaretPosition(), "\n");
+            }
+        }
     }
 
 }

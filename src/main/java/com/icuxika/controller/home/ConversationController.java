@@ -130,21 +130,24 @@ public class ConversationController {
                     chatNode = chatViewMap.get(id).getRootNode();
                 } else {
                     switch (conversationProperty) {
-                        case SINGLE -> {
+                        case SINGLE: {
                             AppView<SingleChatController> singleChatView = new AppView<>(SingleChatController.class);
                             singleChatView.getController().setName(newValue.getNameProperty());
                             singleChatView.getController().setConversationId(id);
                             chatNode = singleChatView.getRootNode();
                             chatViewMap.put(id, singleChatView);
+                            break;
                         }
-                        case GROUP -> {
+                        case GROUP: {
                             AppView<GroupChatController> groupChatView = new AppView<>(GroupChatController.class);
                             groupChatView.getController().setName(newValue.getNameProperty());
                             groupChatView.getController().setConversationId(id);
                             chatNode = groupChatView.getRootNode();
                             chatViewMap.put(id, groupChatView);
+                            break;
                         }
-                        default -> throw new IllegalStateException("未定义该会话属性: " + conversationProperty);
+                        default:
+                            throw new IllegalStateException("未定义该会话属性: " + conversationProperty);
                     }
                 }
 

@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'org.beryx.jlink' version '2.22.3'
+    id 'com.gluonhq.client-gradle-plugin' version '0.1.35'
 }
 
 group 'com.icuxika'
@@ -24,6 +25,19 @@ application {
 javafx {
     version = '15'
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.swing']
+}
+
+gluonClient {
+    bundlesList.addAll(
+            "com.icuxika.i18n.LanguageResource",
+            "com.icuxika.i18n.LanguageResource_en",
+            "com.icuxika.i18n.LanguageResource_zh_CN"
+    )
+    reflectionList.addAll(
+            "org.apache.logging.log4j.message.DefaultFlowMessageFactory",
+            "org.apache.logging.log4j.message.ParameterizedMessageFactory",
+            "com.icuxika.controller.LoginController"
+    )
 }
 
 repositories {

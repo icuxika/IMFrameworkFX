@@ -30,16 +30,20 @@ public class MessageListViewCallback implements Callback<ListView<MessageModel>,
                     MessageType messageType = item.getType();
                     ConversationProperty conversationProperty = item.getConversationProperty();
                     switch (messageType) {
-                        case TEXT -> {
+                        case TEXT: {
                             TextMessageNode textMessageNode = null;
                             if (item.getSenderId() == 0) {
                                 textMessageNode = new TextMessageNode();
                             } else {
                                 switch (conversationProperty) {
-                                    case SINGLE -> textMessageNode = TextMessageNode.left(false);
-                                    case GROUP -> {
+                                    case SINGLE: {
+                                        textMessageNode = TextMessageNode.left(false);
+                                        break;
+                                    }
+                                    case GROUP: {
                                         textMessageNode = TextMessageNode.left(true);
                                         textMessageNode.setName(item.getNameProperty());
+                                        break;
                                     }
                                 }
 
@@ -70,14 +74,19 @@ public class MessageListViewCallback implements Callback<ListView<MessageModel>,
 
                                 messageNode = textMessageNode;
                             }
+                            break;
                         }
-                        case FILE -> {
+                        case FILE: {
+                            break;
                         }
-                        case IMAGE -> {
+                        case IMAGE: {
+                            break;
                         }
-                        case EMOJI -> {
+                        case EMOJI: {
+                            break;
                         }
-                        default -> {
+                        default: {
+
                         }
                     }
 

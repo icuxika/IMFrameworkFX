@@ -73,12 +73,12 @@ public class SelectableLabel extends Labeled {
     }
 
     public void initialize() {
-//        setSelectedTextFill(Paint.valueOf("#FFFFFF"));
-//        setSelectedBackgroundFill(Paint.valueOf("#308DFC"));
-        setStyle("""
-                            -ifx-selected-text-fill: #FFFFFF;
-                            -ifx-selected-background-fill: #308DFC;
-                """);
+        setSelectedTextFill(Paint.valueOf("#FFFFFF"));
+        setSelectedBackgroundFill(Paint.valueOf("#308DFC"));
+//        setStyle("""
+//                            -ifx-selected-text-fill: #FFFFFF;
+//                            -ifx-selected-background-fill: #308DFC;
+//                """);
     }
 
     /**
