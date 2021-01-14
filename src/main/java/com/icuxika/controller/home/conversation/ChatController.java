@@ -5,8 +5,10 @@ import com.icuxika.MainApp;
 import com.icuxika.callback.MessageListViewCallback;
 import com.icuxika.controller.home.ConversationController;
 import com.icuxika.controller.home.conversation.function.EmojiController;
+import com.icuxika.event.FileChooseEventHandler;
 import com.icuxika.framework.UserData;
 import com.icuxika.mock.ReceivedMessageModel;
+import com.icuxika.model.home.FileChooseType;
 import com.icuxika.model.home.MessageModel;
 import com.icuxika.model.home.MessageStatus;
 import com.icuxika.model.home.MessageType;
@@ -99,8 +101,13 @@ public class ChatController {
         JFXTooltip.install(emojiIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-emoji")));
         FontIcon fileIcon = new FontIcon(FontAwesomeRegular.FOLDER);
         JFXTooltip.install(fileIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-file")));
+        fileIcon.setOnMouseReleased(new FileChooseEventHandler(fileIcon, FileChooseType.ALL, file -> {
+        }));
         FontIcon imageIcon = new FontIcon(FontAwesomeRegular.IMAGE);
         JFXTooltip.install(imageIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-image")));
+        imageIcon.setOnMouseReleased(new FileChooseEventHandler(imageIcon, FileChooseType.IMAGE, file -> {
+            sendImageMessage(0L, file.getAbsolutePath());
+        }));
         FontIcon screenShotIcon = new FontIcon(FontAwesomeSolid.CUT);
         JFXTooltip.install(screenShotIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-screen-shot")));
         HBox.setMargin(emojiIcon, new Insets(0, 0, 0, 10));
@@ -232,6 +239,24 @@ public class ChatController {
 
         ConversationController.receivedMessageModelObservableList.add(receivedMessageModel);
         // 对方收到此消息
+    }
+
+    /**
+     * 发送一条图片消息
+     */
+    public void sendImageMessage(Long userId, String url) {
+        ReceivedMessageModel receivedMessageModel = new ReceivedMessageModel();
+
+        receivedMessageModel.setConversationId(conversationId);
+        receivedMessageModel.setSenderId(userId);
+        receivedMessageModel.setMessageStatus(MessageStatus.NORMAL);
+        receivedMessageModel.setMessageType(MessageType.IMAGE);
+        receivedMessageModel.setMessageId(System.currentTimeMillis());
+        receivedMessageModel.setOperatedMessageId(null);
+        receivedMessageModel.setMessage(url);
+        receivedMessageModel.setTime(System.currentTimeMillis());
+
+        ConversationController.receivedMessageModelObservableList.add(receivedMessageModel);
     }
 
     /**

@@ -3,43 +3,23 @@ package com.icuxika.control.message;
 import com.icuxika.MainApp;
 import com.icuxika.control.SelectableLabel;
 import com.icuxika.util.ClipboardUtil;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * 文本消息组件
  */
-public class TextMessageNode extends AnchorPane {
-
-    /**
-     * 头像
-     */
-    private ImageView avatarImageView;
-
-    /**
-     * 昵称
-     */
-    private SelectableLabel nameText;
+public class TextMessageNode extends MessageNode {
 
     /**
      * 消息文本
@@ -47,89 +27,14 @@ public class TextMessageNode extends AnchorPane {
     private SelectableLabel messageText;
 
     /**
-     * 是否为左消息组件
+     * 目前默认设置为，登录用户不显示名称，单聊会话对方不显示名称，群聊显示其他人名称
      */
-    private boolean showLeft = true;
-
-    /**
-     * 是否展示姓名
-     */
-    private boolean showName = false;
-
-    /**
-     * 右键菜单
-     */
-    private final ContextMenu contextMenu = new ContextMenu();
-
-    /**
-     * 菜单项-任务
-     */
-    private final Map<MenuItem, Runnable> actionMenuItemMap = new LinkedHashMap<>();
-
-    public TextMessageNode() {
-        // 执行 initialize() 需要先确定左右，因此此方式构建需要手动调用show方法
-        show(false, false);
-    }
-
     public TextMessageNode(boolean showLeft, boolean showName) {
-        show(showLeft, showName);
+        super(showLeft, showName);
     }
 
-    /**
-     * 获取消息组件 - 左
-     *
-     * @param showName 是否展示昵称
-     * @return 消息组件
-     */
-    public static TextMessageNode left(boolean showName) {
-        return new TextMessageNode(true, showName);
-    }
-
-    /**
-     * 获取消息组建 - 右
-     *
-     * @return 消息组件
-     */
-    public static TextMessageNode right() {
-        return new TextMessageNode(false, false);
-    }
-
-    public void show(boolean showLeft, boolean showName) {
-        this.showLeft = showLeft;
-        this.showName = showName;
-        if (showName) this.showLeft = true;
-        initialize();
-    }
-
-    private void initialize() {
-        // ---------- 头像
-        avatarImageView = new ImageView();
-        avatarImageView.setFitWidth(36);
-        avatarImageView.setFitHeight(36);
-
-        Rectangle avatarImageClip = new Rectangle(0, 0, avatarImageView.getFitWidth(), avatarImageView.getFitHeight());
-        avatarImageClip.setArcWidth(8);
-        avatarImageClip.setArcHeight(8);
-        avatarImageView.setClip(avatarImageClip);
-        avatarImageView.setEffect(new DropShadow(2, Color.BLACK));
-
-        AnchorPane.setTopAnchor(avatarImageView, 12.0);
-        if (showLeft) {
-            AnchorPane.setLeftAnchor(avatarImageView, 12.0);
-        } else {
-            AnchorPane.setRightAnchor(avatarImageView, 12.0);
-        }
-
-        // ---------- 昵称
-        if (showName && showLeft) {
-            nameText = new SelectableLabel();
-            nameText.setMaxWidth(120);
-            nameText.setTextFill(Color.rgb(181, 181, 181));
-            AnchorPane.setLeftAnchor(nameText, 60.0);
-            AnchorPane.setTopAnchor(nameText, 10.0);
-            getChildren().add(nameText);
-        }
-
+    @Override
+    protected void initialize() {
         // ---------- 文本消息
         TextFlow textFlow = new TextFlow();
         textFlow.setPadding(new Insets(4, 8, 4, 12));
@@ -162,7 +67,7 @@ public class TextMessageNode extends AnchorPane {
         }
 
         setPadding(new Insets(0, 0, 8, 0));
-        getChildren().addAll(avatarImageView, textFlow);
+        getChildren().addAll(textFlow);
 
         // 为TextFlow绑定右键菜单
         buildContextMenu();
@@ -184,78 +89,12 @@ public class TextMessageNode extends AnchorPane {
     }
 
     /**
-     * 设置头像
-     *
-     * @param url 头像
-     */
-    public void setAvatarImageView(String url) {
-        Image image = new Image(url, true);
-        avatarImageView.setImage(image);
-    }
-
-    /**
-     * 设置头像绑定
-     *
-     * @param avatar 头像
-     */
-    public void setAvatar(ObjectProperty<Image> avatar) {
-        avatarImageView.imageProperty().bind(avatar);
-    }
-
-    /**
-     * 设置昵称
-     *
-     * @param text 昵称
-     */
-    public void setNameText(String text) {
-        if (!showLeft) return;
-        nameText.setText(text);
-    }
-
-    /**
-     * 设置昵称绑定
-     *
-     * @param text 字符串绑定
-     */
-    public void setNameText(StringBinding text) {
-        if (!showLeft) return;
-        nameText.textProperty().bind(text);
-    }
-
-    /**
-     * 设置昵称绑定
-     *
-     * @param name 名称
-     */
-    public void setName(StringProperty name) {
-        if (!showLeft) return;
-        nameText.textProperty().bind(name);
-    }
-
-    /**
      * 设置文本消息
      *
      * @param text 文本消息
      */
     public void setMessageText(String text) {
         messageText.setText(text);
-    }
-
-    /**
-     * 添加右键菜单项
-     *
-     * @param menuItemName 子菜单
-     * @param action       子菜单对应操作
-     */
-    public void putMenuItem(String menuItemName, Runnable action) {
-        MenuItem menuItem = new MenuItem(menuItemName);
-        actionMenuItemMap.put(menuItem, action);
-    }
-
-    public void putMenuItem(StringBinding menuItemName, Runnable action) {
-        MenuItem menuItem = new MenuItem();
-        menuItem.textProperty().bind(menuItemName);
-        actionMenuItemMap.put(menuItem, action);
     }
 
     private void buildContextMenu() {
