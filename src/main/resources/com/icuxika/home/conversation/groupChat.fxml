@@ -6,8 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="groupChatPane" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane styleClass="groupChatPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icuxika.controller.home.conversation.GroupChatController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
@@ -24,23 +23,20 @@
         </HBox>
     </top>
     <center>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <VBox>
             <children>
-                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                           styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
                     <items>
                         <StackPane>
                             <children>
                                 <ListView fx:id="messageListView" minHeight="100.0" styleClass="messageListView"/>
-                                <HBox fx:id="flexBox" alignment="CENTER_RIGHT" pickOnBounds="false" prefHeight="100.0"
-                                      prefWidth="200.0">
+                                <HBox fx:id="flexBox" alignment="CENTER_RIGHT" pickOnBounds="false">
                                     <children>
                                         <TextFlow fx:id="flexTextFlow" maxHeight="84.0" maxWidth="10.0" minHeight="84.0"
                                                   minWidth="10.0" styleClass="flexTextFlow" textAlignment="CENTER">
                                             <children>
                                                 <Text fx:id="flexText" strokeType="OUTSIDE" strokeWidth="0.0"
-                                                      text="&gt;"
-                                                      translateY="40.0"/>
+                                                      text="&gt;" translateY="40.0"/>
                                             </children>
                                         </TextFlow>
                                     </children>
@@ -67,13 +63,12 @@
         </VBox>
     </center>
     <right>
-        <VBox fx:id="sideBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        <VBox fx:id="sideBox" BorderPane.alignment="CENTER">
             <children>
-                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                           VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefWidth="100.0" VBox.vgrow="ALWAYS">
                     <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"/>
+                        <AnchorPane/>
+                        <AnchorPane/>
                     </items>
                 </SplitPane>
             </children>

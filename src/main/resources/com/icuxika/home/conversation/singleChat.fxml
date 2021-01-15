@@ -7,8 +7,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<BorderPane minWidth="360.0" prefHeight="400.0" prefWidth="600.0" styleClass="singleChatPane"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane styleClass="singleChatPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icuxika.controller.home.conversation.SingleChatController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
@@ -25,10 +24,9 @@
         </HBox>
     </top>
     <center>
-        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        <VBox BorderPane.alignment="CENTER">
             <children>
-                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
-                           styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.5" orientation="VERTICAL" styleClass="chatSplitPane" VBox.vgrow="ALWAYS">
                     <items>
                         <ListView fx:id="messageListView" minHeight="100.0" styleClass="messageListView"/>
                         <VBox minHeight="120.0">
