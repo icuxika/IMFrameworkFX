@@ -36,6 +36,11 @@ public enum MessageType {
     EMOJI,
 
     /**
+     * 提示消息
+     */
+    PROMPT,
+
+    /**
      * 音频消息
      */
     AUDIO,

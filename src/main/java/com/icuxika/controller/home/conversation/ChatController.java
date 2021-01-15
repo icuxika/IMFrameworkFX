@@ -166,38 +166,62 @@ public class ChatController {
      * @param messageModel 消息
      */
     public void receiveMessage(MessageModel messageModel) {
+        // 初始化消息Node
+        messageModel.initGraphic();
         MessageType messageType = messageModel.getType();
-        switch (messageType) {
-            case REVOKE -> {
-                MessageModel revokedMessage = messageModelObservableList.stream().filter(model -> model.getId().equals(messageModel.getOperatedId())).findFirst().orElse(null);
 
-                MessageModel promptMessage = new MessageModel();
-                promptMessage.setId(System.currentTimeMillis());
-                promptMessage.setType(MessageType.TEXT);
-                promptMessage.setTime(revokedMessage.getTime());
-                promptMessage.setMessage("这条消息被撤回了");
-                promptMessage.setSenderId(revokedMessage.getSenderId());
-                promptMessage.setConversationProperty(revokedMessage.getConversationProperty());
-                messageModelObservableList.add(promptMessage);
-
-                messageModelObservableList.remove(revokedMessage);
+        // 消息是主动拉取的历史消息还是登录之后产生的消息
+        // 当前不考虑历史拉取消息的情况
+        boolean fromHistory = false;
+        if (fromHistory) {
+            if (messageModel.getStatus().equals(MessageStatus.REVOKED) || messageModel.getStatus().equals(MessageStatus.DELETED)) {
+                // 状态为被撤回的和被删除的消息直接替换成提示消息（亦或者直接丢弃）
+                MessageModel deletedOrRevokedMessage = buildDeletedOrRevokedMessage(messageModel);
+                deletedOrRevokedMessage.initGraphic();
+                messageModelObservableList.add(deletedOrRevokedMessage);
+            } else {
+                messageModelObservableList.add(messageModel);
             }
-            case DELETE -> {
-                MessageModel revokedMessage = messageModelObservableList.stream().filter(model -> model.getId().equals(messageModel.getOperatedId())).findFirst().orElse(null);
-
-                MessageModel promptMessage = new MessageModel();
-                promptMessage.setId(System.currentTimeMillis());
-                promptMessage.setType(MessageType.TEXT);
-                promptMessage.setTime(revokedMessage.getTime());
-                promptMessage.setMessage("这条消息被删除了");
-                promptMessage.setSenderId(revokedMessage.getSenderId());
-                promptMessage.setConversationProperty(revokedMessage.getConversationProperty());
-                messageModelObservableList.add(promptMessage);
-
-                messageModelObservableList.remove(revokedMessage);
+        } else {
+            if (messageType.equals(MessageType.REVOKE) || messageType.equals(MessageType.DELETE)) {
+                // 找到消息列表中被撤回或者删除的那条消息
+                MessageModel operatedMessageModel = messageModelObservableList.stream().filter(model -> model.getId().equals(messageModel.getOperatedId())).findFirst().orElse(null);
+                if (operatedMessageModel != null) {
+                    // 以这条消息构建被撤回消息的数据，保留了消息时间这个排序条件属性
+                    if (messageType.equals(MessageType.REVOKE)) operatedMessageModel.setStatus(MessageStatus.REVOKED);
+                    if (messageType.equals(MessageType.DELETE)) operatedMessageModel.setStatus(MessageStatus.DELETED);
+                    MessageModel deletedOrRevokedMessage = buildDeletedOrRevokedMessage(operatedMessageModel);
+                    // 初始化消息Node
+                    deletedOrRevokedMessage.initGraphic();
+                    // 添加提示消息
+                    messageModelObservableList.add(deletedOrRevokedMessage);
+                    // 移除被操作的消息
+                    messageModelObservableList.remove(operatedMessageModel);
+                }
+            } else {
+                messageModelObservableList.add(messageModel);
+                // 滚动到最新消息
+                messageListView.scrollTo(messageModel);
             }
-            default -> messageModelObservableList.add(messageModel);
         }
+    }
+
+    /**
+     * 根据消息状态构建提示消息
+     */
+    private MessageModel buildDeletedOrRevokedMessage(MessageModel messageModel) {
+        MessageModel promptMessage = new MessageModel();
+        promptMessage.setId(System.currentTimeMillis());
+        promptMessage.setType(MessageType.PROMPT);
+        promptMessage.setTime(messageModel.getTime());
+        if (messageModel.getStatus().equals(MessageStatus.DELETED)) {
+            promptMessage.setMessage("这条消息被删除了");
+        } else {
+            promptMessage.setMessage("这条消息被撤回了");
+        }
+        promptMessage.setSenderId(messageModel.getSenderId());
+        promptMessage.setConversationProperty(messageModel.getConversationProperty());
+        return promptMessage;
     }
 
     /**
