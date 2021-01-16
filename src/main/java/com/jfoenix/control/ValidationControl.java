@@ -8,13 +8,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Control;
 
-/**
- * this class used as validation model wrapper for all {@link IFXValidatableControl}
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2018-07-19
- */
 class ValidationControl implements IFXValidatableControl {
 
     private ReadOnlyObjectWrapper<ValidatorBase> activeValidator = new ReadOnlyObjectWrapper<>();

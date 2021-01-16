@@ -2,14 +2,6 @@ package com.jfoenix.converter.base;
 
 import javafx.scene.Node;
 
-/**
- * Converter defines conversion behavior between Nodes and Objects.
- * The type of Objects are defined by the subclasses of Converter.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public abstract class NodeConverter<T> {
     /**
      * Converts the object provided into its node form.

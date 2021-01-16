@@ -7,13 +7,6 @@ import javafx.scene.control.skin.ListViewSkin;
 import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.Region;
 
-/**
- * <h1>Material Design ListView Skin</h1>
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXListViewSkin<T> extends ListViewSkin<T> {
 
     private VirtualFlow<ListCell<T>> flow;

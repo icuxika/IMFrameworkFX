@@ -12,13 +12,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-/**
- * <h1>Material Design ProgressBar Skin</h1>
- *
- * @author Shadi Shaheen
- * @version 2.0
- * @since 2017-10-06
- */
 public class JFXProgressBarSkin extends ProgressIndicatorSkin {
 
     private StackPane track;

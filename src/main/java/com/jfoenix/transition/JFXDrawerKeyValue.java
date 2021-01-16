@@ -5,13 +5,6 @@ import javafx.beans.value.WritableValue;
 
 import java.util.function.Supplier;
 
-/**
- * Wrapper for JFXDrawer animation key value
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2018-05-03
- */
 public class JFXDrawerKeyValue<T> {
 
     private WritableValue<T> target;

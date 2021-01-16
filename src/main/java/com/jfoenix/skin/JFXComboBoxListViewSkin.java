@@ -18,14 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * <h1>Material Design ComboBox Skin</h1>
- *
- * @author Shadi Shaheen
- * @version 2.0
- * @since 2017-01-25
- */
-
 public class JFXComboBoxListViewSkin<T> extends ComboBoxListViewSkin<T> {
 
     /***************************************************************************

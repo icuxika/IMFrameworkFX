@@ -15,23 +15,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-/**
- * This {@code Transition} creates an animation, that changes the filling of a
- * pane over a {@code duration}. This is done by updating the {@code background}
- * property of the {@code pane} at regular intervals.
- * <p>
- * It starts from the {@code fromValue}.
- * <p>
- * It stops at the {@code toValue} value.
- * <p>
- * It's similar to JavaFX FillTransition, however it can be applied on Region
- * instead of shape
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
-
 public final class JFXFillTransition extends Transition {
 
     private static final Duration DEFAULT_DURATION = Duration.millis(400);

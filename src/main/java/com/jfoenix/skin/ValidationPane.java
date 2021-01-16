@@ -18,13 +18,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
-/**
- * this class used to create validation ui for all {@link IFXValidatableControl}
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2018-07-19
- */
 public class ValidationPane<T extends Region & IFXValidatableControl & IFXStaticControl> extends HBox {
 
     private Label errorLabel = new Label();

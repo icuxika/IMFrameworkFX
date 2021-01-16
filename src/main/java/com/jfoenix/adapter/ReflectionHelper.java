@@ -5,11 +5,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * This class is for breaking the module system of Java 9.
- *
- * @author huang
- */
 public class ReflectionHelper {
 
     //    private static Unsafe unsafe = null;

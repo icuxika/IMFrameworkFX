@@ -28,20 +28,6 @@ import javafx.util.Duration;
 
 import java.util.Set;
 
-/**
- * material design implementation of ListCell
- * <p>
- * By default JFXListCell will try to create a graphic node for the cell,
- * to override it you need to set graphic to null in {@link #updateItem(Object, boolean)} method.
- * <p>
- * NOTE: passive nodes (Labels and Shapes) will be set to mouse transparent in order to
- * show the ripple effect upon clicking , to change this behavior you can override the
- * method {{@link #makeChildrenTransparent()}
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXListCell<T> extends ListCell<T> {
 
     protected JFXRipple cellRipple = new JFXRipple(this) {

@@ -8,16 +8,6 @@ import javafx.util.Duration;
 import java.util.*;
 import java.util.function.Supplier;
 
-/**
- * Custom AnimationTimer that can be created the same way as a timeline,
- * however it doesn't behave the same yet. it only animates in one direction,
- * it doesn't support animation 0 -> 1 -> 0.5
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2017-09-21
- */
-
 public class JFXAnimationTimer extends AnimationTimer {
 
     private Set<AnimationHandler> animationHandlers = new HashSet<>();

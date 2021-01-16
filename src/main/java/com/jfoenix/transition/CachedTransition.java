@@ -7,13 +7,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.util.Duration;
 
-/**
- * applies animation on a cached node to improve the performance
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class CachedTransition extends Transition {
     protected final Node node;
     protected ObjectProperty<Timeline> timeline = new SimpleObjectProperty<>();

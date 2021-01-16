@@ -14,13 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * JFXSpinner is the material design implementation of a loading spinner.
- *
- * @author Bashir Elias & Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXSpinner extends ProgressIndicator {
 
     public static final double INDETERMINATE_PROGRESS = -1;

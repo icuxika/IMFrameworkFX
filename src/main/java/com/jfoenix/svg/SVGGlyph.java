@@ -19,13 +19,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Node that is used to show svg images
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class SVGGlyph extends Pane {
     private static final String DEFAULT_STYLE_CLASS = "jfx-svg-glyph";
 

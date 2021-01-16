@@ -5,12 +5,6 @@ import javafx.beans.value.WritableValue;
 
 import java.util.function.Supplier;
 
-/**
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2017-09-21
- */
-
 public class JFXKeyValue<T> {
 
     private WritableValue<T> target;

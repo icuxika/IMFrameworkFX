@@ -18,13 +18,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.*;
 
-/**
- * Material design implementation of List View
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXListView<T> extends ListView<T> {
 
     /**

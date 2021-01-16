@@ -14,13 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
-/**
- * An abstract class that defines the basic validation functionality for a certain control.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public abstract class ValidatorBase {
 
     /**

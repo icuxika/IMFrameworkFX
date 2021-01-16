@@ -7,13 +7,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Skin;
 
-/**
- * JFXProgressBar is the material design implementation of a progress bar.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXProgressBar extends ProgressBar {
     /**
      * Initialize the style class to 'jfx-progress-bar'.

@@ -18,32 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * "Snackbars provide brief messages about app processes at the bottom of the screen"
- * (<a href="https://material.io/design/components/snackbars.html#">Material Design Guidelines</a>).
- * <p>
- * To show a snackbar you need to
- * <ol>
- * <li>Have a {@link Pane} (snackbarContainer) to show the snackbar on top of. Register it in {@link
- * #JFXSnackbar(Pane) the JFXSnackbar constructor} or using the {@link #registerSnackbarContainer(Pane)} method.</li>
- * <li>Have or create a {@link JFXSnackbar}.<ul><li>Having one snackbar where you pass all your {@link
- * SnackbarEvent SnackbarEvents} will ensure that the {@link JFXSnackbar#enqueue(SnackbarEvent) enqueue
- * method} works as intended.</li></ul>
- * </li>
- * <li>Have something to show in the snackbar. A {@link JFXSnackbarLayout} is nice and pretty,
- * but any arbitrary {@link Node} will do.</li>
- * <li>Create a {@link SnackbarEvent SnackbarEvent} specifying the contents and the
- * duration.</li>
- * </ol>
- * <p>
- * Finally, with all those things prepared, show your snackbar using
- * {@link JFXSnackbar#enqueue(SnackbarEvent) snackbar.enqueue(snackbarEvent);}.
- * <p>
- * It's most convenient to create functions to do most of this (creating the layout and event) with the default
- * settings; that way all you need to do to show a snackbar is specify the message or just the message and the duration.
- *
- * @see <a href="https://material.io/design/components/snackbars.html#"> The Material Design Snackbar</a>
- */
 public class JFXSnackbar extends Group {
 
     private static final String DEFAULT_STYLE_CLASS = "jfx-snackbar";

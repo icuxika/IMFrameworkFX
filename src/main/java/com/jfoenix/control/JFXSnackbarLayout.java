@@ -9,13 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-/**
- * JFXSnackbarLayout default layout for snackbar content
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2018-11-16
- */
 public class JFXSnackbarLayout extends BorderPane {
 
     private Label toast;

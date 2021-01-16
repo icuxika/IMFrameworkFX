@@ -18,13 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * JFXTextField is the material design implementation of a text Field.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXTextField extends TextField implements IFXLabelFloatControl {
 
     /**

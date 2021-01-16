@@ -6,12 +6,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Supplier;
 
-/**
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2017-09-21
- */
-
 public class JFXKeyFrame {
 
     private Duration duration;

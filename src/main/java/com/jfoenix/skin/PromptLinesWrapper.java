@@ -1,6 +1,5 @@
 package com.jfoenix.skin;
 
-
 import com.jfoenix.control.base.IFXLabelFloatControl;
 import com.jfoenix.transition.JFXAnimationTimer;
 import com.jfoenix.transition.JFXKeyFrame;
@@ -26,13 +25,6 @@ import javafx.util.Duration;
 
 import java.util.function.Supplier;
 
-/**
- * this class used to create label-float/focus-lines for all {@link IFXLabelFloatControl}
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2018-07-19
- */
 public class PromptLinesWrapper<T extends Control & IFXLabelFloatControl> {
 
     private final Supplier<Text> promptTextSupplier;

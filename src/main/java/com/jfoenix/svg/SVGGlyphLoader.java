@@ -19,14 +19,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- * will load icomoon svg font file, it will create a map of the
- * available svg glyphs. the user can retrieve the svg glyph using its name.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class SVGGlyphLoader {
 
     private static final HashMap<String, SVGGlyphBuilder> glyphsMap = new HashMap<>();

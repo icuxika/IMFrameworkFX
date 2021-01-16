@@ -24,13 +24,6 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-/**
- * JFXTooltip is the material design implementation of the tooltip.
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 3/29/2019
- */
 public class JFXTooltip extends Tooltip {
 
     /**

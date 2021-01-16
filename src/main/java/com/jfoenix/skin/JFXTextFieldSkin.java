@@ -12,13 +12,6 @@ import javafx.scene.text.Text;
 
 import java.lang.reflect.Field;
 
-/**
- * <h1>Material Design Text input control Skin, used for both JFXTextField/JFXPasswordField</h1>
- *
- * @author Shadi Shaheen
- * @version 2.0
- * @since 2017-01-25
- */
 public class JFXTextFieldSkin<T extends TextField & IFXLabelFloatControl> extends TextFieldSkin {
 
     private boolean invalid = true;

@@ -18,13 +18,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-/**
- * JFXSpinner material design skin
- *
- * @author Shadi Shaheen & Gerard Moubarak
- * @version 1.0
- * @since 2017-09-25
- */
 public class JFXSpinnerSkin extends SkinBase<JFXSpinner> {
 
     private JFXSpinner control;

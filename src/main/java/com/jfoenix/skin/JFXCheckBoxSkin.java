@@ -18,7 +18,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
-
 public class JFXCheckBoxSkin extends CheckBoxSkin {
 
     private final StackPane box = new StackPane();

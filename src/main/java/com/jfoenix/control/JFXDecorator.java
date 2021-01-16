@@ -25,16 +25,6 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Window Decorator allow to resize/move its content Note: the default close button will call stage.close() which will
- * only close the current stage. it will not close the java application, however it can be customized by calling {@link
- * #setOnCloseButtonAction(Runnable)}
- *
- * @author Shadi Shaheen
- * @version 1.0
- * @since 2016-03-09
- */
 public class JFXDecorator extends VBox {
 
     private Stage primaryStage;
