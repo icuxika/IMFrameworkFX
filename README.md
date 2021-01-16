@@ -31,6 +31,21 @@
 
 > 关于模块化有些东西还没弄清楚，所以我目前只能用上面这种方法，后面如果弄清楚了，或许可以不必这样麻烦。
 
+### 文档教程
+
+- [JavaFX 15](https://openjfx.io/index.html)
+- [JavaFX中文视频](https://space.bilibili.com/5096022/channel/detail?cid=16953)
+- [JavaFX CSS Reference Guide](https://openjfx.cn/javadoc/15/javafx.graphics/javafx/scene/doc-files/cssref.html)
+- [GraalVM](https://www.graalvm.org/docs/getting-started/)
+- [Gluon Documentation](https://docs.gluonhq.com/)
+
+### 一些功能实现的来源
+
+- [JFoenix](https://github.com/jfoenixadmin/JFoenix)
+- [EasyFx（可选择可复制Label）](https://github.com/xizi110/easyfx)
+- [JavaFX-ImageCropper（图片裁切）](https://github.com/imgeself/JavaFX-ImageCropper)
+- [DataFX（AppView类的实现思路）](https://github.com/guigarage/DataFX)
+
 ### 界面预览
 
 - 用户状态
