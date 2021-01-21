@@ -36,6 +36,9 @@ gluonClient {
     reflectionList.addAll(
             "org.apache.logging.log4j.message.DefaultFlowMessageFactory",
             "org.apache.logging.log4j.message.ParameterizedMessageFactory",
+//            "org.apache.logging.log4j.core.impl.Log4jContextFactory",
+            "com.icuxika.AppPreloader",
+            "com.icuxika.AppView",
             "com.icuxika.controller.LoginController"
     )
 }
