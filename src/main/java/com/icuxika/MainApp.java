@@ -121,7 +121,7 @@ public class MainApp extends Application {
     BooleanProperty ready = new SimpleBooleanProperty(false);
 
     public static void main(String[] args) {
-        System.setProperty(PRELOADER_PROPERTY_NAME, AppPreloader.class.getTypeName());
+//        System.setProperty(PRELOADER_PROPERTY_NAME, AppPreloader.class.getTypeName());
         launch(args);
     }
 
@@ -135,15 +135,19 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        preloadTask();
-        ready.addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
-                primaryStage.setResizable(false);
-                AppView<LoginController> loginView = new AppView<>(LoginController.class);
-                loginView.setStage(primaryStage).show();
-            }
-        });
+//        preloadTask();
+//        ready.addListener((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
+//                primaryStage.setResizable(false);
+//                AppView<LoginController> loginView = new AppView<>(LoginController.class);
+//                loginView.setStage(primaryStage).show();
+//            }
+//        });
+        primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
+        primaryStage.setResizable(false);
+        AppView<LoginController> loginView = new AppView<>(LoginController.class);
+        loginView.setStage(primaryStage).show();
     }
 
     @Override
