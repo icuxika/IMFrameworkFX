@@ -4,6 +4,8 @@ public class TreeItemTransferModel {
 
     private Long id;
 
+    private Long parentId;
+
     /**
      * 标记该节点是否是叶子节点
      */
@@ -17,8 +19,9 @@ public class TreeItemTransferModel {
     public TreeItemTransferModel() {
     }
 
-    public TreeItemTransferModel(Long id, Boolean leaf) {
+    public TreeItemTransferModel(Long id, Long parentId, Boolean leaf) {
         this.id = id;
+        this.parentId = parentId;
         this.leaf = leaf;
     }
 
@@ -28,6 +31,14 @@ public class TreeItemTransferModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Boolean getLeaf() {

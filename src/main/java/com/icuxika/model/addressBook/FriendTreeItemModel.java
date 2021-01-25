@@ -11,11 +11,8 @@ public class FriendTreeItemModel extends TreeItemTransferModel {
 
     private ObservableList<FriendTreeItemModel> children = FXCollections.observableArrayList();
 
-    public FriendTreeItemModel() {
-    }
-
-    public FriendTreeItemModel(Long id, Boolean leaf, String name) {
-        super(id, leaf);
+    public FriendTreeItemModel(Long id, Long parentId, Boolean leaf, String name) {
+        super(id, parentId, leaf);
         setName(name);
     }
 

@@ -1,6 +1,7 @@
 
 .jfx-decorator {
-    -fx-decorator-color: derive(#5264AE, -20%);
+    /*-fx-decorator-color: derive(#1e90ff, -20%);*/
+    -fx-decorator-color: #1e90ff;
 }
 
 .jfx-decorator .jfx-decorator-buttons-container {
@@ -18,7 +19,7 @@
 }
 
 .jfx-decorator .jfx-decorator-title-container .jfx-svg-glyph {
-    -fx-shape: "M512 682c-128.024-99.309-255.626-199.040-384-298l384-298 384 298c-128.375 98.958-255.974 198.693-384 298zM512 792l314-246 70 54-384 298-384-298 70-54z";
+    -fx-shape: "M134.1,54.2L134.1,88.7L114.3,68.8L87.9,120.5L105.9,22L134.1,54.2ZM87.9,211.8L87.9,177.3L107.7,197.2L134.1,145.5L116.2,244L87.9,211.8ZM189.8,156.2L155.3,156.2L175.2,136.3L123.5,109.9L222,127.9L189.8,156.2ZM32.2,109.9L66.7,109.9L46.8,129.8L98.5,156.1L0,138.2L32.2,109.9ZM183.1,93.6L158.7,118L158.7,89.9L103.5,107.8L185.8,50.9L183.1,93.6ZM38.9,172.4L63.3,148L63.3,176.1L118.5,158.2L36.2,215.1L38.9,172.4ZM150.3,205.1L126,180.7L154.1,180.7L136.2,125.5L193.1,207.9L150.3,205.1ZM71.6,60.9L96,85.3L67.9,85.3L85.8,140.5L28.8,58.2L71.6,60.9Z";
     -jfx-size: 15;
     -fx-background-color: WHITE;
 }
@@ -353,4 +354,78 @@
 
 .jfx-tooltip {
     -fx-font-size: 12;
+}
+
+/* addressBook > addressBookPane */
+.addressBookPane {
+    -fx-background-insets: 0;
+}
+
+.addressBookPane *.split-pane-divider, .addressBookPane *.vertical-grabber, .addressBookPane *.horizontal-grabber {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.addressBookPane *.split-pane-divider, .vertical-grabber {
+    -fx-pref-width: 2;
+}
+
+/* addressBookPane > friendTreeView */
+.friendTreeView {
+    -fx-focus-traversable: false;
+    -fx-border-color: white;
+}
+
+.friendTreeView .tree-cell {
+    -fx-background-color: white;
+}
+
+.friendTreeView .tree-cell:hover {
+    -fx-background-color: #eaeaea;
+}
+
+.friendTreeView .tree-cell:selected {
+    -fx-background-color: #eaeaea;
+}
+
+.friendTreeView .tree-cell:empty {
+    -fx-background-color: white;
+}
+
+.friendTreeView .scroll-bar {
+    -fx-background-color: white;
+}
+
+.friendTreeView .corner {
+    -fx-background-color: white;
+}
+
+.friendTreeView .scroll-bar:horizontal > .thumb {
+    -fx-background-color: white;
+    -fx-scale-y: 0.5;
+}
+
+.friendTreeView .scroll-bar:vertical > .thumb {
+    -fx-background-color: white;
+    -fx-scale-x: 0.5;
+}
+
+.friendTreeView:hover .scroll-bar > .thumb {
+    -fx-background-color: #eaeaea;
+}
+
+.friendTreeView .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: white;
+}
+
+.friendTreeView:hover .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #eaeaea;
+}
+
+.friendTreeView .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: white;
+}
+
+.friendTreeView:hover .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #eaeaea;
 }
