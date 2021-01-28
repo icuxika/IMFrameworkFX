@@ -37,6 +37,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -362,6 +363,10 @@ public class ChatController {
      * 语音消息缓存文件
      */
     File waveFile = new File(SystemUtil.getOtherCacheDirectory() + "AudioMsg.wav");
+    /**
+     * 上一个录音面板
+     */
+    private VBox currentContainer;
 
     /**
      * 语音消息正在录制中
@@ -439,7 +444,10 @@ public class ChatController {
         label.setTextFill(Color.rgb(181, 181, 181));
 
         container.getChildren().addAll(iconContainer, operateBox, progressBar, label);
-        messageInputContainer.getChildren().clear();
+        if (currentContainer != null) {
+            messageInputContainer.getChildren().remove(currentContainer);
+        }
+        currentContainer = container;
         messageInputContainer.getChildren().add(container);
         fontIcon.getScene().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
@@ -453,52 +461,56 @@ public class ChatController {
             if (waveFile.exists()) {
                 if (waveFile.delete()) {
                     System.out.println("上一份语音消息缓存文件已清除");
+                } else {
+                    System.out.println("上一份语音消息缓存文件清除失败");
                 }
             }
 
             try {
-                if (waveFile.createNewFile()) {
-                    line = (TargetDataLine) AudioSystem.getLine(info);
-                    line.open(format);
-                    line.start();
-                    // 开启一个线程将录音写入到文件中
-                    new Thread(() -> {
-                        AudioInputStream audioInputStream = new AudioInputStream(line);
-                        try {
-                            AudioSystem.write(audioInputStream, type, waveFile);
-                        } catch (IOException e) {
-                            System.out.println("语音消息缓存文件写入时发生异常，可能是停止了录制");
-                        }
-                    }).start();
-                    // 开启一个倒计时任务，限制最大录制时间
-                    recordingCountdownService = new ScheduledService<Integer>() {
-                        private int count = 10;
+                line = (TargetDataLine) AudioSystem.getLine(info);
+                line.open(format);
+                line.start();
+                // 开启一个线程将录音写入到文件中
+                new Thread(() -> {
+                    AudioInputStream audioInputStream = new AudioInputStream(line);
+                    try {
+                        AudioSystem.write(audioInputStream, type, waveFile);
+                    } catch (IOException e) {
+                        System.out.println("语音消息缓存文件写入时发生异常，可能是停止了录制");
+                    }
+                }).start();
+                // 开启一个倒计时任务，限制最大录制时间
+                recordingCountdownService = new ScheduledService<Integer>() {
+                    private int count = 10;
 
-                        @Override
-                        protected Task<Integer> createTask() {
-                            return new Task<>() {
-                                @Override
-                                protected Integer call() throws Exception {
-                                    return count--;
-                                }
-                            };
+                    @Override
+                    protected Task<Integer> createTask() {
+                        return new Task<>() {
+                            @Override
+                            protected Integer call() throws Exception {
+                                return count--;
+                            }
+                        };
+                    }
+                };
+                recordingCountdownService.lastValueProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        progressBar.setProgress(newValue / 10.0);
+                        if (newValue <= 0) {
+                            recordingCountdownService.cancel();
                         }
-                    };
-                    recordingCountdownService.valueProperty().addListener((observable, oldValue, newValue) -> {
-                        if (newValue != null) {
-                            progressBar.setProgress(newValue / 10.0);
-                        }
-                    });
-                    recordingCountdownService.setOnCancelled(event1 -> {
-                        progressBar.setProgress(1);
-                        if (line != null && line.isOpen()) {
-                            line.stop();
-                            line.close();
-                        }
-                        setRecording(false);
-                    });
-                    recordingCountdownService.start();
-                }
+                    }
+                });
+                recordingCountdownService.setOnCancelled(event1 -> {
+                    progressBar.setProgress(1);
+                    if (line != null && line.isOpen()) {
+                        line.stop();
+                        line.close();
+                    }
+                    setRecording(false);
+                });
+                recordingCountdownService.setPeriod(Duration.seconds(1));
+                recordingCountdownService.start();
             } catch (Exception e) {
                 if (waveFile.exists()) {
                     if (waveFile.delete()) {
@@ -519,14 +531,14 @@ public class ChatController {
         stopButton.setOnAction(event -> {
             if (recordingCountdownService != null && recordingCountdownService.isRunning()) {
                 recordingCountdownService.cancel();
-                recordingCountdownService.reset();
+            } else {
+                System.out.println("当前没有录音任务正在执行");
             }
         });
 
         cancelButton.setOnAction(event -> {
             if (recordingCountdownService != null && recordingCountdownService.isRunning()) {
                 recordingCountdownService.cancel();
-                recordingCountdownService.reset();
             }
             if (line != null && line.isOpen()) {
                 line.stop();
