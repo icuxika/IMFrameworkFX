@@ -255,6 +255,14 @@ public class AppView<T> {
         stage.show();
     }
 
+    public void hide() {
+        if (stage != null) stage.hide();
+    }
+
+    public void close() {
+        if (stage != null) stage.hide();
+    }
+
     private void assembleStage(Window owner, boolean autoHide) {
         stage = new Stage();
         // 此处设置父窗口，可使当前窗口不会出现在任务栏

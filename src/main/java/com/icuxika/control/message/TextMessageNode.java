@@ -66,7 +66,6 @@ public class TextMessageNode extends MessageNode {
             AnchorPane.setTopAnchor(textFlow, 12.0);
         }
 
-        setPadding(new Insets(0, 0, 8, 0));
         getChildren().addAll(textFlow);
 
         // 为TextFlow绑定右键菜单

@@ -31,6 +31,9 @@ public class LanguageResource_en extends ListResourceBundle {
                 {"chat-msg-tool-icon-emoji", "Emoji"},
                 {"chat-msg-tool-icon-file", "File"},
                 {"chat-msg-tool-icon-image", "Image"},
+                {"chat-msg-tool-icon-audio", "Audio"},
+                {"chat-msg-tool-icon-share-music", "Music"},
+                {"chat-msg-tool-icon-video", "Video"},
                 {"chat-msg-tool-icon-screen-shot", "Screenshot"},
                 {"conversation-context-menu-top", "Set-top"},
                 {"conversation-context-menu-cancel-top", "Cancel set-top"}

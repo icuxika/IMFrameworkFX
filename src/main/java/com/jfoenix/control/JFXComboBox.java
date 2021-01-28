@@ -29,6 +29,7 @@ import javafx.util.StringConverter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl {
 
@@ -186,6 +187,12 @@ public class JFXComboBox<T> extends ComboBox<T> implements IFXLabelFloatControl 
                 cell.setText(null);
                 cell.setGraphic(node == null ? newNode : node);
             }
+            return node == null;
+        } else if (item instanceof Locale) {
+            NodeConverter<T> nc = this.getNodeConverter();
+            Node node = nc == null ? null : nc.toNode(item);
+            cell.setText(null);
+            cell.setGraphic(node);
             return node == null;
         } else {
             // run item through StringConverter if it isn't null

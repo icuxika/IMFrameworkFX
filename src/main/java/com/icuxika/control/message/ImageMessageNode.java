@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.net.URL;
+
 public class ImageMessageNode extends MessageNode {
 
     private static final double IMAGE_MAX_WIDTH = 240.0;
@@ -51,8 +53,8 @@ public class ImageMessageNode extends MessageNode {
         getChildren().add(imageContainer);
     }
 
-    public void setImage(String url) {
-        Image image = new Image(url, true);
+    public void initImage(URL url) {
+        Image image = new Image(url.toString(), true);
         spinner.progressProperty().bind(image.progressProperty());
         messageImageView.setImage(image);
         image.progressProperty().addListener((observable, oldValue, newValue) -> {

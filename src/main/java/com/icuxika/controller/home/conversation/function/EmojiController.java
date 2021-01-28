@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
 
 /**
  * Emoji表情管理窗口
@@ -36,6 +37,8 @@ public class EmojiController {
      * 当打开子窗口时，当前窗口不自动隐藏，关闭后恢复，子窗口最好设置为模态框模式
      */
     private boolean autoHide = true;
+
+    private Consumer<File> consumer;
 
     public void initialize() {
         emojiTabPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
@@ -77,6 +80,9 @@ public class EmojiController {
                         imageView.setFitWidth(32);
                         imageView.setFitHeight(32);
                         imageView.setImage(new Image("file:" + file.getAbsolutePath(), true));
+                        imageView.setOnMouseClicked(event1 -> {
+                            if (consumer != null) consumer.accept(file);
+                        });
                         flowPane.getChildren().add(imageView);
                     });
 
@@ -90,6 +96,10 @@ public class EmojiController {
         Thread thread = new Thread(task);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    public void setConsumer(Consumer<File> consumer) {
+        this.consumer = consumer;
     }
 
     /**

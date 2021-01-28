@@ -1,30 +1,27 @@
 package com.icuxika.controller;
 
 import com.icuxika.AppView;
-import com.icuxika.LanguageListCell;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.home.AddressBookController;
 import com.icuxika.controller.home.AvatarModifyController;
 import com.icuxika.controller.home.ConversationController;
+import com.icuxika.converter.LocaleNodeConverter;
 import com.icuxika.framework.UserData;
 import com.icuxika.framework.UserStatus;
 import com.icuxika.framework.systemTray.SystemTrayManager;
+import com.jfoenix.control.JFXComboBox;
 import com.jfoenix.control.JFXTooltip;
 import com.jfoenix.svg.SVGGlyph;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -46,7 +43,7 @@ public class HomeController {
     @FXML
     private VBox homePageIconContainer;
     @FXML
-    private ComboBox<Locale> languageComboBox;
+    private HBox rightHeader;
 
     /**
      * 子页面容器
@@ -78,6 +75,8 @@ public class HomeController {
 
     private FontIcon conversationIcon;
     private FontIcon addressBookIcon;
+
+    private JFXComboBox<Locale> languageComboBox;
 
     /**
      * 初始化
@@ -169,15 +168,14 @@ public class HomeController {
         conversationIcon.setOnMouseClicked(event -> switchPage(HomePageType.CONVERSATION));
         addressBookIcon.setOnMouseClicked(event -> switchPage(HomePageType.ADDRESS_BOOK));
 
+        languageComboBox = new JFXComboBox<>();
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
         languageComboBox.setValue(MainApp.getCurrentLocale());
-        languageComboBox.setCellFactory(param -> new LanguageListCell());
-        languageComboBox.setButtonCell(new LanguageListCell());
+        languageComboBox.setNodeConverter(new LocaleNodeConverter());
         languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                MainApp.setLanguage(newValue);
-            }
+            if (newValue != null) MainApp.setLanguage(newValue);
         });
+        rightHeader.getChildren().add(languageComboBox);
     }
 
     /**

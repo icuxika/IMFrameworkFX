@@ -4,7 +4,7 @@ import com.icuxika.AppView;
 import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.login.GraphValidateCodeController;
-import com.icuxika.converter.LocaleStringConverter;
+import com.icuxika.converter.LocaleNodeConverter;
 import com.icuxika.framework.QRCodeGenerator;
 import com.icuxika.framework.systemTray.SystemTrayManager;
 import com.icuxika.framework.systemTray.SystemTrayTaskManager;
@@ -234,10 +234,10 @@ public class LoginController {
         languageComboBox = new JFXComboBox<>();
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
         languageComboBox.setValue(MainApp.getCurrentLocale());
-        languageComboBox.setConverter(new LocaleStringConverter());
         languageComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) MainApp.setLanguage(newValue);
         });
+        languageComboBox.setNodeConverter(new LocaleNodeConverter());
         header.getChildren().add(languageComboBox);
 
         // 密码登录和短信登录切换
@@ -444,7 +444,7 @@ public class LoginController {
                         protected Void call() throws Exception {
                             updateProgress(0, 5);
                             for (int i = 0; i < 5; i++) {
-                                Thread.sleep(1000);
+                                Thread.sleep(200);
                                 updateProgress(i + 1, 5);
                             }
                             return null;

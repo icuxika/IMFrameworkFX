@@ -6,7 +6,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<BorderPane styleClass="groupChatPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane fx:id="chatPane" styleClass="groupChatPane" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.icuxika.controller.home.conversation.GroupChatController">
     <top>
         <HBox alignment="CENTER_LEFT" prefHeight="40.0" BorderPane.alignment="CENTER">
@@ -47,12 +48,16 @@
                             <children>
                                 <HBox fx:id="messageToolbox" alignment="CENTER_LEFT" maxHeight="32.0" minHeight="32.0"
                                       spacing="10.0" styleClass="messageToolbox"/>
-                                <TextArea fx:id="messageInputTextArea" styleClass="messageInputTextArea" wrapText="true"
-                                          VBox.vgrow="ALWAYS">
-                                    <font>
-                                        <Font size="14.0"/>
-                                    </font>
-                                </TextArea>
+                                <StackPane fx:id="messageInputContainer" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <TextArea fx:id="messageInputTextArea" styleClass="messageInputTextArea"
+                                                  wrapText="true">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                        </TextArea>
+                                    </children>
+                                </StackPane>
                                 <HBox fx:id="messageSendBox" alignment="CENTER_RIGHT" minHeight="32.0"
                                       styleClass="messageSendBox"/>
                             </children>

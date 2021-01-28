@@ -1,10 +1,7 @@
 package com.icuxika.model.home;
 
 import com.icuxika.MainApp;
-import com.icuxika.control.message.ImageMessageNode;
-import com.icuxika.control.message.MessageNode;
-import com.icuxika.control.message.PromptMessageNode;
-import com.icuxika.control.message.TextMessageNode;
+import com.icuxika.control.message.*;
 import com.icuxika.controller.home.ConversationController;
 import com.icuxika.framework.UserData;
 import com.icuxika.mock.ReceivedMessageModel;
@@ -14,6 +11,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+
+import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * 对应每一条消息的数据模型
@@ -204,22 +204,59 @@ public class MessageModel {
                 messageNode = textMessageNode;
             }
             case FILE -> {
-                System.out.println("1");
+                FileMessageNode fileMessageNode = new FileMessageNode(showLeft, showName);
+                fileMessageNode.initFile(getMessage());
+                messageNode = fileMessageNode;
             }
             case IMAGE -> {
                 ImageMessageNode imageMessageNode = new ImageMessageNode(showLeft, showName);
-//                            imageMessageNode.setImage("https://scpic.chinaz.net/files/pic/pic9/202101/apic30090.jpg");
-//                            imageMessageNode.setImage("file:/Users/icuxika/Downloads/mountains-5819652.jpg");
-                imageMessageNode.setImage("file:" + getMessage());
+                try {
+                    imageMessageNode.initImage(new File(getMessage()).toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
                 messageNode = imageMessageNode;
             }
             case EMOJI -> {
-                System.out.println("2");
+                EmojiMessageNode emojiMessageNode = new EmojiMessageNode(showLeft, showName);
+                try {
+                    emojiMessageNode.initEmoji(new File(getMessage()).toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                messageNode = emojiMessageNode;
             }
             case PROMPT -> {
                 PromptMessageNode promptMessageNode = new PromptMessageNode(showLeft, showName);
                 promptMessageNode.setPromptMessage(getMessage());
                 messageNode = promptMessageNode;
+            }
+            case AUDIO -> {
+                AudioMessageNode audioMessageNode = new AudioMessageNode(showLeft, showName);
+                try {
+                    audioMessageNode.initAudio(new File(getMessage()).toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                messageNode = audioMessageNode;
+            }
+            case VIDEO -> {
+                VideoMessageNode videoMessageNode = new VideoMessageNode(showLeft, showName);
+                try {
+                    videoMessageNode.initVideo(new File(getMessage()).toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                messageNode = videoMessageNode;
+            }
+            case SHARE_MUSIC -> {
+                MusicMessageNode musicMessageNode = new MusicMessageNode(showLeft, showName);
+                try {
+                    musicMessageNode.initMusic(new File(getMessage()).toURI().toURL());
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                messageNode = musicMessageNode;
             }
             default -> {
             }

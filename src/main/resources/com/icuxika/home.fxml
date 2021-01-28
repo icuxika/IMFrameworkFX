@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.TextFlow?>
-<StackPane minWidth="560.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1"
+<StackPane minWidth="560.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/15.0.1"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.HomeController">
     <children>
         <BorderPane>
@@ -48,9 +47,11 @@
             <center>
                 <BorderPane BorderPane.alignment="CENTER">
                     <top>
-                        <HBox alignment="CENTER" minHeight="36.0" prefHeight="36.0" BorderPane.alignment="CENTER">
+                        <HBox fx:id="header" alignment="CENTER" minHeight="36.0" prefHeight="36.0"
+                              BorderPane.alignment="CENTER">
                             <children>
-                                <ComboBox fx:id="languageComboBox" prefWidth="150.0"/>
+                                <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                                <HBox fx:id="rightHeader" alignment="CENTER_RIGHT"/>
                             </children>
                         </HBox>
                     </top>

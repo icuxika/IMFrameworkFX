@@ -28,6 +28,8 @@ public class PromptMessageNode extends MessageNode {
 
     @Override
     protected void initialize() {
+        getChildren().remove(avatarImageView);
+
         messageContainer = new HBox();
         messageContainer.setAlignment(Pos.CENTER);
 
@@ -43,7 +45,7 @@ public class PromptMessageNode extends MessageNode {
         setRightAnchor(messageContainer, 0.0);
         setTopAnchor(messageContainer, 0.0);
         setBottomAnchor(messageContainer, 0.0);
-        messageContainer.prefWidthProperty().bind(widthProperty());
+//        messageContainer.prefWidthProperty().bind(widthProperty());
         getChildren().add(messageContainer);
     }
 

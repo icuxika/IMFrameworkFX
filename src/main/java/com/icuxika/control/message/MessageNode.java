@@ -4,6 +4,7 @@ import com.icuxika.control.SelectableLabel;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.effect.DropShadow;
@@ -88,6 +89,8 @@ public abstract class MessageNode extends AnchorPane {
             AnchorPane.setTopAnchor(nameText, 10.0);
             getChildren().add(nameText);
         }
+
+        setPadding(new Insets(0, 0, 8, 0));
     }
 
     /**
