@@ -1,7 +1,9 @@
 package com.icuxika.controller.home.addressBook;
 
 import com.google.gson.Gson;
+import com.icuxika.AppView;
 import com.icuxika.control.AddressBookTreeNode;
+import com.icuxika.controller.home.addressBook.detail.FriendDetailController;
 import com.icuxika.framework.UserData;
 import com.icuxika.model.addressBook.FriendTreeItemModel;
 import com.icuxika.model.addressBook.TreeItemTransferModel;
@@ -27,6 +29,7 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class FriendGroupController {
@@ -41,6 +44,8 @@ public class FriendGroupController {
      * 通过只操作数据模型来操作TreeView
      */
     private final FriendTreeItemModel root = new FriendTreeItemModel(0L, 0L, false, "根节点");
+
+    private Consumer<Node> showInParentHook;
 
     public void initialize() {
         friendTreeView.setShowRoot(false);
@@ -76,6 +81,20 @@ public class FriendGroupController {
                 contextMenu.getItems().addAll(addGroupMenuItem, deleteGroupMenuItem, renameGroupMenuItem);
             }
             contextMenu.show(friendTreeView, event.getScreenX(), event.getScreenY());
+        });
+
+        friendTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.getValue().getLeaf()) {
+                AppView<FriendDetailController> friendDetailView = new AppView<>(FriendDetailController.class);
+                friendDetailView.getController().setAvatar(UserData.avatarProperty());
+                friendDetailView.getController().setName(new SimpleStringProperty("你额上似可跑马"));
+                friendDetailView.getController().setSignature(new SimpleStringProperty("是多久啊弗兰克就是打开浪费就收到附件是老大" +
+                        "士大夫艰苦斯拉夫艰苦拉萨大家六分十六的" +
+                        "撒附件斯科拉腹肌拉伤搭街坊昆仑山大家ffsf按时发士大夫撒旦" +
+                        "撒反对萨拉开发就是看拉丁教父sdd" +
+                        "萨芬士大夫"));
+                getShowInParentHook().accept(friendDetailView.getRootNode());
+            }
         });
     }
 
@@ -141,6 +160,14 @@ public class FriendGroupController {
         if (!node.getChildren().isEmpty()) {
             node.getChildren().forEach(model -> getChildren(model, children));
         }
+    }
+
+    public Consumer<Node> getShowInParentHook() {
+        return showInParentHook;
+    }
+
+    public void setShowInParentHook(Consumer<Node> showInParentHook) {
+        this.showInParentHook = showInParentHook;
     }
 
     /**

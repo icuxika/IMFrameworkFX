@@ -988,3 +988,65 @@
 .friendTreeView:hover .scroll-bar > .decrement-button > .decrement-arrow {
     -fx-background-color: #eaeaea;
 }
+
+/* addressBook > friendDetail */
+.friendDetailContainerPane {
+    -fx-background-color: transparent;
+}
+
+.friendDetailContainerPane .contentPane {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.friendDetailContainerPane .signatureContainer {
+    -fx-background-color: transparent;
+}
+
+.friendDetailContainerPane .signatureContainer .viewport {
+    -fx-background-color: transparent;
+}
+
+.friendDetailContainerPane .signatureContainer .corner {
+    -fx-background-color: transparent;
+}
+
+.friendDetailContainerPane .signatureContainer .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.friendDetailContainerPane .detailPane {
+    -fx-background-color: white;
+}
+
+.friendDetailContainerPane .detailPane .viewport {
+    -fx-background-color: white;
+}
+
+.friendDetailContainerPane .detailPane .corner {
+    -fx-background-color: white;
+}
+
+.friendDetailContainerPane .detailPane .scroll-bar {
+    -fx-background-color: white;
+}
+
+.friendDetailContainerPane .detailPane .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.friendDetailContainerPane .detailPane .scroll-bar:vertical > .thumb {
+    -fx-background-color: #EBEBEB;
+    -fx-scale-x: 0.5;
+}
+
+.friendDetailContainerPane .detailPane .scroll-bar > .increment-button > .increment-arrow {
+    -fx-background-color: #EBEBEB;
+}
+
+.friendDetailContainerPane .detailPane .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: #EBEBEB;
+}

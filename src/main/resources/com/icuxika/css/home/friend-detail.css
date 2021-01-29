@@ -1,0 +1,52 @@
+.friendDetailContainerPane {
+    -fx-background-color: transparent;
+}
+
+.contentPane {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.signatureContainer {
+    -fx-background-color: transparent;
+}
+
+.signatureContainer .viewport {
+    -fx-background-color: transparent;
+}
+
+.signatureContainer .corner {
+    -fx-background-color: transparent;
+}
+
+.signatureContainer .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.detailPane {
+    -fx-background-color: white;
+}
+
+.detailPane .viewport {
+    -fx-background-color: white;
+}
+
+.detailPane .corner {
+    -fx-background-color: white;
+}
+
+.detailPane .scroll-bar {
+    -fx-background-color: white;
+}
+
+.detailPane .scroll-bar:horizontal {
+    -fx-scale-y: 0;
+    -fx-pref-height: 0;
+}
+
+.detailPane .scroll-bar:vertical {
+    -fx-scale-x: 0;
+    -fx-pref-width: 0;
+}

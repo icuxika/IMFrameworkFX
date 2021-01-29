@@ -16,6 +16,6 @@
                 </StackPane>
             </children>
         </VBox>
-        <StackPane minWidth="100.0"/>
+        <StackPane fx:id="addressBookContainer" minWidth="400.0"/>
     </items>
 </SplitPane>
