@@ -166,6 +166,7 @@ public class SystemTrayManager {
      */
     public static void exit() {
         Platform.setImplicitExit(true);
-        systemTray.remove(trayIcon);
+        // macOS上不使用 EventQueue 时，点击关闭按钮，程序会卡住
+        EventQueue.invokeLater(() -> systemTray.remove(trayIcon));
     }
 }
