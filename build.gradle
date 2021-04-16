@@ -1,3 +1,17 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url "https://sandec.bintray.com/repo"
+        }
+    }
+
+    dependencies {
+        classpath 'com.sandec.jpro:jpro-plugin-gradle:2020.1.5'
+    }
+}
+
+
 plugins {
     id 'java'
     id 'application'
@@ -61,4 +75,15 @@ test {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+
+apply plugin: 'com.sandec.jpro'
+
+jpro {
+    // for debugging
+    // JVMArgs << '-agentlib:jdwp=transport=dt_socket,server=n,address=5006,suspend=y'
+    JVMArgs << "--illegal-access=permit"
+    JVMArgs << '-Xmx1000m'
+    //jpro server port
+    port = 8080
 }
