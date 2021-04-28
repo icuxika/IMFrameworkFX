@@ -935,6 +935,16 @@
     -fx-border-color: white;
 }
 
+.friendTreeView .tree-cell > .tree-disclosure-node {
+    -fx-pref-height: 32;
+    -fx-padding: 10 8 10 8;
+}
+
+.friendTreeView .tree-cell:expanded > .tree-disclosure-node {
+    -fx-pref-height: 32;
+    -fx-padding: 10 8 10 8;
+}
+
 .friendTreeView .tree-cell {
     -fx-background-color: white;
 }

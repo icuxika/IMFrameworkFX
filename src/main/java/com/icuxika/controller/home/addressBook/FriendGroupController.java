@@ -12,7 +12,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
@@ -20,7 +19,10 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -209,13 +211,14 @@ public class FriendGroupController {
                             setGraphic(null);
 
                             setPrefHeight(32);
+                            // 下面的代码使用 css  .tree-cell > .tree-disclosure-node 替换，防止小箭头的大小和位置刚开始不刷新
                             // 调整小箭头的位置，目前存在一个问题，小箭头的大小和位置会在第一次点击到树节点后才更新
-                            getChildrenUnmodifiable().stream().filter(node -> node instanceof StackPane).forEach(node -> {
-                                StackPane stackPane = (StackPane) node;
-                                stackPane.setAlignment(Pos.CENTER);
-                                stackPane.setPadding(new Insets(10, 8, 10, 8));
-                                stackPane.setPrefHeight(32);
-                            });
+//                            getChildrenUnmodifiable().stream().filter(node -> node instanceof StackPane).forEach(node -> {
+//                                StackPane stackPane = (StackPane) node;
+//                                stackPane.setAlignment(Pos.CENTER);
+//                                stackPane.setPadding(new Insets(10, 8, 10, 8));
+//                                stackPane.setPrefHeight(32);
+//                            });
                         }
                     }
                 }
