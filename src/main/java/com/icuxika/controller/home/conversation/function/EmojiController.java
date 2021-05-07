@@ -10,9 +10,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -82,6 +85,20 @@ public class EmojiController {
                         imageView.setImage(new Image("file:" + file.getAbsolutePath(), true));
                         imageView.setOnMouseClicked(event1 -> {
                             if (consumer != null) consumer.accept(file);
+                        });
+                        imageView.hoverProperty().addListener((observable, oldValue, newValue) -> {
+                            if (newValue) {
+                                DropShadow dropShadow = new DropShadow();
+                                dropShadow.setBlurType(BlurType.GAUSSIAN);
+                                dropShadow.setColor(Color.rgb(64, 64, 64, 0.64));
+                                dropShadow.setHeight(2);
+                                dropShadow.setOffsetX(2.0);
+                                dropShadow.setOffsetY(2.0);
+                                dropShadow.setSpread(0.24);
+                                imageView.setEffect(dropShadow);
+                            } else {
+                                imageView.setEffect(null);
+                            }
                         });
                         flowPane.getChildren().add(imageView);
                     });
