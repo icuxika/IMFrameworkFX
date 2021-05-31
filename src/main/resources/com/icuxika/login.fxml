@@ -5,8 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<StackPane fx:id="containerPane" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/11.0.1"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.icuxika.controller.LoginController">
+<StackPane fx:id="containerPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.icuxika.controller.LoginController">
     <children>
         <BorderPane>
             <left>

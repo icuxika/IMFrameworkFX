@@ -2,6 +2,7 @@ package com.icuxika;
 
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.exception.FXMLNotFoundException;
+import com.icuxika.framework.Framework;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 通过 {@link AppFXML} 注解或是根据类名加载FXML文件，并可以返回根结点及控制器
@@ -41,6 +44,38 @@ public class AppView<T> {
      * 注解中指定的样式表
      */
     private String[] stylesheets;
+
+    private static final Map<Scene, String[]> sceneStyleMap = new HashMap<>();
+
+    static {
+        // 使用FXML的情况下，如果相关操作未生效的话，需要确保FXML文件本身没有引入css文件，否则此处新增和删除css文件对scene无效
+        Framework.darkModeProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // 开启暗黑模式
+                sceneStyleMap.forEach((currentScene, v) -> {
+                    for (String s : v) {
+                        // demo.css -> demo-dark.css
+                        int dotIndex = s.lastIndexOf('.');
+                        String darkStylesheet = s.substring(0, dotIndex) + "-dark" + s.substring(dotIndex);
+                        if (MainApp.load(darkStylesheet) != null) {
+                            if (MainApp.load(s) != null) {
+                                if (newValue) {
+                                    currentScene.getStylesheets().remove(MainApp.load(s).toExternalForm());
+                                } else {
+                                    currentScene.getStylesheets().add(MainApp.load(s).toExternalForm());
+                                }
+                            }
+                            if (newValue) {
+                                currentScene.getStylesheets().add(MainApp.load(darkStylesheet).toExternalForm());
+                            } else {
+                                currentScene.getStylesheets().remove(MainApp.load(darkStylesheet).toExternalForm());
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    }
 
     public AppView(Class<T> controllerClass) {
 
@@ -163,6 +198,7 @@ public class AppView<T> {
                     logger.warn("样式表 [" + stylesheet + "] 加载失败，请检查路径是否正确");
                 }
             }
+            sceneStyleMap.put(scene, stylesheets);
         }
     }
 
@@ -268,7 +304,7 @@ public class AppView<T> {
         // 此处设置父窗口，可使当前窗口不会出现在任务栏
         stage.initOwner(owner);
         stage.initStyle(StageStyle.TRANSPARENT);
-        Scene scene = new Scene(getRootNode());
+        scene = new Scene(getRootNode());
         scene.setFill(null);
         // 对场景设置样式表
         assembleStylesheets(scene);

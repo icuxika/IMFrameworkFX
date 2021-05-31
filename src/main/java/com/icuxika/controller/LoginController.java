@@ -5,6 +5,7 @@ import com.icuxika.MainApp;
 import com.icuxika.annotation.AppFXML;
 import com.icuxika.controller.login.GraphValidateCodeController;
 import com.icuxika.converter.LocaleNodeConverter;
+import com.icuxika.framework.Framework;
 import com.icuxika.framework.QRCodeGenerator;
 import com.icuxika.framework.systemTray.SystemTrayManager;
 import com.icuxika.framework.systemTray.SystemTrayTaskManager;
@@ -106,6 +107,7 @@ public class LoginController {
     @FXML
     private HBox qrLoginReturnContainer;
 
+    private JFXToggleButton lightDarkToggleButton;
     private JFXComboBox<Locale> languageComboBox;
     private FontIcon passwordIcon;
     private FontIcon smsIcon;
@@ -230,6 +232,10 @@ public class LoginController {
         chipView.getSuggestions().addAll("avc", "adfa");
         testContainer.getChildren().add(chipView);
 
+        // 明暗模式切换
+        lightDarkToggleButton = new JFXToggleButton();
+        lightDarkToggleButton.selectedProperty().addListener((observable, oldValue, newValue) -> Framework.setDarkMode(newValue));
+
         // 语言切换 JFXComboBox
         languageComboBox = new JFXComboBox<>();
         languageComboBox.getItems().addAll(MainApp.SUPPORT_LANGUAGE_LIST);
@@ -238,7 +244,7 @@ public class LoginController {
             if (newValue != null) MainApp.setLanguage(newValue);
         });
         languageComboBox.setNodeConverter(new LocaleNodeConverter());
-        header.getChildren().add(languageComboBox);
+        header.getChildren().addAll(lightDarkToggleButton, languageComboBox);
 
         // 密码登录和短信登录切换
         passwordIcon = new FontIcon(FontAwesomeSolid.LOCK);
