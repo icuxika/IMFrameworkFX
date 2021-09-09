@@ -10,8 +10,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public class AppView<T> {
 
-    private static final Logger logger = LogManager.getLogger(AppView.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(AppView.class);
 
     /**
      * 当前页面的根结点

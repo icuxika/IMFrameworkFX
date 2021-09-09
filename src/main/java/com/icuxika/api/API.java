@@ -2,9 +2,9 @@ package com.icuxika.api;
 
 import com.google.gson.Gson;
 import okhttp3.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class API {
 
-    private static final Logger logger = LogManager.getLogger(API.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(API.class);
 
     private static final OkHttpClient client = new OkHttpClient();
 

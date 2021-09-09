@@ -13,8 +13,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class MainApp extends Application {
 
-    private static final Logger logger = LogManager.getLogger(MainApp.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(MainApp.class);
 
     /**
      * 默认语言文件 Base Name
