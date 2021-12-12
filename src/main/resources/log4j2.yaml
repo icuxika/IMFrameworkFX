@@ -5,41 +5,22 @@ Configuration:
     property:
       name: filename
       value: build/application.log
-  thresholdFilter:
-    level: debug
   appenders:
     Console:
       name: STDOUT
       target: SYSTEM_OUT
       PatternLayout:
-        Pattern: "%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS}:%5p %t [%10F:%4L] -- %m%n}"
+        Pattern: "%highlight{[%5p]:%d{yyyy-MM-dd HH:mm:ss,SSS} %t [%10F:%4L] -- %m%n}"
     File:
       name: File
       fileName: ${filename}
       PatternLayout:
-        Pattern: "%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS}:%5p %t [%10F:%4L] -- %m%n}"
+        Pattern: "[%5p]:%d{yyyy-MM-dd HH:mm:ss,SSS} %t [%10F:%4L] -- %m%n"
       Filters:
         ThresholdFilter:
-          level: error
+          level: warn
 
   Loggers:
-    #    logger:
-    #      -
-    #        name: org.apache.logging.log4j.test1
-    #        level: debug
-    #        additivity: false
-    #        ThreadContextMapFilter:
-    #          KeyValuePair:
-    #            key: test
-    #            value: 123
-    #        AppenderRef:
-    #          ref: STDOUT
-    #      -
-    #        name: org.apache.logging.log4j.test2
-    #        level: debug
-    #        additivity: false
-    #        AppenderRef:
-    #          ref: File
     Root:
       level: trace
       AppenderRef:
