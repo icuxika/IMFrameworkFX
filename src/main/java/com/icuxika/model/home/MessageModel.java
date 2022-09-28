@@ -4,6 +4,7 @@ import com.icuxika.MainApp;
 import com.icuxika.control.message.*;
 import com.icuxika.controller.home.ConversationController;
 import com.icuxika.framework.UserData;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.mock.ReceivedMessageModel;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -267,7 +268,7 @@ public class MessageModel {
             messageNode.setName(getNameProperty());
             setGraphic(messageNode);
             // 撤回消息
-            messageNode.setMenuItem(MainApp.getLanguageBinding("chat-msg-context-menu-revoke"), () -> {
+            messageNode.setMenuItem(MainApp.getLanguageBinding(LanguageConstants.chat_msg_context_menu_revoke), () -> {
                 ReceivedMessageModel receivedMessageModel = new ReceivedMessageModel();
                 receivedMessageModel.setConversationId(getConversationId());
                 receivedMessageModel.setMessageType(MessageType.REVOKE);
@@ -279,7 +280,7 @@ public class MessageModel {
             });
 
             // 删除消息
-            messageNode.setMenuItem(MainApp.getLanguageBinding("chat-msg-context-menu-delete"), () -> {
+            messageNode.setMenuItem(MainApp.getLanguageBinding(LanguageConstants.chat_msg_context_menu_delete), () -> {
                 ReceivedMessageModel receivedMessageModel = new ReceivedMessageModel();
                 receivedMessageModel.setConversationId(getConversationId());
                 receivedMessageModel.setMessageType(MessageType.DELETE);

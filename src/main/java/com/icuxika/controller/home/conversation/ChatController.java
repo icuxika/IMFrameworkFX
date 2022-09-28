@@ -8,6 +8,7 @@ import com.icuxika.controller.home.conversation.function.EmojiController;
 import com.icuxika.controller.home.conversation.function.ScreenShotController;
 import com.icuxika.event.FileChooseEventHandler;
 import com.icuxika.framework.UserData;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.mock.ReceivedMessageModel;
 import com.icuxika.model.home.FileChooseType;
 import com.icuxika.model.home.MessageModel;
@@ -113,7 +114,7 @@ public class ChatController {
         messageListView.setCellFactory(new MessageListViewCallback());
 
         FontIcon emojiIcon = new FontIcon(FontAwesomeRegular.SMILE_BEAM);
-        JFXTooltip.install(emojiIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-emoji")));
+        JFXTooltip.install(emojiIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_emoji)));
         emojiIcon.setOnMouseReleased(event -> {
             emojiView.getController().setConsumer(file -> {
                 sendEmojiMessage(file);
@@ -122,22 +123,22 @@ public class ChatController {
             emojiView.repeatShow(emojiIcon.getScene().getWindow(), event.getScreenX() - 222, event.getScreenY() - 266);
         });
         FontIcon fileIcon = new FontIcon(FontAwesomeRegular.FOLDER);
-        JFXTooltip.install(fileIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-file")));
+        JFXTooltip.install(fileIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_file)));
         fileIcon.setOnMouseReleased(new FileChooseEventHandler(fileIcon, FileChooseType.ALL, this::sendFileMessage));
         FontIcon imageIcon = new FontIcon(FontAwesomeRegular.IMAGE);
-        JFXTooltip.install(imageIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-image")));
+        JFXTooltip.install(imageIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_image)));
         imageIcon.setOnMouseReleased(new FileChooseEventHandler(imageIcon, FileChooseType.IMAGE, file -> sendImageMessage(0L, file)));
         FontIcon screenShotIcon = new FontIcon(FontAwesomeSolid.CUT);
-        JFXTooltip.install(screenShotIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-screen-shot")));
+        JFXTooltip.install(screenShotIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_screen_shot)));
         screenShotIcon.setOnMouseReleased(event -> screenShotController.startScreenShot());
         FontIcon microphoneIcon = new FontIcon(FontAwesomeSolid.MICROPHONE);
-        JFXTooltip.install(microphoneIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-audio")));
+        JFXTooltip.install(microphoneIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_audio)));
         microphoneIcon.setOnMouseReleased(event -> generateAudioMessage());
         FontIcon musicIcon = new FontIcon(FontAwesomeSolid.MUSIC);
-        JFXTooltip.install(musicIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-share-music")));
+        JFXTooltip.install(musicIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_share_music)));
         musicIcon.setOnMouseReleased(new FileChooseEventHandler(musicIcon, FileChooseType.ALL, this::sendMusicMessage));
         FontIcon videoIcon = new FontIcon(FontAwesomeSolid.FILM);
-        JFXTooltip.install(videoIcon, new JFXTooltip(MainApp.getLanguageBinding("chat-msg-tool-icon-video")));
+        JFXTooltip.install(videoIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.chat_msg_tool_icon_video)));
         videoIcon.setOnMouseReleased(new FileChooseEventHandler(videoIcon, FileChooseType.ALL, this::sendVideoMessage));
         HBox.setMargin(emojiIcon, new Insets(0, 0, 0, 10));
         messageToolbox.getChildren().addAll(emojiIcon, fileIcon, imageIcon, screenShotIcon, microphoneIcon, musicIcon, videoIcon);
@@ -146,7 +147,7 @@ public class ChatController {
         messageInputTextArea.setOnKeyPressed(new MessageSendKeyEventHandler(() -> sendTextMessage(UserData.userId, messageInputTextArea.getText())));
 
         // 发送消息按钮
-        sendMsgButton = new JFXButton(MainApp.getLanguageBinding("chat-send-msg-btn-text"));
+        sendMsgButton = new JFXButton(MainApp.getLanguageBinding(LanguageConstants.chat_send_msg_btn_text));
         sendMsgButton.setFont(Font.font(12));
         sendMsgButton.setPrefHeight(24);
         sendMsgButton.setButtonType(JFXButton.ButtonType.RAISED);

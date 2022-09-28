@@ -12,36 +12,163 @@ import java.util.ListResourceBundle;
 public class LanguageResource extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
-        return new Object[][]{
-                {"confirm", "确认"},
-                {"cancel", "取消"},
-                {"title", "即时通讯"},
-                {"login", "登录"},
-                {"qr-login", "二维码登录"},
-                {"login-username", "请输入用户名"},
-                {"login-username-need", "用户名不能为空！"},
-                {"login-password", "请输入密码"},
-                {"login-password-need", "密码不能为空！"},
-                {"verification-code", "请输入验证码"},
-                {"verification-code-need", "验证码不能为空！"},
-                {"obtain-verification-code", "获取验证码"},
-                {"re-obtain-verification-code", "重新获取"},
-                {"register", "注册"},
-                {"register-link", "注册账号"},
-                {"forgot-password-link", "忘记密码"},
-                {"chat-send-msg-btn-text", "发送"},
-                {"chat-msg-context-menu-copy", "复制"},
-                {"chat-msg-context-menu-delete", "删除"},
-                {"chat-msg-context-menu-revoke", "撤回"},
-                {"chat-msg-tool-icon-emoji", "选择表情"},
-                {"chat-msg-tool-icon-file", "发送文件"},
-                {"chat-msg-tool-icon-image", "发送图片"},
-                {"chat-msg-tool-icon-audio", "语音消息"},
-                {"chat-msg-tool-icon-share-music", "分享音乐"},
-                {"chat-msg-tool-icon-video", "视频文件"},
-                {"chat-msg-tool-icon-screen-shot", "屏幕截图"},
-                {"conversation-context-menu-top", "置顶"},
-                {"conversation-context-menu-cancel-top", "取消置顶"}
-        };
+        return new DefaultLanguageResource().getContents();
+    }
+
+    static class DefaultLanguageResource implements LanguageConstants {
+        @Override
+        public String confirm() {
+            return "确认";
+        }
+
+        @Override
+        public String cancel() {
+            return "取消";
+        }
+
+        @Override
+        public String title() {
+            return "即时通讯";
+        }
+
+        @Override
+        public String login() {
+            return "登录";
+        }
+
+        @Override
+        public String qr_login() {
+            return "二维码登录";
+        }
+
+        @Override
+        public String login_username() {
+            return "请输入用户名";
+        }
+
+        @Override
+        public String login_username_need() {
+            return "用户名不能为空！";
+        }
+
+        @Override
+        public String login_password() {
+            return "请输入密码";
+        }
+
+        @Override
+        public String login_password_need() {
+            return "密码不能为空！";
+        }
+
+        @Override
+        public String verification_code() {
+            return "请输入验证码";
+        }
+
+        @Override
+        public String verification_code_need() {
+            return "验证码不能为空！";
+        }
+
+        @Override
+        public String obtain_verification_code() {
+            return "获取验证码";
+        }
+
+        @Override
+        public String re_obtain_verification_code() {
+            return "重新获取";
+        }
+
+        @Override
+        public String remember_password() {
+            return "记住密码";
+        }
+
+        @Override
+        public String auto_login() {
+            return "自动登录";
+        }
+
+        @Override
+        public String register() {
+            return "注册";
+        }
+
+        @Override
+        public String register_link() {
+            return "注册账号";
+        }
+
+        @Override
+        public String forgot_password_link() {
+            return "忘记密码";
+        }
+
+        @Override
+        public String chat_send_msg_btn_text() {
+            return "发送";
+        }
+
+        @Override
+        public String chat_msg_context_menu_copy() {
+            return "复制";
+        }
+
+        @Override
+        public String chat_msg_context_menu_delete() {
+            return "删除";
+        }
+
+        @Override
+        public String chat_msg_context_menu_revoke() {
+            return "撤回";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_emoji() {
+            return "选择表情";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_file() {
+            return "发送文件";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_image() {
+            return "发送图片";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_audio() {
+            return "语音消息";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_share_music() {
+            return "分享音乐";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_video() {
+            return "视频文件";
+        }
+
+        @Override
+        public String chat_msg_tool_icon_screen_shot() {
+            return "屏幕截图";
+        }
+
+        @Override
+        public String conversation_context_menu_top() {
+            return "置顶";
+        }
+
+        @Override
+        public String conversation_context_menu_cancel_top() {
+            return "取消置顶";
+        }
     }
 }

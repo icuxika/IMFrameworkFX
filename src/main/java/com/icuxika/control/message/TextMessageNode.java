@@ -2,6 +2,7 @@ package com.icuxika.control.message;
 
 import com.icuxika.MainApp;
 import com.icuxika.control.SelectableLabel;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.util.ClipboardUtil;
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuItem;
@@ -98,7 +99,7 @@ public class TextMessageNode extends MessageNode {
 
     private void buildContextMenu() {
         MenuItem copyMenuItem = new MenuItem();
-        copyMenuItem.textProperty().bind(MainApp.getLanguageBinding("chat-msg-context-menu-copy"));
+        copyMenuItem.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.chat_msg_context_menu_copy));
         actionMenuItemMap.put(copyMenuItem, () -> {
             String content = messageText.getSelectedText();
             ClipboardUtil.putString(content);

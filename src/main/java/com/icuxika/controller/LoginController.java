@@ -9,6 +9,7 @@ import com.icuxika.framework.Framework;
 import com.icuxika.framework.QRCodeGenerator;
 import com.icuxika.framework.systemTray.SystemTrayManager;
 import com.icuxika.framework.systemTray.SystemTrayTaskManager;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.model.SystemTrayMessageModel;
 import com.icuxika.util.SystemUtil;
 import com.jfoenix.control.*;
@@ -166,7 +167,7 @@ public class LoginController {
             }
         });
 
-        flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding("title"));
+        flyleafTitleLabel.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.title));
         // 测试一下托盘图标任务窗口的高度变化
         flyleafTitleLabel.setOnMouseReleased(event -> systemTrayTaskManager.pushMessage(new SystemTrayMessageModel()));
 
@@ -257,10 +258,10 @@ public class LoginController {
         usernameField = new JFXTextField();
         usernameField.setFont(new Font(14));
         usernameField.setPrefWidth(240);
-        usernameField.promptTextProperty().bind(MainApp.getLanguageBinding("login-username"));
+        usernameField.promptTextProperty().bind(MainApp.getLanguageBinding(LanguageConstants.login_username));
         usernameField.setLabelFloat(true);
         RequiredFieldValidator usernameValidator = new RequiredFieldValidator();
-        usernameValidator.messageProperty().bind(MainApp.getLanguageBinding("login-username-need"));
+        usernameValidator.messageProperty().bind(MainApp.getLanguageBinding(LanguageConstants.login_username_need));
         FontIcon usernameWarnIcon = new FontIcon(FontAwesomeSolid.EXCLAMATION_CIRCLE);
         usernameWarnIcon.getStyleClass().add("error");
         usernameValidator.setIcon(usernameWarnIcon);
@@ -274,10 +275,10 @@ public class LoginController {
         passwordField = new JFXPasswordField();
         passwordField.setFont(new Font(14));
         passwordField.setPrefWidth(240);
-        passwordField.promptTextProperty().bind(MainApp.getLanguageBinding("login-password"));
+        passwordField.promptTextProperty().bind(MainApp.getLanguageBinding(LanguageConstants.login_password));
         passwordField.setLabelFloat(true);
         RequiredFieldValidator passwordValidator = new RequiredFieldValidator();
-        passwordValidator.messageProperty().bind(MainApp.getLanguageBinding("login-password-need"));
+        passwordValidator.messageProperty().bind(MainApp.getLanguageBinding(LanguageConstants.login_password_need));
         FontIcon passwordWarnIcon = new FontIcon(FontAwesomeSolid.EXCLAMATION_CIRCLE);
         passwordWarnIcon.getStyleClass().add("error");
         passwordValidator.setIcon(passwordWarnIcon);
@@ -291,10 +292,10 @@ public class LoginController {
         verificationCodeField = new JFXTextField();
         verificationCodeField.setFont(new Font(14));
         verificationCodeField.setPrefWidth(150);
-        verificationCodeField.promptTextProperty().bind(MainApp.getLanguageBinding("verification-code"));
+        verificationCodeField.promptTextProperty().bind(MainApp.getLanguageBinding(LanguageConstants.verification_code));
         verificationCodeField.setLabelFloat(true);
         RequiredFieldValidator verificationCodeValidator = new RequiredFieldValidator();
-        verificationCodeValidator.messageProperty().bind(MainApp.getLanguageBinding("verification-code-need"));
+        verificationCodeValidator.messageProperty().bind(MainApp.getLanguageBinding(LanguageConstants.verification_code_need));
         FontIcon verificationCodeWarnIcon = new FontIcon(FontAwesomeSolid.EXCLAMATION_CIRCLE);
         verificationCodeWarnIcon.getStyleClass().add("error");
         verificationCodeValidator.setIcon(verificationCodeWarnIcon);
@@ -305,7 +306,7 @@ public class LoginController {
 
         // 获取短信验证码
         verificationCodeRefreshButton = new JFXButton();
-        verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding("obtain-verification-code"));
+        verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.obtain_verification_code));
         verificationCodeRefreshButton.setFont(new Font(13));
         verificationCodeRefreshButton.setPrefWidth(90);
         verificationCodeRefreshButton.setPrefHeight(32);
@@ -317,7 +318,7 @@ public class LoginController {
 
         // 登录按钮
         loginButton = new JFXButton();
-        loginButton.textProperty().bind(MainApp.getLanguageBinding("login"));
+        loginButton.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.login));
         loginButton.setFont(new Font(16));
         loginButton.setPrefWidth(176.0);
         loginButton.setPrefHeight(32.0);
@@ -327,17 +328,17 @@ public class LoginController {
 
         // 切换二维码登录
         qrCodeIcon = new FontIcon(FontAwesomeSolid.QRCODE);
-        JFXTooltip.install(qrCodeIcon, new JFXTooltip(MainApp.getLanguageBinding("qr-login"), Pos.CENTER_RIGHT));
+        JFXTooltip.install(qrCodeIcon, new JFXTooltip(MainApp.getLanguageBinding(LanguageConstants.qr_login), Pos.CENTER_RIGHT));
         qrCodeIconContainer.getChildren().add(qrCodeIcon);
 
         rememberCheckBox = new JFXCheckBox();
-        rememberCheckBox.textProperty().bind(MainApp.getLanguageBinding("remember-password"));
+        rememberCheckBox.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.remember_password));
         rememberContainer.getChildren().add(rememberCheckBox);
         autoLoginCheckBox = new JFXCheckBox();
-        autoLoginCheckBox.textProperty().bind(MainApp.getLanguageBinding("auto-login"));
+        autoLoginCheckBox.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.auto_login));
         autoLoginContainer.getChildren().add(autoLoginCheckBox);
-        forgotPasswordLink.textProperty().bind(MainApp.getLanguageBinding("forgot-password-link"));
-        registerLink.textProperty().bind(MainApp.getLanguageBinding("register-link"));
+        forgotPasswordLink.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.forgot_password_link));
+        registerLink.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.register_link));
 
         // 登录进度文字提示
         loginProgressPromptLabel = new Label();
@@ -411,14 +412,14 @@ public class LoginController {
                     verificationCodeRefreshButton.setDisable(true);
                     smsResendCountDownService.setPeriod(Duration.seconds(1));
                     smsResendCountDownService.setRestartOnFailure(false);
-                    verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding("re-obtain-verification-code").concat(smsResendCountDownService.lastValueProperty().asString()));
+                    verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.re_obtain_verification_code).concat(smsResendCountDownService.lastValueProperty().asString()));
                     smsResendCountDownService.valueProperty().addListener((observable, oldValue, newValue) -> {
                         if (newValue != null && newValue <= 0) smsResendCountDownService.cancel();
                     });
                     smsResendCountDownService.setOnCancelled(event1 -> {
                         smsResendCountDownService.reset();
                         smsResendCountDownService.setCount(60);
-                        verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding("obtain-verification-code"));
+                        verificationCodeRefreshButton.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.obtain_verification_code));
                         verificationCodeRefreshButton.disableProperty().bind(usernameField.textProperty().isEmpty());
                     });
                     smsResendCountDownService.start();
@@ -464,7 +465,7 @@ public class LoginController {
                             JFXDecorator decorator = new JFXDecorator(stage, homeView.getRootNode());
                             decorator.setCustomMaximize(true);
                             decorator.setGraphic(new SVGGlyph(""));
-                            decorator.titleProperty().bind(MainApp.getLanguageBinding("title"));
+                            decorator.titleProperty().bind(MainApp.getLanguageBinding(LanguageConstants.title));
                             scene = new Scene(decorator, 800, 600);
                         } else {
                             scene = new Scene(homeView.getRootNode(), 800, 600);

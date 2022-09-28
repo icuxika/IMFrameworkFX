@@ -5,38 +5,161 @@ import java.util.ListResourceBundle;
 public class LanguageResource_en extends ListResourceBundle {
     @Override
     protected Object[][] getContents() {
-        return new Object[][]{
-                {"confirm", "Confirm"},
-                {"cancel", "Cancel"},
-                {"title", "Instant messaging"},
-                {"login", "Sign In"},
-                {"qr-login", "QR Login"},
-                {"login-username", "Please enter your username"},
-                {"login-username-need", "Username can't be empty!"},
-                {"login-password", "Please enter your password"},
-                {"login-password-need", "Password can't be empty"},
-                {"verification-code", "Please enter your verification code"},
-                {"verification-code-need", "Verification code can't be empty"},
-                {"obtain-verification-code", "Get Code"},
-                {"re-obtain-verification-code", "Refresh "},
-                {"remember-password", "Remember me"},
-                {"auto-login", "Auto login"},
-                {"register", "Sign up"},
-                {"register-link", "Sign Up"},
-                {"forgot-password-link", "Forgot Password?"},
-                {"chat-send-msg-btn-text", "Send"},
-                {"chat-msg-context-menu-copy", "Copy"},
-                {"chat-msg-context-menu-delete", "Delete"},
-                {"chat-msg-context-menu-revoke", "Revoke"},
-                {"chat-msg-tool-icon-emoji", "Emoji"},
-                {"chat-msg-tool-icon-file", "File"},
-                {"chat-msg-tool-icon-image", "Image"},
-                {"chat-msg-tool-icon-audio", "Audio"},
-                {"chat-msg-tool-icon-share-music", "Music"},
-                {"chat-msg-tool-icon-video", "Video"},
-                {"chat-msg-tool-icon-screen-shot", "Screenshot"},
-                {"conversation-context-menu-top", "Set-top"},
-                {"conversation-context-menu-cancel-top", "Cancel set-top"}
-        };
+        return new LanguageConstants() {
+            @Override
+            public String confirm() {
+                return "Confirm";
+            }
+
+            @Override
+            public String cancel() {
+                return "Cancel";
+            }
+
+            @Override
+            public String title() {
+                return "Instant messaging";
+            }
+
+            @Override
+            public String login() {
+                return "Sign In";
+            }
+
+            @Override
+            public String qr_login() {
+                return "QR Login";
+            }
+
+            @Override
+            public String login_username() {
+                return "Please enter your username";
+            }
+
+            @Override
+            public String login_username_need() {
+                return "Username can't be empty!";
+            }
+
+            @Override
+            public String login_password() {
+                return "Please enter your password";
+            }
+
+            @Override
+            public String login_password_need() {
+                return "Password can't be empty";
+            }
+
+            @Override
+            public String verification_code() {
+                return "Please enter your verification code";
+            }
+
+            @Override
+            public String verification_code_need() {
+                return "Verification code can't be empty";
+            }
+
+            @Override
+            public String obtain_verification_code() {
+                return "Get code";
+            }
+
+            @Override
+            public String re_obtain_verification_code() {
+                return "Refresh";
+            }
+
+            @Override
+            public String remember_password() {
+                return "Remember me";
+            }
+
+            @Override
+            public String auto_login() {
+                return "Auto login";
+            }
+
+            @Override
+            public String register() {
+                return "Sign up";
+            }
+
+            @Override
+            public String register_link() {
+                return "Sign Up";
+            }
+
+            @Override
+            public String forgot_password_link() {
+                return "Forgot Password?";
+            }
+
+            @Override
+            public String chat_send_msg_btn_text() {
+                return "Send";
+            }
+
+            @Override
+            public String chat_msg_context_menu_copy() {
+                return "Copy";
+            }
+
+            @Override
+            public String chat_msg_context_menu_delete() {
+                return "Delete";
+            }
+
+            @Override
+            public String chat_msg_context_menu_revoke() {
+                return "Revoke";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_emoji() {
+                return "Emoji";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_file() {
+                return "File";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_image() {
+                return "Image";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_audio() {
+                return "Audio";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_share_music() {
+                return "Music";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_video() {
+                return "Video";
+            }
+
+            @Override
+            public String chat_msg_tool_icon_screen_shot() {
+                return "Screenshot";
+            }
+
+            @Override
+            public String conversation_context_menu_top() {
+                return "Set-top";
+            }
+
+            @Override
+            public String conversation_context_menu_cancel_top() {
+                return "Cancel set-top";
+            }
+        }.getContents();
     }
 }

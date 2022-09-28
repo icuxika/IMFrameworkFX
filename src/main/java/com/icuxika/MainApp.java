@@ -2,6 +2,7 @@ package com.icuxika;
 
 import com.icuxika.controller.LoginController;
 import com.icuxika.framework.StartupLocation;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.i18n.LanguageResource;
 import com.icuxika.i18n.ObservableResourceBundleFactory;
 import javafx.application.Application;
@@ -144,7 +145,7 @@ public class MainApp extends Application {
 //                loginView.setStage(primaryStage).show();
 //            }
 //        });
-        primaryStage.titleProperty().bind(MainApp.getLanguageBinding("title"));
+        primaryStage.titleProperty().bind(MainApp.getLanguageBinding(LanguageConstants.title));
         primaryStage.setResizable(false);
         AppView<LoginController> loginView = new AppView<>(LoginController.class);
         loginView.setStage(primaryStage).show();

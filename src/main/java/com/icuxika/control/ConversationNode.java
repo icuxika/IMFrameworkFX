@@ -1,6 +1,7 @@
 package com.icuxika.control;
 
 import com.icuxika.MainApp;
+import com.icuxika.i18n.LanguageConstants;
 import com.icuxika.util.DateUtil;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.binding.When;
@@ -222,15 +223,15 @@ public class ConversationNode extends AnchorPane {
         this.top = top;
 
         if (top.get()) {
-            topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-cancel-top"));
+            topMenuItem.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.conversation_context_menu_cancel_top));
         } else {
-            topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-top"));
+            topMenuItem.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.conversation_context_menu_top));
         }
         top.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-cancel-top"));
+                topMenuItem.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.conversation_context_menu_cancel_top));
             } else {
-                topMenuItem.textProperty().bind(MainApp.getLanguageBinding("conversation-context-menu-top"));
+                topMenuItem.textProperty().bind(MainApp.getLanguageBinding(LanguageConstants.conversation_context_menu_top));
             }
         });
     }
