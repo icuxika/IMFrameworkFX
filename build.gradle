@@ -2,8 +2,8 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
-    id 'org.beryx.runtime' version '1.12.4'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.runtime' version '1.12.7'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
@@ -40,24 +40,24 @@ repositories {
 
 dependencies {
     implementation('org.slf4j:slf4j-api:1.7.32')
-    implementation('org.apache.logging.log4j:log4j-slf4j-impl:2.14.0')
-    implementation('org.apache.logging.log4j:log4j-api:2.14.0')
-    implementation('org.apache.logging.log4j:log4j-core:2.14.0')
+    implementation('org.apache.logging.log4j:log4j-slf4j-impl:2.15.0')
+    implementation('org.apache.logging.log4j:log4j-api:2.15.0')
+    implementation('org.apache.logging.log4j:log4j-core:2.15.0')
 
     // log4j yaml config depends on jackson
-    implementation('com.fasterxml.jackson.core:jackson-core:2.12.0')
-    implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.12.0')
+    implementation('com.fasterxml.jackson.core:jackson-core:2.13.0')
+    implementation('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0')
 
     // IDEA setting -> build -> gradle -> set Building and run using: IDEA
     // IDEA setting -> build -> gradle -> set Run tests using: IDEA
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.0')
-    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.7.0')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.8.2')
+    testImplementation('org.junit.jupiter:junit-jupiter-engine:5.8.2')
 
-    implementation('org.kordamp.ikonli:ikonli-javafx:12.0.0')
-    implementation('org.kordamp.ikonli:ikonli-fontawesome5-pack:12.0.0')
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.2.0')
+    implementation('org.kordamp.ikonli:ikonli-fontawesome5-pack:12.2.0')
 
-    implementation('com.squareup.okhttp3:okhttp:4.9.0')
-    implementation('com.google.code.gson:gson:2.8.6')
+    implementation('com.squareup.okhttp3:okhttp:4.9.3')
+    implementation('com.google.code.gson:gson:2.8.9')
     implementation('com.google.zxing:javase:3.4.1')
 }
 
@@ -67,6 +67,7 @@ test {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+//    options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
 }
 
 // 使用 https://badass-runtime-plugin.beryx.org/releases/latest/

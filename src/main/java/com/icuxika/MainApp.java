@@ -132,6 +132,12 @@ public class MainApp extends Application {
         // 初始化设置界面语言
         setLanguage(Locale.SIMPLIFIED_CHINESE);
         logger.info("Set Language: SIMPLIFIED_CHINESE");
+
+        logger.trace("[trace]日志控制台输出");
+        logger.debug("[debug]日志控制台输出");
+        logger.info("[info]日志控制台输出");
+        logger.warn("[warn]日志记录到build/application.log中");
+        logger.error("[error]日志记录到build/application.log中");
     }
 
     @Override
